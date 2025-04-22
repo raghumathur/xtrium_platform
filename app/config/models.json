@@ -1,0 +1,13 @@
+{
+    "llm": {
+        "name": "deepseek-ai/deepseek-1.3b-chat",
+        "temperature": 0.1,
+        "max_length": 200,
+        "do_sample": false,
+        "top_p": 0.95
+    },
+    "embeddings": {
+        "name": "all-MiniLM-L6-v2",
+        "device": "auto"
+    }
+}

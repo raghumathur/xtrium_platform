@@ -1,0 +1,19 @@
+{
+    "tool_settings": {
+      "tool_name": "XTRIUM",
+      "tagline": "Where materials meet applications",
+      "logo_path": "{BASE_DIR}/assets/images/xtrium.png",
+      "default_state": {
+        "filters": []
+      }
+    },
+    "paths": {
+      "databases": "{BASE_DIR}/assets/databases",
+      "images": "{BASE_DIR}/assets/images",
+      "models": "{BASE_DIR}/models/huggingface"
+    },
+    "merge_settings": {
+      "merge_method": "normal"
+    }
+  }
+  

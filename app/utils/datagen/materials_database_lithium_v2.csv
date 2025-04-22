@@ -1,0 +1,12 @@
+Material ID,Name,Chemical Formula,Energy Density (Wh/kg),Voltage (V),Cycle Life (cycles),Ionic Conductivity (S/cm),Fast Charging (C rate),Weight (g/cm3),Density Reduction (%),Modulus Increase (%),Melting Point Reduction (%),Temperature Stability (degC),Pressure Performance (psi),Therapeutic Dosage (mg/day),Efficacy Rate (%),Thermal Stability (degC),Serial,Synthesizable,Crystal System,Space Group Symbol,Space Group Number,Sites,Energy Above Hull,Formation Energy,Predicted Stable,Volume,Density,Band Gap,Is Gap Direct,Is Metal,Magnetic Ordering,Total Magnetization,"Bulk Modulus, Voigt","Bulk Modulus, Reuss","Bulk Modulus, VRH","Shear Modulus, Voigt","Shear Modulus, Reuss","Shear Modulus, VRH",Elastic Anisotropy,Weighted Surface Energy,Surface Anisotropy,Shape Factor,Work Function,Piezoelectric Modulus,Total Dielectric Constant,Ionic Dielectric Constant,Static Dielectric Constant,Recyclability Index,Density Unit,Band Gap Unit,Missing Value Indicator,Last Updated,Matched Applications,Suppliers,Cycle Life,Density Reduction,Elastic Modulus Increase,Energy Consumption Reduction
+mp-4537432,Lithium Cobalt Oxide,LiCoO2,150.0,3.7,500.0,0.001,1.0,5.1,,,,,,,,150.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-9781627,Lithium Iron Phosphate,LiFePO4,140.0,3.2,2000.0,0.0015,3.0,3.6,,,,,,,,250.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-6612426,Lithium Nickel Manganese Cobalt Oxide,Li(NiMnCo)O2,180.0,3.6,1000.0,0.0012,2.5,4.7,,,,,,,,200.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-5389555,Lithium Aluminum Alloys,Li-Al alloys,100-265,,,,,,7.5,12.5,,,7000.0,,,200.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-3388957,Lithium Oxide,Li2O,,3.6-3.7,500-1000,0.0011,,,,,25-30,,,,,150.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-5571932,Lithium Metasilicate,Li2SiO3,,3.6-3.7,500-1000,0.0012,,,,,25-30,,,,,150.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-6402788,Lithium Aluminum Silicate,LiAlSiO4,,3.6-3.7,500-1000,0.0013,,,,,25-30,,,,,150.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-2600222,Lithium Hydroxide,LiOH,,,,1x10^3-2x10^3,,,,,,200-250,8000-10000,,,250.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-5945853,Lithium Carbonate,LiCO3,,,,1x10^3-2x10^3,,,,,,200-250,8000-10000,,,300.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-8680354,Lithium Carbonate,Li2CO3,,,,1x10^3-2x10^3,,,,,,200-250,8000-10000,,,300.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+mp-5534721,Lithium Carbonate,Li2CO3,,,,,,,,,,,,300-600,50-70,300.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

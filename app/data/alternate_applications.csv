@@ -1,0 +1,9 @@
+industry,application,component,required_properties,material_match,sustainability_impact,supply_chain_notes
+Aerospace,Thermal Protection Systems,Heat shields,"Heat stability, Chemical resistance, Durability",Epoxy Resin,"Reduced maintenance frequency, Extended lifespan","Regional suppliers available, Medium lead time"
+Electronics,PCB Coatings,Circuit protection,"Dielectric strength, Chemical resistance, Heat stability",Epoxy Resin,"RoHS compliant, Low waste","Local manufacturing possible, Short lead time"
+Medical Devices,Antimicrobial Surfaces,Device housings,"Anti-microbial, Chemical stability, Cleanability",Zinc Oxide,"Reduced infection risk, Lower cleaning chemical use","Certified suppliers required, Medium lead time"
+Renewable Energy,Solar Panel Coatings,Protective layer,"UV resistance, Weather durability, Transparency",Acrylic Polymer,"Extended panel life, Improved efficiency","Global supply chain, Long lead time"
+Construction,Thermal Insulation,Wall coatings,"Low thermal conductivity, Fire resistance, Durability",Silica,"Energy savings, Reduced heating/cooling needs","Local availability, Short lead time"
+Marine,Anti-fouling Coatings,Hull protection,"Chemical resistance, Water resistance, Durability",Alkyd Resin,"Reduced maintenance, Lower environmental impact","Regional suppliers, Medium lead time"
+Automotive,UV-resistant Coatings,Interior surfaces,"UV stability, Scratch resistance, Color stability",Titanium Dioxide,"Extended material life, Reduced replacement","Global availability, Short lead time"
+Energy Storage,Battery Coatings,Electrode protection,"Chemical resistance, Electrical insulation, Durability",Epoxy Resin,"Improved battery life, Energy efficiency","Specialized suppliers, Long lead time"

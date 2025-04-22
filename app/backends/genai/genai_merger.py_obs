@@ -1,0 +1,46 @@
+import os
+import pandas as pd
+
+from transformers import pipeline
+from projects.xtrium.app.utils.config_loader import load_config
+
+def intelligent_merge(dfs, category):
+    """
+    Use a local Hugging Face model to intelligently merge databases.
+
+    :param dfs: List of DataFrames to merge.
+    :param category: Category of data (e.g., "Materials" or "Applications").
+    :return: Merged DataFrame.
+    """
+    config = load_config()
+    model_path = config["paths"]["models"]
+    model_name = "facebook/bart-large-cnn"  # Default model from Hugging Face Hub
+
+    # Determine if the model exists locally
+    local_model_path = os.path.join(model_path, "facebook-bart-large-cnn")
+    if not os.path.exists(local_model_path):
+        print("Local model not found. Using Hugging Face Hub.")
+        summarization_pipeline = pipeline("summarization", model=model_name, cache_dir=model_path)
+    else:
+        summarization_pipeline = pipeline("summarization", model=local_model_path)
+
+    # Concatenate all DataFrames to capture unique columns
+    combined_df = pd.concat(dfs, ignore_index=True)
+
+    # Generate schema inference pipeline
+    summarization_pipeline = pipeline("summarization", model=model_path)
+
+    # Prepare prompt for summarization
+    prompt = f"""
+    Given the columns from {category} databases: {', '.join(combined_df.columns)}.
+    Identify relevant columns and merge them into a unified schema.
+    """
+
+    # Get schema suggestions
+    response = summarization_pipeline(prompt, max_length=150, min_length=50)
+    schema = response[0]["summary_text"].split(",")  # Parse columns from summary
+
+    # Filter relevant columns and create the merged DataFrame
+    unified_df = combined_df[schema].drop_duplicates()
+
+    return unified_df

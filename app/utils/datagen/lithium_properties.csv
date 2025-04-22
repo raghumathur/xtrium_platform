@@ -1,0 +1,7 @@
+Year,Property,Material Range,Application Need,Chemical Formula,Manufacturer/Developer
+1980,Energy Density,100-265 Wh/kg,High capacity for portable devices,LiCoO2,John B. Goodenough
+1985,Voltage,3.6-3.7 V,"Stable, high voltage for electronics",LiCoO2 / C,Akira Yoshino (Asahi Kasei)
+1991,Cycle Life,500-1000 cycles,Long-lasting for consumer electronics,LiCoO2 / C,Sony
+1990s,Ionic Conductivity,1x10^3 to 2x10^3 S/cm,Efficient ion transport,LiPF6 in EC/DMC,Various
+2000s,Thermal Stability,Up to 150 C,Safety in various applications,LiFePO4,A123 Systems
+2010s,Fast Charging,1-3C rate,Rapid charging for EVs,Li(NiMnCo)O2,Manufacturer

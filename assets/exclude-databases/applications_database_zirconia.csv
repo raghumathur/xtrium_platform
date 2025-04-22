@@ -1,0 +1,37 @@
+Material ID, Use Case,Industry,Material,Chemical Formula,Property Overlap,Fracture Toughness (MPa m^0.5),Density (g/cm³),Flexural Strength (MPa),Compressive Strength (MPa)
+,Oxygen Sensors,Automotive,Yttria-stabilized zirconia,ZrO2 + Y2O3 (8-10 mol%),"Ionic conductivity, high-temperature stability",,5.9-6.1,200-300,
+,Fuel Cell Membranes,Energy,Scandia-stabilized zirconia,ZrO2 + Sc2O3 (10-12 mol%),"Ionic conductivity, chemical stability",,5.7-5.9,250-350,
+,Refractory Materials,Metallurgy,Magnesia-stabilized zirconia,ZrO2 + MgO (15-20 mol%),"High-temperature stability, chemical inertness",4-6,5.6-5.8,400-600,1800-2200
+,Ceramic Knife Blades,Consumer Goods,Tetragonal zirconia polycrystal,ZrO2 + Y2O3 (3-4 mol%),"Hardness, wear resistance",6-8,6.0-6.2,800-1000,2000-2500
+,Barrier Coatings,Aerospace,Yttria-stabilized zirconia,ZrO2 + Y2O3 (6-8 mol%),"Thermal insulation, wear resistance",,6.0-6.2,200-300,
+,Pediatric Dental Crowns,Healthcare,Monolithic zirconia,ZrO2 + Y2O3 (3-5 mol%),"Biocompatibility, wear resistance",5-7,6.05,900-1100,2000-2400
+,Partial Denture Frameworks,Healthcare,Zirconia-reinforced composite,ZrO2 + polymer matrix,"Lightweight, strength",3-5,4.0-4.5,300-500,800-1200
+,Advanced Dental Bridges,Healthcare,Yttria-stabilized zirconia,ZrO2 + Y2O3 (3-5 mol%),"Biocompatibility, high strength",5-10,6.05,900-1200,2000-2500
+,Orthopedic Implants,Healthcare,Zirconia-toughened alumina,ZrO2 + Al2O3 (20-25 vol%),"Wear resistance, biocompatibility",6-8,5.0-5.5,800-1000,2500-3000
+,Solid Oxide Fuel Cells,Energy,Yttria-stabilized zirconia,ZrO2 + Y2O3 (8-10 mol%),"Ionic conductivity, high-temperature stability",,5.9-6.1,200-300,
+,High-Performance Dental Implants (Zircalon 30),Healthcare,Zirconia composite,ZrO2 + proprietary additives,"High strength, biocompatibility",14-15,6.0-6.2,>1000,2000-4000
+,Welding Fixtures,Manufacturing,Ceria-stabilized zirconia,ZrO2 + CeO2 (12-15 mol%),"Wear resistance, thermal shock resistance",7-10,6.1-6.3,700-900,2000-2500
+,Anterior Dental Restorations,Healthcare,Translucent zirconia,ZrO2 + Y2O3 (3-5 mol%) + other additives,"Aesthetics, strength",4-6,6.0-6.2,600-800,1800-2200
+,Dental implants,Healthcare,Yttria-stabilized zirconia,ZrO2 + Y2O3 (3-6 mol%),"High strength, biocompatibility",8-10,6.05,900-1200,2000-2500
+,Structural components,Aerospace,Zirconia with enhanced fracture toughness,ZrO2 + Al2O3 (20-30 vol%),High strength-to-weight ratio,14-18,5.0-5.5,800-1000,
+,Cutting tools,Manufacturing,Ceria-stabilized zirconia,ZrO2 + CeO2 (12-15 mol%),"Wear resistance, thermal shock resistance",7-10,,,
+,Dental implants,Healthcare,Yttria-stabilized zirconia,ZrO2 + Y2O3 (3-6 mol%),"Biocompatibility, wear resistance",8-10,6.05,900-1200,2000-2500
+,Cutting tools,Manufacturing,Ceria-stabilized zirconia,ZrO2 + CeO2 (12-15 mol%),"High strength, thermal shock resistance",7-10,,,
+,Jewelry,Consumer goods,Cubic zirconia,ZrO2 + CaO (10-15 mol%),"Optical clarity, durability",,5.6-6.0,,
+,3D-printed dental prostheses,Healthcare,Yttria-stabilized zirconia,ZrO2 + Y2O3 (3-5 mol%),"Biocompatibility, aesthetics",8-10,6.05,900-1200,2000-2500
+,Microfluidic devices,Biotechnology,Zirconia-toughened alumina,Al2O3 + ZrO2,"Biocompatibility, precision",8-10,,,
+,Quantum dot hosts,Optoelectronics,Zirconia nanoparticles,ZrO2,"Optical transparency, quantum confinement",4-8,4-6,100,
+,High-temperature crucibles,Metallurgy,Magnesia-stabilized zirconia,ZrO2 + MgO,"High-temperature stability, chemical inertness",4-6,5.6-5.8,400-600,1800-2200
+,Ceramic knife blades,Consumer Goods,Tetragonal zirconia polycrystal,ZrO2 + Y2O3 (3-4 mol%),"Hardness, wear resistance",6-8,6.0-6.2,800-1000,2000-2500
+,Gas turbine components,Power Generation,Zirconia-toughened alumina,Al2O3 + ZrO2,"High-temperature strength, wear resistance",8-10,,,
+,Ballistic armor,Defense,Zirconia-based ceramic composite,ZrO2 + SiC whiskers,"High strength-to-weight ratio, impact resistance",15-18,,,
+,Bone scaffolds,Biomedical,Porous zirconia,ZrO2 + Y2O3,"Osseointegration, structural support",5-7,6.05,900-1100,2000-2400
+,Dental restorations,Healthcare,Classical translucent monolithic zirconia (CzFP),ZrO2 + 3 mol% Y2O3,"High strength, biocompatibility","8-10",,,
+,Dental restorations,Healthcare,Classical translucent monolithic zirconia (CzFPHT),ZrO2 + 3 mol% Y2O3,"High strength, biocompatibility","5-7",,,
+,Dental restorations,Healthcare,High-translucent monolithic zirconia (HzFP),ZrO2 + 5 mol% Y2O3,"Improved aesthetics, biocompatibility","5-7",,,
+,Dental restorations,Healthcare,High-translucent monolithic zirconia (HzFPHT),ZrO2 + 5 mol% Y2O3,"Improved aesthetics, biocompatibility","4-6",,,
+,General advanced ceramics,Various,CeramaZirc 3YZ,ZrO2,"High strength, wear resistance, flexibility",7-10,,,
+,High-performance ceramics,Various,CeramaZirc Nano HIP,ZrO2,"High strength, wear resistance, flexibility",7-10,,,
+,Wear-resistant applications,Various,CeramAlloy ATZ,ZrO2 + Al2O3,"High hardness, strength, wear and corrosion resistance",7-10,,,
+,Oil and gas applications,Energy,CeramaZirc Ultra Tough,ZrO2 + Al2O3 platelets,"High strength, wear resistance",16-18,,,
+,Ultrahigh Toughness Ceramics,Aerospace/Automotive,Zirconia-based composite,ZrO2 + proprietary additives,"High strength-to-weight ratio, metal-like toughness",30-40,5.5-6.0,1200-2000,

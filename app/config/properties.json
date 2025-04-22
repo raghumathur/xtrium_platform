@@ -1,0 +1,44 @@
+{
+    "material_properties": {
+        "Tensile Strength": {
+            "unit": "MPa",
+            "range": [0, 5000],
+            "description": "Maximum stress that a material can withstand while being stretched"
+        },
+        "Density": {
+            "unit": "g/cm³",
+            "range": [0, 25],
+            "description": "Mass per unit volume"
+        },
+        "Melting Point": {
+            "unit": "°C",
+            "range": [-273, 4000],
+            "description": "Temperature at which material changes from solid to liquid"
+        },
+        "Impact Strength": {
+            "unit": "kJ/m²",
+            "range": [0, 200],
+            "description": "Energy absorbed per unit area"
+        },
+        "Elastic Modulus": {
+            "unit": "GPa",
+            "range": [0, 1000],
+            "description": "Measure of material's stiffness"
+        },
+        "Hardness": {
+            "unit": "HV",
+            "range": [0, 1500],
+            "description": "Resistance to surface deformation"
+        },
+        "Thermal Conductivity": {
+            "unit": "W/mK",
+            "range": [0, 500],
+            "description": "Ability to conduct heat"
+        },
+        "Electrical Resistivity": {
+            "unit": "Ω·m",
+            "range": [0, 1e16],
+            "description": "Opposition to electrical current"
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "chat": {
+        "max_history": 50,
+        "input_placeholder": "Describe your material needs..."
+    },
+    "filters": {
+        "default_weight": 50.0,
+        "weight_range": [0, 100],
+        "layout": {
+            "columns": [2, 2, 1, 2, 1],
+            "labels": ["Property", "Value", "Unit", "Importance", "Actions"]
+        }
+    },
+    "examples": {
+        "categories": {
+            "manufacturer": {
+                "icon": "🏭",
+                "title": "For Manufacturers",
+                "examples": [
+                    "Materials with high chemical resistance for industrial equipment",
+                    "Heat-resistant materials up to 200°C for automotive parts"
+                ]
+            },
+            "designer": {
+                "icon": "🎨",
+                "title": "For Product Designers",
+                "examples": [
+                    "Sustainable alternatives to ABS plastic",
+                    "Lightweight materials for aerospace applications"
+                ]
+            },
+            "inventory": {
+                "icon": "📦",
+                "title": "For Inventory Management",
+                "examples": [
+                    "Have excess stainless steel 304 fasteners",
+                    "Looking to sell unused carbon fiber sheets"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+Material,Carbon Footprint,Water Usage,Energy Usage,Recyclability,Bio-based,Recycled Content Available,Cost Premium,Market Growth,End of Life Options
+PET,2.1,3.2,65,High,No,Up to 100%,0%,5%,Mechanical Recycling
+HDPE,1.9,2.8,62,High,Partial,Up to 80%,2%,4%,Mechanical Recycling
+PP,2.0,2.5,60,Medium,Partial,Up to 60%,5%,6%,Mechanical Recycling
+PVC,2.8,4.0,75,Low,No,Up to 30%,-5%,-2%,Chemical Recycling
+PS,2.9,3.8,72,Medium,No,Up to 40%,-2%,-1%,Chemical Recycling
+PC,3.5,4.5,85,Medium,No,Up to 30%,15%,3%,Chemical Recycling
+ABS,3.2,4.2,80,Medium,No,Up to 45%,8%,2%,Chemical Recycling
+PLA,1.8,2.0,55,Medium,Yes,Limited,25%,12%,Industrial Composting
+Bio-PE,1.7,2.2,58,High,Yes,Up to 70%,30%,15%,Mechanical Recycling

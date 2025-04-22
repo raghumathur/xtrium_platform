@@ -1,0 +1,12 @@
+[theme]
+primaryColor = "#1E90FF"  # Dodger Blue - modern and professional
+backgroundColor = "#021526"  # Deep Navy Blue - main background
+secondaryBackgroundColor = "#0A2337"  # Lighter Navy - for contrast
+textColor = "#FFFFFF"  # White - for readability
+
+[server]
+maxUploadSize = 200
+headerless = true  # Hide the Streamlit toolbar
+
+[browser]
+gatherUsageStats = false

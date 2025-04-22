@@ -1,0 +1,106 @@
+{
+    "open_source": {
+        "deepseek": {
+            "chat": {
+                "name": "deepseek-r1",
+                "type": "deepseek",
+                "requires_auth": false,
+                "supported_features": ["chat", "embeddings"],
+                "config": {
+                    "temperature": 0.1,
+                    "max_length": 2048,
+                    "do_sample": true,
+                    "top_p": 0.95,
+                    "top_k": 50,
+                    "repetition_penalty": 1.1,
+                    "torch_dtype": "float16",
+                    "trust_remote_code": true,
+                    "use_cache": true
+                }
+            },
+            "coder": {
+                "name": "deepseek-ai/deepseek-coder-6.7b-base",
+                "type": "huggingface",
+                "requires_auth": false,
+                "supported_features": ["code", "chat"],
+                "config": {
+                    "temperature": 0.1,
+                    "max_length": 200,
+                    "do_sample": false
+                }
+            }
+        },
+        "llama": {
+            "chat": {
+                "name": "meta-llama/Llama-2-7b-chat-hf",
+                "type": "huggingface",
+                "requires_auth": true,
+                "supported_features": ["chat"],
+                "config": {
+                    "temperature": 0.7,
+                    "max_length": 200,
+                    "do_sample": true,
+                    "top_p": 0.95,
+                    "torch_dtype": "float16",
+                    "trust_remote_code": true
+                }
+            }
+        },
+        "mistral": {
+            "chat": {
+                "name": "mistralai/Mistral-7B-Instruct-v0.2",
+                "type": "huggingface",
+                "requires_auth": false,
+                "supported_features": ["chat"],
+                "config": {
+                    "temperature": 0.7,
+                    "max_length": 200,
+                    "do_sample": true,
+                    "top_p": 0.95,
+                    "torch_dtype": "float16",
+                    "trust_remote_code": true
+                }
+            }
+        }
+    },
+    "api": {
+        "openai": {
+            "gpt4": {
+                "name": "gpt-4-turbo-preview",
+                "type": "api",
+                "requires_auth": true,
+                "supported_features": ["chat", "embeddings"],
+                "config": {
+                    "temperature": 0.7,
+                    "max_tokens": 200,
+                    "top_p": 0.95
+                }
+            }
+        },
+        "anthropic": {
+            "claude": {
+                "name": "claude-3-opus-20240229",
+                "type": "api",
+                "requires_auth": true,
+                "supported_features": ["chat"],
+                "config": {
+                    "temperature": 0.7,
+                    "max_tokens": 200
+                }
+            }
+        },
+        "google": {
+            "gemini": {
+                "name": "gemini-pro",
+                "type": "api",
+                "requires_auth": true,
+                "supported_features": ["chat", "vision"],
+                "config": {
+                    "temperature": 0.7,
+                    "max_output_tokens": 200,
+                    "top_p": 0.95
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,125 @@
+Material ID,Commercial Name,Remarks,Name,Density (g/cm3),Melting Point (C),Refractive Index,Property Overlap,Reference,Paint Type
+,Vibrance Collection VWM5556,Quinacridone Red,C20H12N2O2,1.37,650.00,1.69,High tinting strength; lightfastness; chemical stability,https://en.wikipedia.org/wiki/Quinacridone#Pigment_Red_122,Pigment
+,PPG HI-TEMP 1027,Bismuth Vanadate,BiVO4,6.30,700.00,2.35,High opacity; heat stability; weather resistance,https://en.wikipedia.org/wiki/Bismuth_vanadate,Pigment
+,SeaGuard 6000,Chromium Oxide Green,Cr2O3,5.20,2425.00,2.55,Chemical resistance; UV stability; opacity,https://en.wikipedia.org/wiki/Chromium(III)_oxide,Pigment
+,AURA Color Stories,Benzimidazolone Orange,C17H12N4O5,1.50,650.00,1.75,Bright hue; lightfastness; chemical stability,https://en.wikipedia.org/wiki/Benzimidazolone,Pigment
+,Winsor Violet (Dioxazine),Dioxazine Violet,C34H22Cl2N4O2,1.35,650.00,1.65,High chroma; transparency; lightfastness,https://en.wikipedia.org/wiki/Dioxazine,Pigment
+,Transparent Iron Oxide Brown,Iron Oxide Hydroxide,FeO(OH),3.65,,2.30,Transparency; UV stability; natural appearance,https://pubs.usgs.gov/fs/2009/3089/pdf/FS09-3089.pdf,Pigment
+,Carbon Black,Amorphous Carbon,C,1.95,6750.00,2.50,High jetness; UV stability; conductivity,https://en.wikipedia.org/wiki/Carbon_black,Pigment
+,Zinc Oxide,Zinc Oxide,ZnO,5.65,1975.00,2.05,UV protection; fungicidal properties; brightness,https://en.wikipedia.org/wiki/Zinc_oxide,Pigment
+,PPG Liquid Metal,Aluminum Flake,Al,2.70,660.00,,Metallic luster; opacity; corrosion resistance,https://en.wikipedia.org/wiki/Aluminium_powder,Pigment
+,Iriodin,Mica coated with Titanium Dioxide,Varies,2.85,750.00,1.58,Pearlescent luster; transparency; stability,https://en.wikipedia.org/wiki/Pearlescent_pigment,Pigment
+,Ultramarine Blue,Sodium Aluminosilicate Sulfide,Na6Al6Si6O24S4,2.35,5500.00,1.55,Bright blue hue; lightfastness; heat stability,https://en.wikipedia.org/wiki/Ultramarine,Pigment
+,Lead Chromate,Lead(II) Chromate,PbCrO4,6.12,844.00,2.40,High visibility; durability; weather resistance,https://en.wikipedia.org/wiki/Lead(II)_chromate,Pigment
+,PR 254,Diketopyrrolopyrrole Red,C18H10Cl2N2O2,1.55,650.00,1.75,High chroma; lightfastness; chemical stability,https://en.wikipedia.org/wiki/Diketopyrrolopyrrole,Pigment
+,PPG MIL-DTL-64159,Phthalocyanine Green,C32H16Cl8CuN8,1.80,650.00,1.65,Low reflectance; chemical stability; durability,https://en.wikipedia.org/wiki/Phthalocyanine_Green,Pigment
+,Cadmium Yellow,Cadmium Sulfide,CdS,4.82,1750.00,2.60,High opacity; lightfastness; warm hue,https://en.wikipedia.org/wiki/Cadmium_sulfide,Pigment
+,Cobalt Blue,Cobalt(II) Aluminate,CoAl2O4,6.10,1960.00,1.78,High temperature resistance; color stability; opacity,https://en.wikipedia.org/wiki/Cobalt_blue,Pigment
+,Hostaperm Red E5B,Perylene Red,C40H20N2O4,1.50,650.00,1.80,Weather resistance; chemical inertness; high tinting strength,https://en.wikipedia.org/wiki/Perylene,Pigment
+,PV Fast Pink E,Ferric Ferrocyanide (Iron Blue),Fe4[Fe(CN)6]3,1.90,650.00,1.65,Color brilliance; non-toxic; stability,https://en.wikipedia.org/wiki/Ferric_ferrocyanide,Pigment
+,Copper Chromite Green,Copper(II) Chromite,CuCr2O4,5.55,5500.00,1.85,Weather stability; high opacity; durability,https://en.wikipedia.org/wiki/Chromium-based_pigments,Pigment
+,PB 15:3 (Phthalo Blue BGS),Copper Phthalocyanine Beta Form,C32H16CuN8,1.65,650.00,1.68,High lightfastness; color strength; stability,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7988984/,Pigment
+,Cadmium Orange,Cadmium Sulfoselenide,Cd(S.Se),4.85,5500.00,2.60,High temperature resistance; vivid color; stability,https://en.wikipedia.org/wiki/Cadmium_sulfoselenide,Pigment
+,Hansa Yellow G,Arylide Yellow,C12H12Cl2N4O2,1.40,5500.00,1.65,Brightness; fast-drying; non-toxicity,https://en.wikipedia.org/wiki/Arylide_yellow,Pigment
+,Raw Umber,Natural Iron Oxide with Manganese,Fe2O3.MnO2,3.95,,2.30,Natural hue; stability; UV resistance,https://en.wikipedia.org/wiki/Umber,Pigment
+,Lithopone BLanc Fixe Mix,Zinc Sulfide + Barium Sulfate,ZnS.BaSO4,4.10,5500.00,1.97,Opacity; cost-effective; chemical inertness,https://en.wikipedia.org/wiki/Lithopone,Pigment
+,Cerulean Blue,Cobalt(II) Stannate,CoSnO3,4.60,1250.00,1.80,Excellent lightfastness; muted hue; opacity,https://en.wikipedia.org/wiki/Cerulean,Pigment
+,PG 17,Chromium Oxide Hydrate,Cr2O3.xH2O,3.70,5300.00,2.20,Weather resistance; non-toxicity; chemical stability,https://pubchem.ncbi.nlm.nih.gov/compound/Chromium-oxide-hydrate,Pigment
+,Venetian Red,Natural Iron Oxide with Hematite,Fe2O3,5.05,5750.00,2.94,Earthy tone; lightfastness; low cost,https://en.wikipedia.org/wiki/Venetian_red,Pigment
+,Nickel Titanate Yellow,Nickel(II) Titanate,NiTiO3,5.00,1375.00,2.25,UV stability; corrosion resistance; non-migrating,https://www.sciencedirect.com/topics/chemistry/nickel-titanate,Pigment
+,PO 13,Benzidine Orange,C12H10Cl2N6O4,1.65,5125.00,1.70,High brightness; cost efficiency; strong chroma,https://en.wikipedia.org/wiki/Benzidine,Pigment
+,Manganese Black,Manganese Ferrite,MnFe2O4,4.85,5750.00,2.15,High heat resistance; color depth; UV stability,https://ceramicartsnetwork.org/daily/article/Manganese,Pigment
+,Diarylide Yellow AAOT,C.I. Pigment Yellow 13,C32H26Cl2N6O4,1.40,5500.00,1.67,Ink compatibility; bright tone; cost-effective,https://en.wikipedia.org/wiki/Diarylide_pigment,Pigment
+,Manganese Violet,Manganese Ammonium Pyrophosphate,NH4MnP2O7,2.52,650.00,1.77,Cosmetic safe; soft hue; non-bleeding,https://www.personalcaremagazine.com/story/30635/manganese-violet-and-the-importance-of-stability,Pigment
+,Han Blue,Barium Copper Silicate,BaCuSi4O10,3.90,5600.00,1.67,Ancient pigment; thermal durability; unique hue,https://en.wikipedia.org/wiki/Han_blue,Pigment
+,Madder Lake,Alizarin Dye on Alumina Substrate,C14H8O4,1.35,150.00,1.67,Historical use; semi-transparency; rich tone,https://en.wikipedia.org/wiki/Madder,Pigment
+,Hydro PLIOLITE,Synthetic Styrene Acrylic Copolymer,(C8H8)x.(C4H6O2)y,1.03,70.00,1.48,Alkali resistance; water resistance; adhesion,https://www.synthomer.com/products/hydro-pliolite-7102,Binder/Resin
+,BYK-Chemie Acrylic Resin,Acrylic Polyol Resin,(C10H14O4)x,1.10,85.00,1.49,Gloss retention; clarity; fast drying,https://www.byk.com/products/additives/product-details/byk-410,Binder/Resin
+,Bayhydrol A XP 2690,Aliphatic Polyurethane Dispersion,(C7H10N2O3)x,1.05,110.00,1.53,Chemical resistance; flexibility; weather resistance,https://solutions.basf.com/catalog/coatings/3/19070229,Binder/Resin
+,REAFREE 1982,Saturated Polyester Resin,(C10H8O4)x,1.18,115.00,1.57,Durability; flow; heat resistance,https://www.synthomer.com/products/reafree-1982,Binder/Resin
+,Setalux 17-1453,BMAA Acrylic Copolymer,(C10H14O2)x.(C4H6O2)y,1.07,90.00,1.51,UV resistance; abrasion resistance; fast drying,https://www.allnex.com/product/setalux-17-1453,Binder/Resin
+,Ebecryl 600,Urethane Acrylate Oligomer,C25H36N2O8,1.07,100.00,1.51,UV reactivity; hardness; adhesion,https://www.allnex.com/product/ebecryl-600,Binder/Resin
+,NEOCRYL XK-90,Styrene Acrylic Emulsion,(C8H8)x.(C4H6O2)y,1.04,77.50,1.49,Water resistance; alkali resistance; breathability,https://www.avient.com/products/neocryl-xk-90,Binder/Resin
+,Paraloid B-44,Acrylic Copolymer Resin,(C5H8O2)x.(C4H6O2)y,1.11,97.50,1.50,Flexibility; clarity; chemical resistance,https://www.dow.com/en-us/pdp.paraloidb44clearpellets.11296z.html,Binder/Resin
+,Resinox R-200,Phenolic Resin,(C8H8O)x.(C7H6O2)y,1.16,90.00,1.57,Heat resistance; solvent resistance; hardness,https://www.ube-ind.co.jp/ube/en/products/chemicals/resins.html,Binder/Resin
+,Sartomer CN 120,Acrylated Polyester Resin,(C12H14O4)x,1.07,100.00,1.49,Fast cure; flexibility; gloss,https://www.sartomer.com/product-cn120,Binder/Resin
+,Synolac 8251,Short Oil Alkyd Resin,(C9H10O3)x.(C3H6O3)y,1.07,70.00,1.53,Gloss retention; chemical resistance; durability,https://www.synthomer.com/products/synolac-8251,Binder/Resin
+,Setalux 17-1743,Hydroxyl Functional Acrylic Resin,C10H14O4.C4H6O2 (copolymer),1.04,77.50,1.51,Salt spray resistance; UV stability; adhesion,https://www.allnex.com/en/product/setalux-17-1743,Binder/Resin
+,Duroxyn VEF 1359,Saturated Polyester Resin,(C10H8O4)x,1.12,90.00,1.57,Flexibility; impact resistance; gloss,https://www.synthomer.com/products/duroxyn-vef-1359,Binder/Resin
+,Acrythane SC601,Polyester Polyol Resin,(C10H8O4)x.(C3H6O2)y,1.10,95.00,1.55,Hardness; chemical resistance; leveling,https://ppgrefinish.com/en-US/Products/Acrythane-SC601/,Binder/Resin
+,NeoCryl XK-98,Styrene Acrylic Latex,(C8H8)x.(C4H6O2)y,1.04,80.00,1.50,Weatherability; crack resistance; alkali resistance,https://www.avient.com/products/neocryl-xk-98,Binder/Resin
+,Synfac 8022,Polyester Resin,C8H8O3.C6H10O4 (copolymer),1.11,102.50,1.56,Flexibility; solvent resistance; adhesion,https://www.synthomer.com/products/synfac-8022,Binder/Resin
+,Sartomer CN 104,Aliphatic Urethane Diacrylate,C21H30N2O6,1.08,100.00,1.51,Fast cure; toughness; low viscosity,https://www.sartomer.com/product-cn104,Binder/Resin
+,Epon 828,Bisphenol A Epoxy Resin,C21H24O4,1.17,70.00,1.58,Corrosion protection; adhesion; chemical resistance,https://www.huntsman.com/advanced_materials/a/Epon-828,Binder/Resin
+,Rucote NI-304,Saturated Carboxyl Polyester,(C10H8O4)x.(C4H6O4)y,1.21,110.00,1.58,Impact resistance; flow; gloss retention,https://www.allnex.com/product/rucote-ni-304,Binder/Resin
+,Beckopox EP 140,Wasserverdünnbares Epoxidharz,C21H24O4 (aqueous dispersion),1.12,80.00,1.58,Abrasion resistance; adhesion; chemical durability,https://www.allnex.com/product/beckopox-ep-140-w,Binder/Resin
+,Neocryl A-2092,Styrene Acrylic Copolymer,(C8H8)x.(C5H8O2)y,1.04,80.00,1.49,Elasticity; water resistance; UV durability,https://www.avient.com/products/neocryl-a-2092,Binder/Resin
+,EPIKOTE Resin 1001,Bisphenol A Epoxy Resin,C21H24O4,1.16,70.00,1.58,Chemical resistance; hardness; corrosion protection,https://www.hexion.com/en-US/product/epikote-resin-1001,Binder/Resin
+,Desmodur N3300,Aliphatic Polyisocyanate,C21H30N3O6,1.15,100.00,1.51,UV stability; crosslinking ability; durability,https://solutions.covestro.com/en/products/desmodur/desmodur-n-3300,Binder/Resin
+,Syntran 5760,Self-Crosslinking Styrene Acrylic,(C8H8)x.(C4H6O2)y,1.03,77.50,1.49,Alkali resistance; scrub resistance; adhesion,https://www.ascendperformance.com/products/syntran-5760,Binder/Resin
+,Valres 3600,Phenolic Modified Polyester,(C9H10O2)x.(C8H6O3)y,1.12,95.00,1.56,Heat resistance; metal adhesion; corrosion protection,https://www.valresa.com/en/productos/resinas/valres-3600,Binder/Resin
+,EBECRYL 5129,Aromatic Polyester Acrylate,C22H28O6,1.12,107.50,1.53,Gloss retention; chemical resistance; fast curing,https://www.allnex.com/en/product/ebecryl-5129,Binder/Resin
+,Setal 52-1314,Long Oil Alkyd Resin,(C21H34O4)n,1.05,60.00,1.52,Open time; gloss; flexibility,https://www.allnex.com/en/product/setal-52-1314,Binder/Resin
+,LUCITE L-100,Methyl Methacrylate Polymer,(C5H8O2)n,1.15,170.00,1.50,Chemical resistance; hardness; clarity,https://www.luciteinternational.com/l-100-technical-data,Binder/Resin
+,VESTICOAT EP 2000,Polyester Modified Epoxy,C22H28O4.C21H24O4,1.12,80.00,1.57,Flexibility; solvent resistance; corrosion protection,https://www.evonik.com/product/vesticoat-ep-2000,Binder/Resin
+,ELATUR DPT,Polyester Ether Resin,C20H38O6,1.07,100.00,1.51,Electrostatic stability; flexibility; conductivity,https://corporate.evonik.com/en/elatur-dpt,Binder/Resin
+,OMYACARB 5,Basically Ground Calcium Carbonate,CaCO3,2.72,862.50,1.59,UV resistance; opacity; cost-effectiveness,https://www.omya.com/Documents/tds/OMYACARB_5_TDS.pdf,Extender/Filler
+,MINEX 4,Aluminum Silicate (Nepheline Syenite),KNa3Al4Si4O16,2.65,1150.00,1.54,Gloss control; hardness; inertness,https://www.thecarycompany.com/media/pdf/specs/minex-4-spec.pdf,Extender/Filler
+,Hubercarb Q325,Ground Calcium Carbonate,CaCO3,2.75,862.50,1.59,Reinforcement; cost reduction; pigment spacing,https://www.hubermaterials.com/calcium-carbonate/products/hubercarb-gcc/,Extender/Filler
+,TALC 95,Mg Silicate Hydrate,Mg3Si4O10(OH)2,2.75,900.00,1.58,Silky finish; adhesion; smooth texture,https://www.imerys.com/products/talc,Extender/Filler
+,WOLLASTOCOAT,Wollastonite,CaSiO3,2.95,1550.00,1.62,Barrier protection; reinforcement; low oil absorption,https://www.imerys.com/products/wollastonite,Extender/Filler
+,ASP 170,Gel Grade Kaolin,Al2Si2O5(OH)4,2.59,10000.00,1.57,Sheen control; stain resistance; suspension stability,https://www.kaolin.com/assets/files/ASP-170.pdf,Extender/Filler
+,SILTEX 44,Amorphous Silica,SiO2,2.25,1600.00,1.46,Matting; scrub resistance; high absorption,https://www.huberadvancedmaterials.com/products/silica/siltex-44/,Extender/Filler
+,BARIMIN 200,Micronized Barium Sulfate,BaSO4,4.40,1590.00,1.64,Chemical inertness; brightness; weight balance,https://www.solvay.com/en/product/barimin-200,Extender/Filler
+,MIOX R-02,Micaceous Iron Oxide,Fe2O3,4.90,10000.00,2.92,Barrier film; flake structure; weather resistance,https://www.kremer-pigmente.com/en/micaceous-iron-oxide-r-02-100020.html,Extender/Filler
+,ULTRAFINE 100,Natural Silicate Blend,Approx KAlSi3O8,2.65,1150.00,1.56,UV resistance; heat reflection; reinforcement,https://www.natural-minerals.com/ultrafine-series,Extender/Filler
+,ICECAP K40,Calcined Kaolin,Al2Si2O5(OH)4,2.65,10000.00,1.57,Gloss control; heat resistance; dispersion,https://www.imerys.com/products/icecap-k40,Extender/Filler
+,SHIELDEX AC5,Lamellar Aluminum Silicate,KAl2(AlSi3O10)(OH)2,2.80,1125.00,1.59,Flake reinforcement; chemical inertness; barrier effect,https://www.thecarycompany.com/shieldex-ac5,Extender/Filler
+,NYAD M325,Needle-Shaped Wollastonite,CaSiO3,3.00,1550.00,1.62,Low oil absorption; reinforcement; workability,https://www.imerys.com/products/nyad-wollastonite,Extender/Filler
+,SATINTONE SP-33,Calcined Aluminum Silicate,Al2Si2O5(OH)4,2.55,10000.00,1.57,Scratch resistance; smooth finish; flatting agent,https://www.basf.com/global/en/products/SATINTONE-SP-33,Extender/Filler
+,TIOXIDE TR28,Rutile Titanium Dioxide,TiO2,4.20,1845.00,2.51,UV resistance; whiteness; chemical durability,https://www.kronostio2.com/en/products/tioxide-tr28,Extender/Filler
+,SCHWEGMANN 7130,Precipitated Silica,SiO2,2.20,1600.00,1.46,Brightness; rheology control; suspension aid,https://www.schwegmannnet.de/en/products/silicas/schwegmann-7130,Extender/Filler
+,EXPANCEL 930DU,Expandable Microspheres,C2H4.C3H6 (copolymer shell),0.02,135.00,,Weight reduction; texture control; compressibility,https://www.expancel.com/products/expancel-930du,Extender/Filler
+,ACEMATT OK 412,Amorphous Silica,SiO2,2.25,1600.00,1.45,Matting; scratch resistance; viscosity control,https://www.evonik.com/en/products/acematt-ok-412,Extender/Filler
+,FINNTALC M15,Mineral Talc,Mg3Si4O10(OH)2,2.75,900.00,1.58,Opacity; smooth finish; suspension aid,https://www.mondo-minerals.com/products/finntalc-m15,Extender/Filler
+,ALFRIMAL 101,Ath Flame Retardant,Al(OH)3,2.45,310.00,1.58,Fire retardancy; smoke suppression; thermal stability,https://www.nabaltec.de/en/products/flame-retardants/alfrimal,Extender/Filler
+,TIOWHITE R-FC5,Anatase Titanium Dioxide,TiO2,3.85,1840.00,2.50,UV protection; whiteness; chemical resistance,https://www.tayca.co.jp/en/product/chemicals/titaniumdioxide.html,Extender/Filler
+,DEKORIT 222,Aluminum Oxide,Al2O3,3.95,2061.00,1.76,Hardness; wear resistance; thermal stability,https://www.matweb.com/search/datasheet.aspx?matguid=8f727c58a6cf46b38ef017af4781a0f0,Extender/Filler
+,BAIRDSIL 720,Crystalline Silica,SiO2,2.65,1717.50,1.54,Friction control; hardness; chemical inertness,https://www.u-s-silica.com/products/bairdsil-720,Extender/Filler
+,AEROSIL 200,Fumed Silica,SiO2,2.25,1600.00,1.46,Matting; thixotropy; pigment stabilization,https://www.aerosil.com/product/aerosil/en/products/aerosil-200.html,Extender/Filler
+,CENOSPHERE G-200,Alumino-Silicate Microsphere,Al2O3.SiO2,0.50,10000.00,1.57,Low density; insulation; anti-corrosion,https://www.cenosphere.in/product-cenosphere-g200/,Extender/Filler
+,TRANSLITE M10,Natural Wollastonite,CaSiO3,2.95,1550.00,1.62,Strengthening; reinforcement; crack resistance,https://www.wollastonite.org/pdf/industrialapplications.pdf,Extender/Filler
+,CARBONATE 10G,Magnesium Carbonate,MgCO3,2.95,375.00,1.50,Oil absorption; smooth dispersion; whiteness,https://www.chemicalbook.com/ProductChemicalPropertiesCB7701523_EN.htm,Extender/Filler
+,HESSLIGHT 99,Perlite,Na2O.K2O.Al2O3.SiO2,1.00,995.00,1.48,Thermal insulation; low density; flexibility,https://www.hessperlite.com/technical.htm,Extender/Filler
+,BASOFIX 700,Precipitated Barium Sulfate,BaSO4,4.40,1590.00,1.64,Fineness; brightness; suspension stability,https://www.solvay.com/en/product/basofix,Extender/Filler
+,HYDRASIL 301,Hydrous Aluminum Silicate,Al2O3.2SiO2.2H2O,2.60,10000.00,1.57,Sheen control; surface smoothness; inertness,https://www.kaminllc.com/products/hydrasil-301,Extender/Filler
+,Disperbyk 111,Polycarboxylic Acid Salt,C8H12O4.Na,1.12,,1.35,Dispersibility; low viscosity; pigment stabilization,https://www.byk.com/edditives/byk-111.html,Additives
+,Acticide MBS,Methylisothiazolinone Blend,C4H5NOS,1.03,,1.35,Microbial inhibition; long-term shelf life; broad spectrum,https://www.thor.com/products/acticide,Additives
+,Tego Foamex 805,Polysiloxane Emulsion,C6H18OSi2,1.02,,1.35,Foam suppression; compatibility; persistence,https://www.evonik.com/en/products/tego-foamex-805,Additives
+,EFKA 3777,Polyether Modified Polysiloxane,C12H26O3Si,0.97,,1.35,Leveling; wetting; anti-cratering,https://www.basf.com/global/en/products/efka-3777,Additives
+,Bentone 27,Organoclay,Approx Al2O3.4SiO2.H2O,1.95,,1.35,Rheology modification; sag resistance; stability,https://www.elementis.com/products/bentone-27,Additives
+,Tinuvin 1130,Benzotriazole Derivative,C20H24N2O2,1.17,,1.35,UV absorption; photo-stabilization; transparency,https://www.basf.com/global/en/products/tinuvin-1130,Additives
+,Silquest A-187,Glycidoxypropyltrimethoxysilane,C9H20O5Si,1.08,95.00,1.35,Adhesion; moisture resistance; crosslinking,https://www.momentive.com/en-us/categories/silanes/silquest-a-187,Additives
+,Surfynol 104,Acetylenic Diol,C10H18O2,0.97,100.00,1.35,Surface wetting; foam control; dynamic surface tension,https://www.eastman.com/Pages/ProductHome.aspx?product=71000434,Additives
+,Additol VXW 6206,Nitrite-based Blend,C6H11NO3,1.07,,1.35,Corrosion inhibition; early protection; metal adhesion,https://www.allnex.com/product/additol-vxw-6206,Additives
+,Dowanol DPnB,Dipropylene Glycol n-Butyl Ether,C10H22O3,0.96,231.00,1.35,Slow evaporation; film formation; workability,https://www.dow.com/en-us/pdp.dowanol-dpnb.20592z.html,Additives
+,FOAMSTAR ST 2438,Modified Polyether Siloxane,C10H22O3Si2,1.02,,1.35,Low foam generation; good compatibility; long-lasting,https://www.basf.com/global/en/products/foamstar-st-2438,Additives
+,Acrysol RM-2020,Hydrophobically Modified Alkali-Swellable Emulsion Polymer,Varies,1.05,100.00,1.35,Viscosity control; shear-thinning; stability,https://www.dow.com/en-us/pdp.acrysol-rm-2020.274096z.html,Additives
+,Halox 630,Phosphate Organic Complex,C6H6Na3O9P2,1.27,,1.35,Flash rust resistance; early corrosion protection; compatibility,https://halox.com/product/halox-630/,Additives
+,Dispelair CF 54,Polyurea-based Suspension Aid,Varies,1.07,,1.35,Sediment control; dispersion stability; no haze,https://www.munzing.com/products/dispelair-cf-54/,Additives
+,Methyl Ethyl Ketoxime,Methyl Ethyl Ketoxime,C4H9NO,0.99,59.00,1.35,Drying inhibition; improved shelf-life; evaporation after use,https://www.chemicalbook.com/ChemicalProductProperty_EN_CB3735985.htm,Additives
+,Texanol,2.2.4-Trimethyl-1.3-pentanediol Monoisobutyrate,C12H24O3,0.96,229.00,1.35,Film formation; low odor; non-yellowing,https://www.eastman.com/en/products/product-list/pages/productdetail.aspx?product=71004187,Additives
+,BYK-361N,Polyether Modified Polysiloxane,C12H26O3Si2,1.03,,1.35,Smooth film; flow improvement; defect reduction,https://www.byk.com/edditives/byk-361n.html,Additives
+,Propylene Glycol,Propane-1.2-diol,C3H8O2,1.04,40.00,1.35,Freeze resistance; viscosity stability; low volatility,https://pubchem.ncbi.nlm.nih.gov/compound/Propylene-glycol,Additives
+,Surfynol 420,Acetylenic Diol Ethoxylate,C10H18O2(C2H4O)n,1.04,100.00,1.35,Wetting; leveling; dynamic surface tension reduction,https://www.eastman.com/en/products/product-list/pages/productdetail.aspx?product=71001370,Additives
+,Solsperse 27000,Polyester Block Copolymer,C20H40O6 (approx),1.12,,1.35,Dispersion stability; high loading; low viscosity,https://lubrizol.com/en/Coatings/Additives/Solsperse-27000,Additives
+,TEGO Airex 921,Polydimethylsiloxane Emulsion,C6H18OSi2 (base),1.01,,1.35,Foam suppression; high compatibility; durable performance,https://www.evonik.com/en/products/tego-airex-921,Additives
+,HEC 250HX,Hydroxyethyl Cellulose,(C6H10O5)n,1.35,,1.35,Rheology control; pseudoplasticity; water retention,https://www.ashland.com/industries/paints-coatings/building-and-construction-paints,Additives
+,Additol VXW 6210,Modified Polyacrylate,C11H20O3 (approx),1.04,,1.35,Surface leveling; defect prevention; fast drying,https://www.allnex.com/product/additol-vxw-6210,Additives
+,INOX-CHEM C45,Calcium Phosphosilicate,Ca3(PO4)2.SiO2,2.90,,1.35,Passive film formation; rust inhibition; long-term protection,https://www.inox-chem.de/en/products/inox-chem-c45,Additives
+,Diisononyl Phthalate,DINP,C26H42O4,0.97,-55.00,1.48,Flexibility; low volatility; weather resistance,https://pubchem.ncbi.nlm.nih.gov/compound/Diisononyl-phthalate,Additives
+,EFKA 4580,Polyester-Based Dispersant,C20H40O6 (approx),1.08,,1.35,Jetness enhancement; high pigment loading; stability,https://www.basf.com/global/en/products/efka-4580,Additives
+,Proxel GXL,Benzisothiazolinone,C7H5NOS,1.02,,1.35,Broad-spectrum control; low VOC; antimicrobial,https://www.archbiocides.com/product/proxel-gxl,Additives
+,Ceraflour 100,Micronized Polyethylene Wax,C2H4 (polymer),0.94,115.00,1.35,Slip enhancement; scratch resistance; matting control,https://www.bykgardner.com/products/ceraflour-100.html,Additives
+,AMP 95,2-Amino-2-Methyl-1-Propanol,C4H11NO,0.95,35.00,1.35,pH buffering; emulsification aid; compatibility,https://www.angus.com/products/amp-95,Additives
+,Nopox FR,Organic Nitrite Salt Mixture,C3H7NO2 (approx),1.10,,1.35,Rust prevention; low dosage effectiveness; early film protection,https://www.vanora.ch/en/products/additives/nopox-fr,Additives

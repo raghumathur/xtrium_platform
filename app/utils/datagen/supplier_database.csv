@@ -1,0 +1,231 @@
+Supplier ID,Supplier Name,Material ID,Material Type,Geolocation,Contact Info,Availability,Cost Range,Rating,Certifications
+S8651,Supplier I,M1105,Element,USA,contact_6831@example.com,In Stock,69.44-470.27 USD,4.9,CE
+S9599,Supplier E,M1105,Element,Germany,contact_5838@example.com,Limited,98.54-234.96 USD,2.9,None
+S9352,Supplier G,M1105,Custom,USA,contact_9773@example.com,In Stock,72.01-205.86 USD,2.4,ISO 14001
+S3525,Supplier I,M1105,Compound,USA,contact_6996@example.com,Out of Stock,77.69-445.46 USD,1.9,RoHS
+S2126,Supplier K,M1787,Compound,USA,contact_5327@example.com,Limited,87.12-167.69 USD,1.7,RoHS
+S7348,Supplier P,M1787,Custom,Germany,contact_7961@example.com,Limited,74.05-291.52 USD,3.4,RoHS
+S3547,Supplier N,M1787,Compound,Australia,contact_1275@example.com,Out of Stock,54.73-464.86 USD,3.9,ISO 14001
+S8688,Supplier Q,M1787,Element,India,contact_6197@example.com,Out of Stock,54.11-350.55 USD,4.7,ISO 14001
+S2460,Supplier J,M1787,Custom,Australia,contact_9703@example.com,Out of Stock,81.65-167.48 USD,1.1,None
+S3809,Supplier P,M1787,Element,Japan,contact_8535@example.com,Limited,85.63-373.16 USD,3.7,None
+S7413,Supplier G,M1833,Element,USA,contact_2409@example.com,In Stock,50.15-297.08 USD,1.9,ISO 14001
+S6128,Supplier K,M1833,Compound,Japan,contact_9754@example.com,In Stock,72.0-309.28 USD,2.7,None
+S6501,Supplier O,M1833,Compound,Australia,contact_9016@example.com,Out of Stock,84.99-135.54 USD,3.5,None
+S3871,Supplier F,M1833,Custom,Germany,contact_9585@example.com,In Stock,83.33-403.25 USD,2.3,None
+S7115,Supplier F,M1833,Custom,Germany,contact_6655@example.com,Out of Stock,38.89-451.48 USD,3.8,None
+S5481,Supplier D,M1833,Element,Japan,contact_8244@example.com,In Stock,81.1-150.81 USD,5.0,ISO 9001
+S4892,Supplier N,M1846,Element,Japan,contact_8504@example.com,Out of Stock,78.25-124.37 USD,2.7,None
+S7381,Supplier O,M1846,Compound,India,contact_2076@example.com,In Stock,11.28-199.15 USD,3.0,None
+S3784,Supplier G,M1846,Compound,Australia,contact_5611@example.com,Limited,31.89-222.13 USD,1.4,ISO 9001
+S4110,Supplier K,M1846,Custom,Australia,contact_3813@example.com,In Stock,61.85-210.15 USD,2.9,RoHS
+S6158,Supplier I,M1976,Compound,India,contact_5557@example.com,Out of Stock,15.06-104.99 USD,2.7,RoHS
+S5510,Supplier H,M1976,Custom,USA,contact_4392@example.com,Limited,50.01-423.2 USD,1.5,CE
+S9565,Supplier E,M1976,Custom,Germany,contact_3002@example.com,Limited,66.66-174.91 USD,3.4,CE
+S3130,Supplier F,M1604,Compound,USA,contact_6249@example.com,Limited,19.58-170.87 USD,1.8,CE
+S6720,Supplier R,M1604,Element,USA,contact_6209@example.com,Limited,53.65-474.86 USD,3.1,ISO 9001
+S9197,Supplier C,M1604,Custom,Japan,contact_4921@example.com,In Stock,98.85-350.78 USD,3.0,ISO 9001
+S2232,Supplier I,M1604,Element,USA,contact_3898@example.com,Out of Stock,63.92-403.32 USD,2.1,ISO 9001
+S2740,Supplier B,M1604,Element,Australia,contact_8645@example.com,Limited,66.89-291.96 USD,4.5,CE
+S9454,Supplier S,M1009,Compound,Japan,contact_3019@example.com,In Stock,12.9-432.49 USD,3.6,RoHS
+S6328,Supplier E,M1009,Custom,India,contact_3749@example.com,Out of Stock,22.99-132.2 USD,4.3,ISO 9001
+S6349,Supplier S,M1009,Compound,Germany,contact_1673@example.com,In Stock,35.6-176.48 USD,3.0,ISO 9001
+S2826,Supplier C,M1009,Custom,India,contact_9062@example.com,Limited,68.03-418.39 USD,4.7,CE
+S8978,Supplier F,M1009,Custom,Japan,contact_4182@example.com,In Stock,76.2-353.6 USD,2.0,CE
+S3868,Supplier K,M1434,Element,India,contact_9746@example.com,Out of Stock,86.78-337.52 USD,1.3,RoHS
+S9904,Supplier K,M1434,Element,Germany,contact_7752@example.com,In Stock,46.44-313.7 USD,3.3,None
+S5104,Supplier C,M1434,Element,Germany,contact_3973@example.com,Out of Stock,60.64-131.47 USD,2.2,RoHS
+S6825,Supplier R,M1434,Element,Japan,contact_2282@example.com,Limited,48.61-424.57 USD,2.5,CE
+S7173,Supplier T,M1700,Element,Australia,contact_5464@example.com,Out of Stock,37.43-316.22 USD,1.7,RoHS
+S7523,Supplier F,M1700,Compound,Australia,contact_7229@example.com,In Stock,98.83-134.23 USD,3.3,None
+S4359,Supplier J,M1700,Compound,USA,contact_3576@example.com,Out of Stock,44.97-351.55 USD,4.3,ISO 14001
+S2726,Supplier R,M1700,Custom,Japan,contact_7783@example.com,Limited,65.62-265.87 USD,3.4,None
+S3258,Supplier A,M1700,Custom,USA,contact_3948@example.com,Out of Stock,69.31-354.94 USD,4.3,CE
+S6132,Supplier C,M1700,Element,Australia,contact_8003@example.com,Limited,69.3-298.83 USD,1.3,RoHS
+S5873,Supplier N,M1566,Element,India,contact_9941@example.com,Out of Stock,60.1-289.85 USD,3.8,None
+S3072,Supplier B,M1566,Element,USA,contact_8242@example.com,Out of Stock,89.62-108.95 USD,4.0,None
+S9929,Supplier I,M1566,Compound,Australia,contact_6151@example.com,Out of Stock,94.2-216.88 USD,3.3,CE
+S4437,Supplier I,M1566,Compound,Japan,contact_8225@example.com,Limited,42.68-175.57 USD,4.6,RoHS
+S8205,Supplier D,M1926,Compound,USA,contact_6130@example.com,Out of Stock,41.89-108.84 USD,4.8,None
+S3832,Supplier A,M1926,Compound,Japan,contact_4410@example.com,In Stock,44.57-264.01 USD,1.7,ISO 9001
+S5485,Supplier B,M1926,Custom,Germany,contact_8769@example.com,Limited,45.11-339.02 USD,5.0,RoHS
+S4592,Supplier K,M1926,Element,Japan,contact_3550@example.com,Out of Stock,33.96-402.69 USD,1.1,CE
+S7251,Supplier O,M1546,Element,Japan,contact_8414@example.com,Out of Stock,96.93-370.31 USD,3.6,ISO 9001
+S9537,Supplier R,M1546,Compound,USA,contact_3466@example.com,In Stock,30.2-186.62 USD,3.4,RoHS
+S1122,Supplier L,M1546,Element,Australia,contact_9002@example.com,In Stock,24.65-384.08 USD,4.2,ISO 9001
+S3270,Supplier G,M1301,Element,Japan,contact_4482@example.com,Limited,55.65-270.51 USD,1.2,CE
+S2011,Supplier A,M1301,Element,Australia,contact_7493@example.com,Out of Stock,63.39-120.9 USD,5.0,RoHS
+S6775,Supplier F,M1301,Element,India,contact_2342@example.com,In Stock,48.42-328.24 USD,5.0,CE
+S4071,Supplier O,M1301,Compound,USA,contact_1091@example.com,Limited,72.73-183.74 USD,4.8,ISO 14001
+S6869,Supplier F,M1301,Element,USA,contact_9700@example.com,Limited,43.7-191.49 USD,3.9,RoHS
+S9752,Supplier T,M1337,Custom,Japan,contact_4655@example.com,Out of Stock,57.13-168.33 USD,4.3,None
+S3476,Supplier C,M1337,Custom,Germany,contact_4787@example.com,Limited,92.26-173.94 USD,1.9,ISO 9001
+S9622,Supplier J,M1337,Compound,USA,contact_4686@example.com,In Stock,55.78-400.53 USD,4.3,CE
+S5854,Supplier I,M1337,Compound,USA,contact_9151@example.com,In Stock,85.02-127.15 USD,2.8,ISO 9001
+S3726,Supplier P,M1337,Compound,Germany,contact_3408@example.com,Limited,39.11-347.54 USD,1.5,RoHS
+S8250,Supplier S,M1337,Element,India,contact_7818@example.com,In Stock,45.95-116.01 USD,4.7,ISO 9001
+S5388,Supplier M,M1861,Compound,Germany,contact_3927@example.com,In Stock,58.15-404.27 USD,1.1,None
+S6543,Supplier R,M1861,Element,Japan,contact_8750@example.com,Limited,53.52-130.97 USD,3.0,ISO 9001
+S3619,Supplier K,M1861,Element,Japan,contact_3739@example.com,Out of Stock,29.44-400.3 USD,3.2,RoHS
+S2814,Supplier D,M1861,Custom,USA,contact_6522@example.com,Limited,52.35-411.63 USD,1.5,ISO 9001
+S1866,Supplier S,M1861,Compound,USA,contact_7798@example.com,In Stock,53.5-367.91 USD,2.4,ISO 14001
+S8634,Supplier M,M1861,Compound,Japan,contact_8462@example.com,Out of Stock,83.27-161.6 USD,4.5,ISO 14001
+S4162,Supplier D,M1602,Custom,Australia,contact_2518@example.com,Out of Stock,90.2-148.36 USD,3.1,ISO 14001
+S8156,Supplier D,M1602,Element,India,contact_7683@example.com,Limited,52.43-272.35 USD,1.4,RoHS
+S1481,Supplier H,M1602,Custom,USA,contact_7424@example.com,Limited,99.63-447.59 USD,3.2,RoHS
+S1189,Supplier J,M1602,Custom,Australia,contact_1962@example.com,In Stock,64.39-218.44 USD,3.7,CE
+S6730,Supplier B,M1802,Element,Germany,contact_9672@example.com,Out of Stock,32.03-475.43 USD,2.2,CE
+S5371,Supplier G,M1802,Custom,India,contact_3136@example.com,Limited,48.5-333.76 USD,2.6,CE
+S6103,Supplier M,M1802,Compound,India,contact_4454@example.com,In Stock,65.53-183.51 USD,3.7,ISO 9001
+S4590,Supplier H,M1802,Custom,Japan,contact_1491@example.com,Limited,28.61-237.45 USD,1.4,ISO 14001
+S9682,Supplier L,M1630,Element,Japan,contact_3569@example.com,Out of Stock,11.53-452.85 USD,3.8,ISO 14001
+S8283,Supplier J,M1630,Custom,India,contact_7270@example.com,In Stock,88.32-498.51 USD,3.7,RoHS
+S9252,Supplier M,M1630,Compound,India,contact_7821@example.com,In Stock,34.33-496.53 USD,3.2,ISO 14001
+S7753,Supplier T,M1630,Custom,USA,contact_8749@example.com,In Stock,72.64-292.25 USD,3.5,RoHS
+S3933,Supplier D,M1439,Custom,Australia,contact_6818@example.com,Limited,41.08-200.87 USD,1.0,ISO 14001
+S9402,Supplier M,M1439,Element,India,contact_6469@example.com,In Stock,46.68-335.98 USD,4.7,None
+S3080,Supplier T,M1439,Element,India,contact_1124@example.com,Limited,16.9-127.44 USD,4.1,CE
+S2557,Supplier R,M1439,Custom,Germany,contact_5044@example.com,Limited,74.06-480.56 USD,4.8,ISO 14001
+S9295,Supplier Q,M1439,Element,India,contact_3979@example.com,Out of Stock,96.59-213.69 USD,1.2,ISO 9001
+S3445,Supplier I,M1672,Element,Germany,contact_6680@example.com,Out of Stock,79.22-396.67 USD,3.5,CE
+S8760,Supplier B,M1672,Custom,Germany,contact_3859@example.com,Limited,51.82-176.31 USD,1.8,RoHS
+S7329,Supplier M,M1672,Element,Australia,contact_6783@example.com,In Stock,62.03-222.8 USD,3.0,CE
+S7617,Supplier J,M1672,Compound,Germany,contact_6467@example.com,Limited,24.81-127.58 USD,2.7,ISO 14001
+S8467,Supplier O,M1672,Element,USA,contact_5184@example.com,In Stock,86.62-111.39 USD,3.1,ISO 9001
+S8585,Supplier L,M1672,Custom,India,contact_6545@example.com,Out of Stock,83.88-272.46 USD,4.0,RoHS
+S2680,Supplier K,M1466,Element,Germany,contact_6241@example.com,Limited,49.22-191.69 USD,2.3,RoHS
+S3403,Supplier N,M1466,Custom,Japan,contact_7494@example.com,Limited,95.97-112.1 USD,4.2,ISO 9001
+S4708,Supplier L,M1466,Element,India,contact_4825@example.com,In Stock,35.41-389.0 USD,2.8,ISO 9001
+S1112,Supplier D,M1683,Compound,Japan,contact_7414@example.com,Limited,48.46-139.89 USD,3.1,RoHS
+S9899,Supplier F,M1683,Custom,USA,contact_7094@example.com,Out of Stock,61.59-380.78 USD,4.7,RoHS
+S9896,Supplier D,M1683,Compound,India,contact_4191@example.com,In Stock,93.07-103.68 USD,2.9,CE
+S8233,Supplier T,M1683,Compound,India,contact_4472@example.com,Out of Stock,76.79-406.01 USD,4.8,None
+S8282,Supplier O,M1284,Compound,Australia,contact_5011@example.com,Out of Stock,51.31-120.18 USD,1.9,ISO 9001
+S6750,Supplier L,M1284,Custom,Japan,contact_3285@example.com,Limited,36.54-285.87 USD,4.4,CE
+S8025,Supplier R,M1284,Custom,Japan,contact_8334@example.com,Out of Stock,66.64-242.88 USD,2.4,CE
+S9790,Supplier M,M1284,Custom,Japan,contact_4616@example.com,Out of Stock,18.24-230.04 USD,2.9,CE
+S4181,Supplier I,M1284,Compound,Australia,contact_2889@example.com,Out of Stock,91.19-431.18 USD,3.5,ISO 14001
+S6036,Supplier P,M1501,Element,Germany,contact_2949@example.com,Limited,22.68-102.24 USD,1.9,RoHS
+S4274,Supplier L,M1501,Compound,Germany,contact_3617@example.com,Limited,45.12-109.38 USD,3.5,CE
+S7633,Supplier P,M1501,Custom,Australia,contact_3277@example.com,Out of Stock,83.66-412.46 USD,3.9,ISO 9001
+S7379,Supplier L,M1833,Element,Japan,contact_4512@example.com,In Stock,83.48-495.21 USD,1.4,None
+S9495,Supplier P,M1833,Custom,India,contact_8172@example.com,Out of Stock,52.28-275.07 USD,3.7,RoHS
+S8848,Supplier T,M1833,Compound,Germany,contact_4144@example.com,Out of Stock,88.45-250.66 USD,3.8,CE
+S9080,Supplier N,M1276,Element,Germany,contact_2442@example.com,In Stock,87.29-313.87 USD,2.2,CE
+S9858,Supplier J,M1276,Compound,Australia,contact_5534@example.com,Limited,96.04-296.06 USD,1.2,RoHS
+S1954,Supplier O,M1276,Custom,Germany,contact_4961@example.com,Limited,62.48-341.96 USD,2.3,ISO 14001
+S6126,Supplier H,M1276,Custom,Japan,contact_7416@example.com,Limited,89.82-434.74 USD,1.5,ISO 9001
+S6379,Supplier T,M1369,Element,Australia,contact_1768@example.com,Out of Stock,71.68-119.08 USD,3.8,CE
+S4517,Supplier E,M1369,Custom,Japan,contact_4206@example.com,Out of Stock,10.14-251.26 USD,1.8,RoHS
+S5783,Supplier A,M1369,Compound,Australia,contact_2800@example.com,In Stock,69.41-232.87 USD,2.8,CE
+S1790,Supplier E,M1369,Custom,Australia,contact_4430@example.com,Out of Stock,61.0-415.36 USD,2.7,ISO 9001
+S6369,Supplier A,M1275,Element,Australia,contact_1501@example.com,In Stock,63.9-424.21 USD,4.2,RoHS
+S4080,Supplier O,M1275,Custom,Australia,contact_2305@example.com,Limited,74.69-163.97 USD,3.6,ISO 14001
+S6148,Supplier G,M1275,Compound,India,contact_3864@example.com,In Stock,46.07-131.89 USD,3.0,RoHS
+S6965,Supplier L,M1275,Custom,USA,contact_9403@example.com,In Stock,16.62-479.1 USD,2.1,ISO 14001
+S6436,Supplier D,M1275,Custom,India,contact_1099@example.com,Out of Stock,47.19-480.16 USD,4.4,RoHS
+S9383,Supplier T,M1275,Element,Japan,contact_4577@example.com,Out of Stock,55.06-281.06 USD,1.9,RoHS
+S7811,Supplier S,M1009,Custom,Germany,contact_8870@example.com,In Stock,32.44-305.28 USD,3.2,CE
+S1626,Supplier P,M1009,Compound,India,contact_2170@example.com,Out of Stock,78.25-234.58 USD,3.0,None
+S2895,Supplier E,M1009,Element,Australia,contact_3976@example.com,Out of Stock,16.19-251.86 USD,3.0,ISO 9001
+S7206,Supplier Q,M1009,Element,USA,contact_2501@example.com,Out of Stock,49.19-491.93 USD,4.6,RoHS
+S6958,Supplier B,M1837,Compound,Australia,contact_8893@example.com,Out of Stock,56.71-174.43 USD,4.1,CE
+S6320,Supplier P,M1837,Compound,India,contact_6436@example.com,In Stock,91.86-285.28 USD,1.6,ISO 14001
+S1496,Supplier J,M1837,Custom,Japan,contact_1989@example.com,Limited,15.68-408.6 USD,2.3,ISO 9001
+S2515,Supplier O,M1837,Custom,India,contact_6961@example.com,Limited,53.68-178.39 USD,3.5,RoHS
+S6297,Supplier I,M1837,Element,Germany,contact_7185@example.com,Limited,75.65-237.55 USD,4.6,ISO 14001
+S8455,Supplier Q,M1911,Element,Japan,contact_3767@example.com,Limited,22.86-228.38 USD,3.0,None
+S2869,Supplier B,M1911,Compound,Australia,contact_8543@example.com,In Stock,56.26-423.99 USD,1.6,RoHS
+S9957,Supplier F,M1911,Compound,USA,contact_4231@example.com,In Stock,34.4-155.25 USD,4.8,ISO 14001
+S2345,Supplier A,M1907,Custom,Germany,contact_2866@example.com,Out of Stock,74.18-269.41 USD,3.0,ISO 14001
+S9917,Supplier F,M1907,Element,Japan,contact_2360@example.com,Limited,27.37-224.22 USD,2.1,ISO 14001
+S4942,Supplier N,M1907,Compound,India,contact_3124@example.com,Limited,14.95-328.55 USD,4.0,CE
+S9832,Supplier S,M1907,Element,Germany,contact_4612@example.com,Out of Stock,12.33-445.04 USD,3.5,ISO 9001
+S7085,Supplier J,M1350,Custom,USA,contact_1725@example.com,Out of Stock,73.11-182.47 USD,4.5,RoHS
+S2202,Supplier K,M1350,Compound,Germany,contact_3525@example.com,In Stock,90.99-341.16 USD,4.9,RoHS
+S9382,Supplier L,M1350,Compound,Germany,contact_3186@example.com,Out of Stock,88.49-314.37 USD,4.2,ISO 9001
+S8112,Supplier O,M1350,Custom,Japan,contact_2664@example.com,Limited,69.4-446.43 USD,3.5,ISO 9001
+S3448,Supplier Q,M1350,Custom,India,contact_3760@example.com,Out of Stock,13.99-432.11 USD,2.9,None
+S2619,Supplier I,M1601,Custom,India,contact_9332@example.com,Out of Stock,31.75-440.27 USD,1.1,RoHS
+S2136,Supplier J,M1601,Custom,Germany,contact_6513@example.com,Limited,15.07-304.19 USD,1.7,None
+S2115,Supplier K,M1601,Custom,India,contact_9180@example.com,In Stock,90.51-277.49 USD,4.0,None
+S2989,Supplier D,M1601,Custom,India,contact_9358@example.com,Out of Stock,67.33-468.12 USD,3.5,CE
+S4221,Supplier F,M1601,Compound,India,contact_7510@example.com,Out of Stock,78.19-313.31 USD,1.9,ISO 9001
+S2804,Supplier J,M1801,Custom,USA,contact_3491@example.com,Out of Stock,45.18-386.65 USD,4.0,ISO 9001
+S3950,Supplier Q,M1801,Custom,India,contact_5406@example.com,Limited,11.97-446.78 USD,4.8,None
+S6426,Supplier S,M1801,Compound,Australia,contact_9311@example.com,Limited,14.61-396.4 USD,1.7,ISO 14001
+S8019,Supplier E,M1801,Element,Australia,contact_5512@example.com,In Stock,92.74-325.97 USD,3.7,RoHS
+S7000,Supplier T,M1801,Custom,USA,contact_8954@example.com,In Stock,45.45-466.35 USD,1.8,ISO 9001
+S9265,Supplier T,M1801,Custom,Japan,contact_5887@example.com,In Stock,65.77-310.04 USD,3.7,None
+S7064,Supplier K,M1477,Element,USA,contact_7038@example.com,Limited,70.03-480.29 USD,4.9,CE
+S5171,Supplier S,M1477,Compound,USA,contact_9988@example.com,In Stock,52.85-457.61 USD,3.5,RoHS
+S3492,Supplier I,M1477,Element,Japan,contact_8940@example.com,In Stock,21.91-229.96 USD,3.6,None
+S3092,Supplier J,M1477,Custom,Germany,contact_2956@example.com,Out of Stock,45.88-257.39 USD,1.5,ISO 14001
+S6320,Supplier N,M1477,Custom,Australia,contact_2841@example.com,In Stock,34.86-104.92 USD,2.0,ISO 14001
+S5507,Supplier N,M1477,Compound,USA,contact_5876@example.com,Out of Stock,30.14-238.17 USD,2.2,None
+S2942,Supplier Q,M1411,Compound,Australia,contact_3209@example.com,In Stock,29.37-277.1 USD,2.9,ISO 9001
+S5198,Supplier B,M1411,Custom,India,contact_6111@example.com,Limited,65.56-478.6 USD,4.1,CE
+S4763,Supplier O,M1411,Custom,USA,contact_3009@example.com,Out of Stock,11.92-158.17 USD,4.3,CE
+S4673,Supplier T,M1411,Element,Japan,contact_8561@example.com,Out of Stock,47.83-268.06 USD,4.9,CE
+S1163,Supplier F,M1411,Compound,Germany,contact_2377@example.com,Limited,92.53-459.5 USD,3.0,RoHS
+S2144,Supplier L,M1411,Element,Japan,contact_6381@example.com,In Stock,85.32-401.74 USD,1.9,ISO 14001
+S7221,Supplier R,M1399,Compound,Japan,contact_2380@example.com,In Stock,47.84-146.37 USD,4.0,CE
+S2831,Supplier R,M1399,Compound,Japan,contact_7500@example.com,Limited,98.78-427.48 USD,3.6,CE
+S6274,Supplier A,M1399,Element,Japan,contact_4227@example.com,In Stock,62.12-209.83 USD,4.0,ISO 9001
+S1548,Supplier R,M1399,Element,Germany,contact_7912@example.com,In Stock,49.14-206.03 USD,4.3,ISO 14001
+S5186,Supplier M,M1399,Custom,Germany,contact_1480@example.com,Limited,77.13-406.76 USD,3.2,None
+S7037,Supplier M,M1399,Custom,Japan,contact_1175@example.com,Limited,98.94-364.2 USD,2.0,ISO 9001
+S6376,Supplier F,M1574,Custom,Japan,contact_4533@example.com,Limited,92.27-467.92 USD,2.6,ISO 9001
+S4248,Supplier S,M1574,Element,Japan,contact_9104@example.com,In Stock,47.97-118.23 USD,2.4,ISO 9001
+S5524,Supplier O,M1574,Custom,Germany,contact_6909@example.com,Limited,35.81-249.3 USD,1.9,ISO 9001
+S5434,Supplier G,M1574,Compound,India,contact_4202@example.com,Out of Stock,32.99-266.49 USD,3.3,RoHS
+S1377,Supplier B,M1574,Compound,USA,contact_8699@example.com,In Stock,59.39-198.25 USD,2.6,ISO 9001
+S7522,Supplier I,M1116,Element,Australia,contact_3772@example.com,In Stock,59.69-345.43 USD,1.5,ISO 9001
+S6694,Supplier J,M1116,Compound,Australia,contact_4682@example.com,Out of Stock,26.45-331.94 USD,1.2,ISO 9001
+S2564,Supplier B,M1116,Element,Australia,contact_1483@example.com,In Stock,17.18-355.48 USD,2.7,CE
+S8797,Supplier L,M1116,Element,Germany,contact_7171@example.com,Limited,16.37-151.99 USD,1.5,ISO 14001
+S2540,Supplier M,M1116,Custom,Japan,contact_2036@example.com,Out of Stock,99.03-428.44 USD,4.7,RoHS
+S8730,Supplier S,M1116,Custom,India,contact_8859@example.com,Out of Stock,90.26-344.14 USD,3.0,ISO 9001
+S6253,Supplier J,M1164,Custom,Australia,contact_8019@example.com,Limited,92.81-422.8 USD,3.4,RoHS
+S2784,Supplier H,M1164,Compound,USA,contact_6944@example.com,In Stock,94.09-367.19 USD,4.0,None
+S4653,Supplier D,M1164,Element,Australia,contact_6094@example.com,In Stock,74.93-127.92 USD,4.2,ISO 9001
+S6439,Supplier M,M1164,Compound,Germany,contact_9938@example.com,Out of Stock,64.57-463.77 USD,1.5,ISO 14001
+S9079,Supplier L,M1164,Element,Japan,contact_9717@example.com,In Stock,11.27-461.75 USD,4.2,None
+S7545,Supplier I,M1164,Custom,India,contact_7413@example.com,In Stock,85.09-121.15 USD,4.9,None
+S5776,Supplier N,M1173,Element,India,contact_3294@example.com,Out of Stock,77.73-182.02 USD,3.6,ISO 9001
+S9642,Supplier C,M1173,Compound,Japan,contact_1769@example.com,Out of Stock,12.08-366.01 USD,2.7,RoHS
+S8424,Supplier O,M1173,Custom,Germany,contact_4600@example.com,In Stock,79.39-403.07 USD,2.0,None
+S4964,Supplier J,M1479,Element,USA,contact_2259@example.com,Out of Stock,85.35-433.76 USD,1.6,ISO 14001
+S2380,Supplier K,M1479,Custom,Australia,contact_8702@example.com,In Stock,61.98-288.02 USD,4.5,None
+S8529,Supplier T,M1479,Custom,Japan,contact_8842@example.com,In Stock,41.75-269.63 USD,4.4,CE
+S8474,Supplier N,M1637,Compound,Japan,contact_4949@example.com,Out of Stock,42.67-316.09 USD,4.9,ISO 9001
+S6710,Supplier H,M1637,Compound,Japan,contact_5454@example.com,In Stock,93.23-293.2 USD,4.1,RoHS
+S4703,Supplier L,M1637,Compound,Japan,contact_5323@example.com,In Stock,42.9-302.92 USD,3.3,RoHS
+S8823,Supplier B,M1637,Custom,USA,contact_6643@example.com,Out of Stock,41.98-212.77 USD,3.0,ISO 14001
+S4702,Supplier H,M1637,Compound,India,contact_1369@example.com,In Stock,12.58-430.22 USD,1.4,ISO 14001
+S3648,Supplier H,M1661,Compound,USA,contact_2894@example.com,Limited,34.7-261.25 USD,1.8,CE
+S2573,Supplier A,M1661,Custom,Australia,contact_3743@example.com,Limited,80.67-487.22 USD,2.3,ISO 9001
+S1441,Supplier N,M1661,Custom,India,contact_3208@example.com,Out of Stock,91.95-283.24 USD,1.1,CE
+S4018,Supplier H,M1661,Custom,Japan,contact_9240@example.com,In Stock,95.91-307.32 USD,3.7,CE
+S8101,Supplier G,M1253,Compound,India,contact_4352@example.com,Out of Stock,29.52-276.14 USD,2.4,ISO 9001
+S2144,Supplier D,M1253,Custom,USA,contact_8364@example.com,In Stock,71.72-449.54 USD,3.6,RoHS
+S9782,Supplier R,M1253,Custom,USA,contact_8142@example.com,Out of Stock,94.0-207.15 USD,3.9,ISO 9001
+S1865,Supplier D,M1693,Compound,USA,contact_4189@example.com,In Stock,12.33-294.17 USD,3.0,ISO 14001
+S5957,Supplier L,M1693,Custom,Japan,contact_9185@example.com,Out of Stock,95.46-129.46 USD,3.4,None
+S9596,Supplier R,M1693,Compound,India,contact_5112@example.com,Limited,18.2-323.03 USD,3.9,RoHS
+S6817,Supplier A,M1693,Custom,Australia,contact_5693@example.com,Limited,71.88-486.49 USD,4.6,CE
+S8789,Supplier G,M1693,Element,India,contact_8358@example.com,In Stock,27.47-156.88 USD,1.7,ISO 9001
+S5554,Supplier Q,M1693,Element,USA,contact_2238@example.com,In Stock,26.6-348.29 USD,4.6,ISO 14001
+S8737,Supplier M,M1329,Compound,Japan,contact_7672@example.com,Out of Stock,26.56-317.39 USD,1.7,ISO 9001
+S7089,Supplier R,M1329,Custom,India,contact_2109@example.com,Out of Stock,31.57-455.87 USD,2.4,RoHS
+S4776,Supplier G,M1329,Custom,India,contact_6457@example.com,In Stock,86.55-258.59 USD,1.5,CE
+S9899,Supplier A,M1067,Custom,Australia,contact_4433@example.com,Out of Stock,38.69-142.56 USD,2.3,RoHS
+S9795,Supplier C,M1067,Compound,Japan,contact_9152@example.com,Limited,84.59-471.08 USD,2.4,CE
+S4390,Supplier Q,M1067,Custom,Germany,contact_3129@example.com,In Stock,74.17-418.19 USD,1.8,CE
+S1505,Supplier B,M1067,Custom,India,contact_2816@example.com,In Stock,25.84-303.15 USD,3.5,None
+S2709,Supplier D,M1067,Custom,Australia,contact_6810@example.com,Limited,40.23-438.42 USD,1.4,CE
+S9036,Supplier C,M1783,Element,India,contact_2749@example.com,Out of Stock,85.63-299.85 USD,3.5,ISO 9001
+S3757,Supplier I,M1783,Compound,USA,contact_4438@example.com,Limited,86.34-435.82 USD,4.9,ISO 14001
+S7293,Supplier E,M1783,Element,Germany,contact_1645@example.com,Out of Stock,11.43-281.16 USD,4.7,CE
+S4296,Supplier P,M1783,Custom,India,contact_5676@example.com,In Stock,77.95-224.9 USD,1.4,CE
+S2609,Supplier L,M1783,Custom,Germany,contact_5676@example.com,Limited,57.49-337.27 USD,2.1,CE

@@ -1,0 +1,202 @@
+Application ID,Industry,Application Name,Field of Science,Material ID,Required Properties,Match Score,Priority,Environmental Impact,Economic Viability,Potential Market Size,Future Research Scope
+A300,Surgery,Integrated Circuits,Engineering,M1550,"Thermal Resistance, Durability, Corrosion Resistance, Hardness, Weight",78,Low,Low,Feasible,Small,Low
+A301,Space Research,Watches,Medicine,M1788,"Durability, Conductivity, Hardness, Corrosion Resistance, Flexibility",90,Low,Low,Challenging,Medium,High
+A302,Automotive,Medical Implants,Physics,M1199,"Transparency, Weight",84,Medium,Moderate,Challenging,Large,Low
+A303,Surgery,Panels,Chemistry,M1992,"Strength, Hardness, Reactivity",70,High,Low,Challenging,Large,Low
+A304,Automotive,Car Bodies,Chemistry,M1573,"Weight, Conductivity, Corrosion Resistance, Strength, Transparency",77,Low,High,Feasible,Small,Medium
+A305,EV Batteries,Antennas,Medicine,M1102,"Flexibility, Strength",94,High,Moderate,Feasible,Medium,High
+A306,Chip Cooling,Antennas,Engineering,M1442,"Corrosion Resistance, Hardness",78,Low,High,Challenging,Small,Medium
+A307,Construction,Quantum Chips,Computer Science,M1062,"Thermal Resistance, Reactivity",71,Medium,Moderate,Challenging,Large,Medium
+A308,Telecommunications,Surgical Tools,Biology,M1071,"Hardness, Conductivity, Strength, Weight, Transparency",70,Medium,Moderate,Expensive,Small,High
+A309,Chip Design,Integrated Circuits,Materials Science,M1442,"Thermal Resistance, Flexibility",82,Medium,Low,Challenging,Small,Medium
+A310,Chip Cooling,Lenses,Materials Science,M1563,"Thermal Resistance, Corrosion Resistance",95,High,Low,Expensive,Large,Medium
+A311,Telecommunications,Panels,Astronomy,M1399,"Hardness, Corrosion Resistance, Flexibility, Transparency, Thermal Resistance",93,Low,Moderate,Challenging,Medium,Low
+A312,Energy Storage,Integrated Circuits,Physics,M1774,"Flexibility, Transparency",90,Low,High,Expensive,Large,Low
+A313,Quantum Computing,Cement,Chemistry,M1390,"Conductivity, Transparency, Flexibility",77,High,Moderate,Feasible,Large,Medium
+A314,Surgery,Processors,Physics,M1286,"Reactivity, Flexibility, Hardness",84,High,Low,Challenging,Medium,Low
+A315,Chip Design,Lenses,Astronomy,M1992,"Thermal Resistance, Weight, Durability",97,Low,Moderate,Feasible,Large,Low
+A316,Quantum Computing,Surgical Tools,Medicine,M1460,"Reactivity, Thermal Resistance, Transparency",76,High,High,Feasible,Large,High
+A317,EV Batteries,Quantum Chips,Geology,M1399,"Durability, Weight, Corrosion Resistance",93,Low,Moderate,Challenging,Large,Low
+A318,Drug Discovery,Catalysts,Physics,M1145,"Hardness, Flexibility, Corrosion Resistance, Strength",75,High,Moderate,Expensive,Medium,High
+A319,Quantum Computing,Thermal Shields,Astronomy,M1108,"Transparency, Hardness, Strength, Thermal Resistance, Conductivity",95,Low,Moderate,Challenging,Medium,High
+A320,Telecommunications,Surgical Tools,Astronomy,M1059,"Strength, Reactivity, Flexibility",76,High,Moderate,Challenging,Small,Medium
+A321,Telecommunications,Lenses,Computer Science,M1390,"Corrosion Resistance, Hardness, Reactivity, Durability",72,Medium,Moderate,Challenging,Medium,Low
+A322,Jewelry,Catalysts,Physics,M1573,"Transparency, Strength",74,Low,High,Expensive,Small,High
+A323,Automotive,Cement,Physics,M1059,"Weight, Transparency, Reactivity",93,High,High,Expensive,Medium,Low
+A324,Quantum Computing,Battery Cells,Medicine,M1145,"Weight, Thermal Resistance, Durability, Conductivity",72,High,High,Feasible,Large,High
+A325,Chip Cooling,Medical Implants,Chemistry,M1788,"Corrosion Resistance, Thermal Resistance, Durability, Reactivity, Strength",79,High,High,Feasible,Small,High
+A326,Optics,Panels,Biology,M1442,"Corrosion Resistance, Hardness, Reactivity, Thermal Resistance",76,High,Low,Expensive,Large,Low
+A327,Healthcare,Processors,Engineering,M1390,"Corrosion Resistance, Durability",79,Medium,High,Feasible,Medium,Low
+A328,Food Industry,Battery Cells,Astronomy,M1867,"Reactivity, Weight, Thermal Resistance, Flexibility",95,Low,High,Feasible,Small,Low
+A329,Semiconductors,Watches,Geology,M1199,"Thermal Resistance, Transparency, Strength, Flexibility",95,High,Moderate,Expensive,Large,High
+A330,Chip Design,Satellites,Nanotechnology,M1607,"Transparency, Flexibility, Reactivity, Weight, Conductivity",73,Low,High,Feasible,Medium,Low
+A331,Defense,Heat Sinks,Computer Science,M1145,"Flexibility, Hardness",85,Low,Low,Challenging,Medium,Low
+A332,Space Research,Panels,Materials Science,M1211,"Durability, Corrosion Resistance",84,Low,High,Feasible,Small,Medium
+A333,Solar Energy,Lenses,Computer Science,M1788,"Durability, Conductivity, Transparency",84,High,Low,Challenging,Small,Low
+A334,Telecommunications,Packaging,Chemistry,M1652,"Durability, Thermal Resistance, Strength, Transparency, Hardness",72,Medium,Moderate,Challenging,Medium,High
+A335,Automotive,Armor Plating,Computer Science,M1491,"Hardness, Corrosion Resistance, Conductivity, Transparency, Flexibility",76,Medium,Low,Expensive,Medium,Medium
+A336,Defense,Processors,Engineering,M1211,"Flexibility, Weight, Thermal Resistance",82,Medium,High,Feasible,Large,Low
+A337,Food Industry,Antennas,Medicine,M1894,"Weight, Reactivity, Conductivity",88,High,Low,Challenging,Large,Medium
+A338,Energy Storage,Quantum Chips,Medicine,M1535,"Strength, Flexibility",72,High,Moderate,Feasible,Large,Low
+A339,Automotive,Surgical Tools,Physics,M1904,"Weight, Transparency, Corrosion Resistance",99,High,Low,Challenging,Medium,Medium
+A340,Solar Energy,Car Bodies,Engineering,M1957,"Transparency, Strength, Corrosion Resistance",75,Low,Moderate,Expensive,Medium,High
+A341,Optics,Thermal Shields,Computer Science,M1326,"Strength, Transparency, Durability, Hardness",92,High,High,Expensive,Small,Low
+A342,Optics,Medical Implants,Computer Science,M1291,"Flexibility, Thermal Resistance",95,Low,High,Challenging,Small,High
+A343,Quantum Computing,Fuel Cells,Astronomy,M1245,"Transparency, Weight",76,Medium,Moderate,Challenging,Small,Medium
+A344,Quantum Computing,Medical Implants,Nanotechnology,M1573,"Durability, Reactivity, Conductivity, Weight, Strength",92,Low,High,Expensive,Small,Low
+A345,Surgery,Cement,Materials Science,M1399,"Reactivity, Corrosion Resistance, Conductivity",79,Medium,Low,Feasible,Medium,High
+A346,Chip Cooling,Heat Sinks,Physics,M1491,"Reactivity, Corrosion Resistance, Durability, Weight",85,Low,Low,Expensive,Medium,Low
+A347,Energy Storage,Lenses,Materials Science,M1108,"Thermal Resistance, Weight, Conductivity, Transparency",74,High,High,Challenging,Medium,Medium
+A348,Healthcare,Antennas,Computer Science,M1261,"Strength, Durability, Thermal Resistance, Hardness",74,Low,Low,Expensive,Medium,Low
+A349,Automotive,Panels,Nanotechnology,M1957,"Strength, Corrosion Resistance",89,Medium,Low,Expensive,Medium,Medium
+A350,Chip Design,Panels,Biology,M1550,"Durability, Weight, Reactivity, Conductivity, Flexibility",85,Low,Moderate,Challenging,Small,Medium
+A351,Construction,Medical Implants,Materials Science,M1169,"Strength, Conductivity, Flexibility, Transparency, Corrosion Resistance",70,Medium,High,Expensive,Large,High
+A352,Aerospace,Packaging,Geology,M1339,"Strength, Conductivity, Reactivity, Flexibility",89,Medium,Low,Challenging,Small,High
+A353,Chip Cooling,Satellites,Physics,M1442,"Flexibility, Reactivity, Conductivity, Corrosion Resistance",95,Medium,High,Challenging,Medium,High
+A354,Space Research,Heat Sinks,Computer Science,M1108,"Durability, Reactivity, Flexibility",79,Medium,Low,Feasible,Small,Medium
+A355,Aerospace,Medicines,Nanotechnology,M1992,"Durability, Hardness, Weight",99,Low,High,Expensive,Small,Medium
+A356,Surgery,Packaging,Nanotechnology,M1904,"Durability, Strength, Thermal Resistance, Conductivity, Corrosion Resistance",75,High,High,Expensive,Medium,Low
+A357,EV Batteries,Fuel Cells,Biology,M1535,"Durability, Strength, Transparency, Weight",81,Medium,Low,Challenging,Large,Medium
+A358,Quantum Computing,Surgical Tools,Biology,M1882,"Weight, Thermal Resistance, Durability, Hardness",86,High,Low,Expensive,Small,High
+A359,Optics,Armor Plating,Engineering,M1322,"Strength, Hardness, Flexibility, Reactivity",79,High,High,Expensive,Large,Medium
+A360,Food Industry,Lenses,Engineering,M1199,"Durability, Flexibility, Thermal Resistance, Hardness",84,Medium,Low,Feasible,Small,High
+A361,Space Research,Processors,Biology,M1199,"Transparency, Thermal Resistance, Weight",92,High,Low,Expensive,Medium,Medium
+A362,Precious Metals,Watches,Astronomy,M1992,"Transparency, Strength, Durability, Conductivity",95,Low,Low,Expensive,Small,High
+A363,Drug Discovery,Satellites,Physics,M1143,"Durability, Reactivity, Weight",81,Low,Moderate,Expensive,Small,Low
+A364,Aerospace,Fuel Cells,Chemistry,M1179,"Reactivity, Weight, Conductivity",87,Low,Low,Expensive,Large,High
+A365,Aerospace,Thermal Shields,Computer Science,M1774,"Corrosion Resistance, Conductivity, Strength, Weight, Thermal Resistance",71,Low,Low,Challenging,Large,Medium
+A366,Space Research,Watches,Engineering,M1564,"Reactivity, Conductivity, Strength",72,High,Moderate,Feasible,Small,Medium
+A367,Defense,Armor Plating,Biology,M1062,"Weight, Corrosion Resistance, Transparency",80,Medium,Moderate,Challenging,Large,Medium
+A368,Surgery,Panels,Astronomy,M1405,"Durability, Weight, Transparency, Flexibility, Reactivity",89,Low,Low,Expensive,Small,Medium
+A369,Solar Energy,Thermal Shields,Physics,M1211,"Durability, Strength, Conductivity",73,High,Moderate,Feasible,Large,Medium
+A370,Drug Discovery,Fuel Cells,Medicine,M1867,"Thermal Resistance, Reactivity, Flexibility",78,Low,High,Challenging,Medium,High
+A371,Food Industry,Panels,Computer Science,M1564,"Transparency, Reactivity, Corrosion Resistance",99,High,Moderate,Expensive,Small,Medium
+A372,Precious Metals,Watches,Nanotechnology,M1183,"Weight, Thermal Resistance, Hardness, Flexibility, Transparency",81,High,Moderate,Expensive,Medium,Low
+A373,Solar Energy,Armor Plating,Geology,M1199,"Conductivity, Durability, Reactivity",96,Medium,High,Expensive,Large,Low
+A374,Defense,Medical Implants,Medicine,M1322,"Corrosion Resistance, Strength",92,Low,High,Feasible,Large,Medium
+A375,Surgery,Integrated Circuits,Engineering,M1564,"Weight, Corrosion Resistance",93,High,High,Expensive,Large,High
+A376,Chip Cooling,Antennas,Geology,M1071,"Reactivity, Corrosion Resistance, Hardness, Weight, Durability",81,Medium,High,Challenging,Medium,Medium
+A377,Energy Storage,Satellites,Computer Science,M1853,"Flexibility, Corrosion Resistance, Thermal Resistance",73,High,Moderate,Challenging,Medium,High
+A378,Automotive,Thermal Shields,Physics,M1199,"Strength, Hardness",86,Medium,Moderate,Challenging,Small,High
+A379,Space Research,Car Bodies,Nanotechnology,M1143,"Hardness, Transparency",86,High,High,Expensive,Small,High
+A380,Healthcare,Antennas,Physics,M1339,"Corrosion Resistance, Conductivity",93,Medium,High,Expensive,Large,High
+A381,Solar Energy,Satellites,Nanotechnology,M1460,"Thermal Resistance, Strength, Reactivity, Transparency",71,Medium,High,Feasible,Medium,High
+A382,Telecommunications,Satellites,Biology,M1211,"Flexibility, Durability, Weight, Thermal Resistance, Transparency",77,High,Moderate,Challenging,Small,Medium
+A383,EV Batteries,Cement,Geology,M1390,"Hardness, Transparency",83,High,High,Feasible,Large,Low
+A384,Solar Energy,Heat Sinks,Geology,M1430,"Flexibility, Hardness, Transparency",79,Medium,Low,Feasible,Large,High
+A385,Energy Storage,Thermal Shields,Medicine,M1491,"Reactivity, Corrosion Resistance, Weight, Strength",89,Low,Moderate,Expensive,Medium,Medium
+A386,Aerospace,Antennas,Biology,M1071,"Durability, Transparency, Flexibility, Hardness",89,Low,Low,Expensive,Medium,Medium
+A387,Chip Cooling,Medicines,Physics,M1788,"Reactivity, Strength, Corrosion Resistance, Durability",86,High,Low,Challenging,Small,High
+A388,Space Research,Battery Cells,Materials Science,M1924,"Flexibility, Strength, Weight",99,Medium,Moderate,Challenging,Medium,Medium
+A389,Aerospace,Quantum Chips,Nanotechnology,M1405,"Conductivity, Hardness, Weight, Thermal Resistance",77,Medium,Moderate,Challenging,Medium,Low
+A390,EV Batteries,Watches,Nanotechnology,M1390,"Thermal Resistance, Corrosion Resistance, Hardness, Weight",98,Medium,Moderate,Expensive,Large,High
+A391,Surgery,Integrated Circuits,Medicine,M1179,"Strength, Corrosion Resistance",70,Low,High,Challenging,Medium,Low
+A392,Jewelry,Catalysts,Biology,M1573,"Hardness, Weight, Durability, Transparency",77,Medium,High,Expensive,Large,Low
+A393,Aerospace,Catalysts,Engineering,M1322,"Corrosion Resistance, Conductivity, Strength",84,High,Low,Expensive,Large,Low
+A394,Chip Cooling,Surgical Tools,Materials Science,M1071,"Hardness, Flexibility, Thermal Resistance, Corrosion Resistance",80,High,Low,Expensive,Large,Low
+A395,Precious Metals,Antennas,Nanotechnology,M1183,"Strength, Conductivity, Flexibility, Reactivity, Thermal Resistance",97,Low,Moderate,Feasible,Small,Low
+A396,Drug Discovery,Armor Plating,Computer Science,M1526,"Durability, Corrosion Resistance",73,Medium,Low,Feasible,Small,High
+A397,Drug Discovery,Watches,Biology,M1286,"Reactivity, Weight, Conductivity",73,High,Moderate,Challenging,Medium,Medium
+A398,Energy Storage,Surgical Tools,Medicine,M1464,"Reactivity, Corrosion Resistance, Durability, Hardness",73,Medium,Low,Feasible,Medium,Medium
+A399,Chip Design,Watches,Chemistry,M1261,"Flexibility, Strength, Hardness, Durability, Reactivity",82,High,Low,Expensive,Large,Medium
+A400,Space Research,Packaging,Astronomy,M1062,"Durability, Corrosion Resistance, Reactivity",73,High,High,Challenging,Medium,Low
+A401,Solar Energy,Fuel Cells,Astronomy,M1179,"Transparency, Hardness, Durability",76,High,High,Challenging,Medium,High
+A402,Optics,Processors,Nanotechnology,M1563,"Flexibility, Durability, Weight, Hardness",96,Medium,High,Challenging,Large,Medium
+A403,Food Industry,Medicines,Computer Science,M1788,"Corrosion Resistance, Weight, Hardness, Conductivity, Thermal Resistance",82,Medium,High,Feasible,Small,High
+A404,Optics,Integrated Circuits,Biology,M1882,"Corrosion Resistance, Strength, Flexibility, Reactivity, Conductivity",78,High,Low,Challenging,Medium,Medium
+A405,Defense,Lenses,Nanotechnology,M1405,"Hardness, Flexibility, Thermal Resistance, Corrosion Resistance, Durability",93,Medium,Moderate,Challenging,Small,Medium
+A406,Drug Discovery,Satellites,Computer Science,M1390,"Flexibility, Corrosion Resistance",95,Low,Low,Feasible,Small,Low
+A407,Construction,Medical Implants,Geology,M1788,"Strength, Weight",74,High,Low,Expensive,Large,Low
+A408,Energy Storage,Processors,Physics,M1924,"Hardness, Transparency, Thermal Resistance",78,Low,Moderate,Feasible,Small,Low
+A409,Optics,Medicines,Astronomy,M1652,"Durability, Flexibility, Transparency",80,Medium,Low,Expensive,Small,Low
+A410,Precious Metals,Battery Cells,Engineering,M1573,"Flexibility, Strength",85,Low,Moderate,Challenging,Large,Low
+A411,Automotive,Integrated Circuits,Biology,M1535,"Corrosion Resistance, Flexibility, Strength",94,High,High,Expensive,Medium,Low
+A412,Food Industry,Lenses,Astronomy,M1491,"Durability, Weight, Transparency, Thermal Resistance",76,Low,Low,Feasible,Medium,Low
+A413,Solar Energy,Antennas,Astronomy,M1491,"Hardness, Reactivity, Strength",71,Medium,High,Challenging,Large,High
+A414,Space Research,Thermal Shields,Computer Science,M1405,"Corrosion Resistance, Conductivity",100,High,High,Challenging,Medium,High
+A415,Precious Metals,Antennas,Engineering,M1157,"Reactivity, Conductivity",96,Low,Low,Challenging,Small,High
+A416,Chip Cooling,Panels,Physics,M1179,"Corrosion Resistance, Transparency, Thermal Resistance",89,High,Moderate,Expensive,Medium,High
+A417,Defense,Panels,Materials Science,M1145,"Durability, Transparency, Corrosion Resistance, Hardness, Thermal Resistance",85,High,High,Expensive,Large,High
+A418,Chip Design,Battery Cells,Medicine,M1992,"Thermal Resistance, Hardness, Strength, Corrosion Resistance, Flexibility",93,Medium,Moderate,Challenging,Small,Medium
+A419,Precious Metals,Cement,Materials Science,M1041,"Durability, Hardness, Weight, Conductivity",82,Low,Moderate,Challenging,Medium,High
+A420,Energy Storage,Cement,Biology,M1853,"Corrosion Resistance, Hardness",98,High,Low,Challenging,Small,High
+A421,Optics,Cement,Astronomy,M1326,"Hardness, Strength, Flexibility, Reactivity, Conductivity",73,High,Low,Expensive,Small,Low
+A422,Surgery,Surgical Tools,Materials Science,M1924,"Corrosion Resistance, Durability, Weight, Transparency",91,Medium,Low,Feasible,Small,Low
+A423,Chip Design,Integrated Circuits,Computer Science,M1430,"Corrosion Resistance, Reactivity, Thermal Resistance",77,High,Low,Challenging,Medium,High
+A424,Aerospace,Armor Plating,Astronomy,M1788,"Flexibility, Reactivity",87,Low,Moderate,Challenging,Small,High
+A425,EV Batteries,Medical Implants,Materials Science,M1894,"Thermal Resistance, Strength, Durability, Weight",71,High,Moderate,Feasible,Medium,Low
+A426,Solar Energy,Fuel Cells,Nanotechnology,M1062,"Strength, Corrosion Resistance",75,Low,High,Expensive,Medium,High
+A427,Energy Storage,Processors,Computer Science,M1062,"Hardness, Reactivity, Durability, Corrosion Resistance, Conductivity",82,Medium,Moderate,Feasible,Small,Medium
+A428,Defense,Cement,Astronomy,M1157,"Durability, Corrosion Resistance, Hardness",76,Low,High,Challenging,Large,Medium
+A429,Automotive,Catalysts,Materials Science,M1957,"Durability, Strength, Corrosion Resistance",76,Low,High,Expensive,Large,Medium
+A430,Telecommunications,Satellites,Geology,M1550,"Weight, Flexibility, Thermal Resistance, Durability",73,Low,High,Feasible,Large,High
+A431,Food Industry,Heat Sinks,Biology,M1464,"Strength, Transparency, Flexibility, Conductivity",84,Low,Low,Challenging,Medium,High
+A432,Chip Cooling,Watches,Nanotechnology,M1390,"Durability, Conductivity, Corrosion Resistance, Hardness, Transparency",70,High,Low,Expensive,Large,Low
+A433,Construction,Armor Plating,Physics,M1062,"Flexibility, Weight, Transparency, Durability, Conductivity",96,Low,Low,Challenging,Medium,Low
+A434,Surgery,Car Bodies,Nanotechnology,M1607,"Hardness, Weight, Reactivity, Thermal Resistance, Corrosion Resistance",81,High,High,Challenging,Small,Low
+A435,Space Research,Thermal Shields,Chemistry,M1526,"Conductivity, Weight, Flexibility",84,Low,Moderate,Challenging,Small,Low
+A436,Space Research,Heat Sinks,Engineering,M1460,"Weight, Conductivity, Corrosion Resistance, Reactivity",98,High,Low,Expensive,Small,Low
+A437,Precious Metals,Catalysts,Physics,M1573,"Strength, Durability",98,Low,High,Challenging,Large,Medium
+A438,Quantum Computing,Heat Sinks,Medicine,M1199,"Corrosion Resistance, Transparency",99,High,Moderate,Challenging,Medium,Low
+A439,Quantum Computing,Battery Cells,Materials Science,M1904,"Conductivity, Strength",97,Medium,Low,Expensive,Large,Low
+A440,Food Industry,Lenses,Materials Science,M1183,"Transparency, Durability",100,Medium,Low,Feasible,Medium,Medium
+A441,Food Industry,Quantum Chips,Materials Science,M1145,"Corrosion Resistance, Transparency, Conductivity, Thermal Resistance",82,High,Low,Challenging,Small,Medium
+A442,Jewelry,Car Bodies,Geology,M1788,"Corrosion Resistance, Strength, Conductivity, Reactivity, Transparency",71,Low,Moderate,Expensive,Large,Medium
+A443,EV Batteries,Thermal Shields,Medicine,M1607,"Transparency, Reactivity, Corrosion Resistance, Flexibility, Conductivity",86,Low,Low,Expensive,Large,High
+A444,Quantum Computing,Car Bodies,Physics,M1564,"Reactivity, Durability, Conductivity, Thermal Resistance, Strength",84,Low,Low,Expensive,Small,High
+A445,Construction,Integrated Circuits,Chemistry,M1550,"Transparency, Conductivity, Reactivity, Hardness",72,Medium,Moderate,Expensive,Small,Low
+A446,Aerospace,Fuel Cells,Geology,M1062,"Reactivity, Hardness, Strength, Transparency",75,Medium,Moderate,Feasible,Medium,Low
+A447,Chip Cooling,Lenses,Materials Science,M1867,"Thermal Resistance, Flexibility, Hardness",98,Medium,Moderate,Challenging,Small,High
+A448,Chip Cooling,Cement,Geology,M1405,"Flexibility, Corrosion Resistance, Weight, Durability",97,Low,Low,Expensive,Small,Low
+A449,EV Batteries,Satellites,Engineering,M1108,"Weight, Reactivity, Corrosion Resistance, Transparency, Durability",71,High,Low,Challenging,Small,Medium
+A450,Construction,Battery Cells,Chemistry,M1108,"Durability, Conductivity, Flexibility, Corrosion Resistance, Transparency",89,High,High,Challenging,Medium,Medium
+A451,Automotive,Armor Plating,Medicine,M1882,"Durability, Conductivity, Hardness, Reactivity, Flexibility",90,High,Low,Challenging,Medium,High
+A452,Energy Storage,Watches,Computer Science,M1442,"Hardness, Conductivity, Corrosion Resistance, Transparency",85,High,High,Expensive,Medium,High
+A453,Energy Storage,Heat Sinks,Geology,M1491,"Reactivity, Weight, Durability, Corrosion Resistance",74,Medium,Moderate,Challenging,Medium,Low
+A454,Solar Energy,Thermal Shields,Computer Science,M1143,"Thermal Resistance, Hardness",93,Medium,Low,Expensive,Small,Medium
+A455,Chip Cooling,Cement,Engineering,M1563,"Strength, Hardness",80,Medium,Moderate,Feasible,Medium,High
+A456,Chip Design,Watches,Astronomy,M1339,"Thermal Resistance, Conductivity",87,High,Moderate,Feasible,Medium,Low
+A457,Defense,Integrated Circuits,Medicine,M1405,"Conductivity, Durability, Thermal Resistance, Transparency, Reactivity",73,Medium,High,Feasible,Large,Low
+A458,Chip Cooling,Armor Plating,Geology,M1442,"Thermal Resistance, Hardness",72,High,Moderate,Challenging,Large,High
+A459,EV Batteries,Panels,Biology,M1339,"Weight, Reactivity",74,High,High,Challenging,Small,Medium
+A460,Jewelry,Heat Sinks,Engineering,M1339,"Hardness, Strength, Conductivity",75,High,Low,Feasible,Small,Low
+A461,Surgery,Lenses,Nanotechnology,M1607,"Durability, Thermal Resistance, Conductivity, Weight",84,Low,Moderate,Feasible,Medium,High
+A462,Construction,Medicines,Biology,M1867,"Flexibility, Corrosion Resistance, Thermal Resistance, Durability, Transparency",97,Low,Low,Feasible,Small,Low
+A463,Construction,Catalysts,Nanotechnology,M1652,"Conductivity, Weight, Corrosion Resistance",99,Medium,Low,Expensive,Small,Low
+A464,Automotive,Antennas,Materials Science,M1564,"Thermal Resistance, Flexibility",74,Low,Low,Expensive,Small,High
+A465,Telecommunications,Medicines,Nanotechnology,M1405,"Strength, Weight, Durability, Flexibility",100,Medium,Low,Challenging,Medium,Medium
+A466,Quantum Computing,Integrated Circuits,Geology,M1430,"Reactivity, Strength, Transparency",75,Medium,Moderate,Challenging,Large,High
+A467,Food Industry,Watches,Engineering,M1573,"Reactivity, Durability, Flexibility",84,High,High,Feasible,Large,Low
+A468,Jewelry,Satellites,Nanotechnology,M1563,"Weight, Transparency",92,Low,High,Expensive,Medium,High
+A469,Chip Cooling,Battery Cells,Nanotechnology,M1179,"Thermal Resistance, Hardness",98,Low,Low,Expensive,Large,Medium
+A470,Precious Metals,Packaging,Biology,M1286,"Thermal Resistance, Transparency, Reactivity, Conductivity, Weight",77,Low,High,Challenging,Large,High
+A471,Healthcare,Watches,Computer Science,M1774,"Conductivity, Reactivity, Weight",97,Low,High,Challenging,Large,Low
+A472,Defense,Watches,Chemistry,M1322,"Transparency, Hardness, Thermal Resistance, Durability, Strength",99,Medium,Low,Expensive,Small,Low
+A473,EV Batteries,Antennas,Chemistry,M1573,"Hardness, Strength, Thermal Resistance, Conductivity",100,Medium,High,Expensive,Large,High
+A474,EV Batteries,Antennas,Computer Science,M1169,"Corrosion Resistance, Transparency",72,High,Moderate,Expensive,Small,High
+A475,Energy Storage,Car Bodies,Astronomy,M1145,"Thermal Resistance, Hardness, Durability, Transparency",82,Low,Moderate,Expensive,Medium,High
+A476,EV Batteries,Battery Cells,Biology,M1179,"Durability, Weight, Flexibility",92,High,Moderate,Expensive,Medium,Medium
+A477,Jewelry,Integrated Circuits,Medicine,M1261,"Corrosion Resistance, Thermal Resistance, Flexibility, Durability",87,Low,High,Feasible,Large,Medium
+A478,Automotive,Medical Implants,Chemistry,M1460,"Reactivity, Corrosion Resistance, Durability",75,High,Moderate,Expensive,Large,High
+A479,Healthcare,Armor Plating,Physics,M1894,"Reactivity, Thermal Resistance, Hardness, Weight",86,Low,High,Feasible,Medium,Medium
+A480,Quantum Computing,Lenses,Astronomy,M1563,"Strength, Weight, Corrosion Resistance, Conductivity, Reactivity",99,High,High,Challenging,Large,Low
+A481,Telecommunications,Armor Plating,Nanotechnology,M1102,"Weight, Durability, Transparency, Reactivity",74,Medium,Low,Challenging,Medium,High
+A482,Chip Cooling,Car Bodies,Medicine,M1322,"Conductivity, Reactivity, Thermal Resistance",93,High,Moderate,Challenging,Medium,Low
+A483,Healthcare,Quantum Chips,Physics,M1245,"Weight, Corrosion Resistance, Reactivity",70,Low,Low,Feasible,Medium,High
+A484,Automotive,Car Bodies,Physics,M1992,"Thermal Resistance, Durability, Hardness, Strength",84,Medium,Low,Expensive,Small,High
+A485,Solar Energy,Integrated Circuits,Biology,M1867,"Transparency, Conductivity, Reactivity",80,High,Low,Expensive,Medium,Medium
+A486,Telecommunications,Packaging,Engineering,M1464,"Thermal Resistance, Corrosion Resistance, Transparency",95,High,Low,Feasible,Small,High
+A487,EV Batteries,Catalysts,Engineering,M1179,"Thermal Resistance, Conductivity, Corrosion Resistance, Reactivity, Weight",92,Medium,High,Feasible,Medium,Medium
+A488,EV Batteries,Integrated Circuits,Astronomy,M1924,"Transparency, Conductivity, Durability, Hardness, Reactivity",94,Low,High,Challenging,Small,High
+A489,EV Batteries,Car Bodies,Medicine,M1652,"Corrosion Resistance, Conductivity",91,High,Moderate,Challenging,Medium,High
+A490,Precious Metals,Car Bodies,Physics,M1211,"Weight, Thermal Resistance, Transparency, Strength, Conductivity",71,Low,Low,Feasible,Small,High
+A491,Semiconductors,Catalysts,Geology,M1062,"Flexibility, Reactivity, Hardness",84,High,Moderate,Feasible,Small,High
+A492,Semiconductors,Satellites,Materials Science,M1464,"Flexibility, Strength, Durability, Hardness, Transparency",80,Medium,Low,Challenging,Large,Medium
+A493,Jewelry,Antennas,Nanotechnology,M1535,"Strength, Reactivity, Flexibility, Thermal Resistance",95,Medium,High,Expensive,Small,High
+A494,Aerospace,Medicines,Astronomy,M1169,"Hardness, Weight, Durability, Thermal Resistance, Transparency",100,High,Moderate,Feasible,Medium,High
+A495,Aerospace,Battery Cells,Materials Science,M1904,"Thermal Resistance, Corrosion Resistance, Flexibility, Reactivity",98,Low,Moderate,Feasible,Small,High
+A496,Solar Energy,Integrated Circuits,Nanotechnology,M1102,"Thermal Resistance, Reactivity, Conductivity, Transparency, Durability",71,Medium,Low,Challenging,Small,High
+A497,Surgery,Cement,Engineering,M1405,"Conductivity, Transparency",74,Low,Low,Expensive,Small,High
+A498,Jewelry,Surgical Tools,Nanotechnology,M1071,"Corrosion Resistance, Thermal Resistance, Hardness, Strength, Weight",78,High,High,Expensive,Large,High
+A499,Surgery,Medical Implants,Physics,M1652,"Reactivity, Corrosion Resistance, Durability",78,High,Low,Feasible,Medium,High
+A500,Automotive,Antennas,Geology,M1652,"Weight, Durability",86,High,Low,Feasible,Small,Medium

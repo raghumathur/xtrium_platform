@@ -1,0 +1,274 @@
+import streamlit as st
+from typing import List, Dict
+
+from app.components.discovery import (
+    render_filter_row,
+    render_chat_interface,
+    get_material_properties,
+    render_example_queries,
+    render_analysis_data,
+    migrate_chat_history,
+    save_current_chat,
+    load_saved_chat,
+    render_chat_history
+)
+
+def initialize_session_state():
+    """Initialize all session state variables."""
+    # Initialize chat messages if not present
+    if "chat_messages" not in st.session_state:
+        st.session_state.chat_messages = []
+    
+    # Initialize chat context if not present
+    if "chat_context" not in st.session_state:
+        st.session_state.chat_context = {}
+    
+    # Initialize selected filters if not present
+    if "selected_filters" not in st.session_state:
+        st.session_state.selected_filters = []
+    
+    # Initialize discovery agent if not present
+    if "discovery_agent" not in st.session_state:
+        from app.backends.genai.discovery_agent import DiscoveryAgent
+        try:
+            agent = DiscoveryAgent()
+            agent.load_databases(
+                st.session_state.database.materials_df,
+                st.session_state.database.applications_df,
+                st.session_state.database.properties_df
+            )
+            st.session_state.discovery_agent = agent
+        except Exception as e:
+            st.error(f"Error initializing discovery agent: {e}")
+            st.session_state.discovery_agent = None
+    
+    # Migrate chat history if needed
+    migrate_chat_history()
+
+def render_discovery_page():
+    """Render the material discovery page."""
+    st.header("Discovery Co-pilot")
+    
+    # Initialize session state
+    initialize_session_state()
+    
+    # Add custom CSS
+    st.markdown(
+        """
+        <style>
+        /* Style chat input */
+        .stChatInput > div {
+            padding: 0.2rem 1rem !important;
+            min-height: 35px !important;
+        }
+        
+        /* Center button content */
+        .stButton button {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* Style sliders */
+        .stSlider [data-baseweb="slider"] {
+            width: 100% !important;
+        }
+        
+        /* Style expanders */
+        .streamlit-expanderHeader {
+            font-size: 1.1em !important;
+            font-weight: 600 !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # Chat interface and message handling
+    if prompt := render_chat_interface(key_suffix="main"):
+        # Show user message
+        with st.chat_message("user"):
+            st.write(prompt)
+        
+        # Add to history
+        st.session_state.chat_messages.append({"role": "user", "content": prompt})
+        
+        # Process with agent
+        if st.session_state.discovery_agent:
+            with st.chat_message("assistant"):
+                with st.spinner("Analyzing your request..."):
+                    try:
+                        # Get material properties from filters
+                        material_properties = get_material_properties()
+                        
+                        # Update chat context
+                        st.session_state.chat_context.update({
+                            "last_query": prompt,
+                            "material_properties": material_properties
+                        })
+                        
+                        # Process the request
+                        response = st.session_state.discovery_agent.process_request(
+                            prompt,
+                            st.session_state.chat_context,
+                            st.session_state.selected_filters
+                        )
+                        
+                        # Add assistant message
+                        st.session_state.chat_messages.append({
+                            "role": "assistant",
+                            "content": response.get("content", "I couldn't process that request."),
+                            "data": response.get("data")
+                        })
+                        
+                        # Update chat context
+                        if "context_update" in response:
+                            st.session_state.chat_context.update(response["context_update"])
+                        
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Error processing request: {str(e)}")
+                        st.session_state.chat_messages.append({
+                            "role": "assistant",
+                            "content": "I encountered an error processing your request. Please try again."
+                        })
+                        st.rerun()
+    
+            min-height: 35px !important;
+        }
+        
+        /* Center button content */
+        .stButton button {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* Style sliders */
+        .stSlider [data-baseweb="slider"] {
+            width: 100% !important;
+        }
+        
+        /* Style expanders */
+        .streamlit-expanderHeader {
+            font-size: 1.1em !important;
+            font-weight: 600 !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+                        )
+                        
+                        # Add assistant message
+                        st.session_state.chat_messages.append({
+                            "role": "assistant",
+                            "content": response.get("content", "I couldn't process that request."),
+                            "data": response.get("data")
+                        })
+                        
+                        # Update chat context
+                        if "context_update" in response:
+                            st.session_state.chat_context.update(response["context_update"])
+                        
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Error processing request: {str(e)}")
+                        st.session_state.chat_messages.append({
+                            "role": "assistant",
+                            "content": "I encountered an error processing your request. Please try again."
+                        })
+                        st.rerun()
+    
+    # Sidebar for saved chats
+    with st.sidebar:
+        render_chat_history()
+        if st.session_state.chat_history:
+            for chat in reversed(st.session_state.chat_history):  # Show newest first
+                # Safely get chat metadata
+                chat_id = chat.get('id', 0)
+                chat_date = chat.get('date', 'Unknown Date')
+                chat_time = chat.get('time', 'Unknown Time')
+                chat_summary = chat.get('summary', 'No summary available')
+                
+                with st.expander(f"{chat_date} {chat_time}"):
+                    st.markdown(f"**Summary:** {chat_summary}")
+                    col1, col2 = st.columns([4, 1])
+                    with col1:
+                        if st.button("Load Chat", key=f"load_chat_{chat_id}"):
+                            load_saved_chat(chat)
+                    with col2:
+                        if st.button("Delete", key=f"delete_chat_{chat_id}"):
+                            # Find and remove chat by ID
+                            for i, c in enumerate(st.session_state.chat_history):
+                                if c.get('id') == chat_id:
+                                    st.session_state.chat_history.pop(i)
+                                    break
+                            st.rerun()
+        else:
+            st.info("No saved chats yet")
+        
+        if st.session_state.chat_messages:
+            st.button("Save Current Chat", on_click=save_current_chat)
+    
+    # Example queries expander
+    with st.expander("Example Queries", expanded=False):
+        st.markdown("""
+        Try asking about:
+        - :factory: **For Manufacturers**
+          - Materials with high chemical resistance for industrial equipment
+          - Heat-resistant materials up to 200°C for automotive parts
+        
+        - :art: **For Product Designers**
+          - Sustainable alternatives to ABS plastic
+          - Lightweight materials for aerospace applications
+        
+        - :package: **For Inventory Management**
+          - Have excess stainless steel 304 fasteners
+          - Looking to sell unused carbon fiber sheets
+        """)
+    
+    # Advanced Property Filters
+    render_property_filters()
+    
+    # Example queries
+    st.divider()
+    render_example_queries()
+
+def _generate_response(analysis: Dict) -> str:
+    """Generate a natural language response based on the analysis."""
+    persona = analysis["persona"]
+    intent = analysis["intent"]
+    
+    if intent == "explore_applications":
+        industries = list(analysis["industry_applications"].keys())
+        response = f"I've analyzed your material and found several promising applications. "
+        if industries:
+            response += f"The best matches are in {', '.join(industries)}. "
+        response += f"Overall market potential is {analysis['market_potential']['average']:.0f}%."
+    
+    elif intent == "find_materials":
+        similar_count = len(analysis["similar_materials"])
+        supplier_count = len(analysis["suppliers"])
+        response = f"I've found {similar_count} alternative materials that match your requirements. "
+        if supplier_count > 0:
+            response += f"There are {supplier_count} suppliers available for these materials."
+    
+    elif intent == "sell_inventory":
+        for rec in analysis["recommendations"]:
+            if rec["type"] == "potential_buyers":
+                buyer_count = len(rec["items"])
+                response = f"I've identified {buyer_count} potential buyers for your inventory. "
+                if buyer_count > 0:
+                    top_industries = set(buyer["industry"] for buyer in rec["items"][:3])
+                    response += f"They are primarily in the {', '.join(top_industries)} industries."
+    
+    else:
+        response = "I understand your request. Let me help you with that."
+    
+    return response
+
+
+if __name__ == "__main__":
+    render_discovery_page()

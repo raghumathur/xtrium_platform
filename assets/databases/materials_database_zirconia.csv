@@ -1,0 +1,34 @@
+Material ID,Remarks,Name,Property Overlap,Fracture Toughness (MPa m^0.5),Density (g/cm³),Flexural Strength (MPa),Compressive Strength (MPa)
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Ionic conductivity, high-temperature stability",,6.07,241,
+,Scandia-stabilized zirconia,ZrO2 + Sc2O3,"Ionic conductivity, chemical stability",,5.88,332,
+,Magnesia-stabilized zirconia,ZrO2 + MgO,"High-temperature stability, chemical inertness",4.80,5.7,519,2125
+,Tetragonal zirconia polycrystal,ZrO2 + Y2O3,"Hardness, wear resistance",6.80,6.18,847,2138
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Thermal insulation, wear resistance",,6.17,287,
+,Monolithic zirconia,ZrO2 + Y2O3,"Biocompatibility, wear resistance",6.50,6.05,985,2265
+,Zirconia-reinforced composite,ZrO2 + polymer matrix,"Lightweight, strength",4.80,4.3,417,1072
+,Zirconia-based composite,ZrO2 + proprietary additives,"High strength-to-weight ratio, metal-like toughness",32.00,5.63,1423,
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Biocompatibility, high strength",9.90,6.05,918,2147
+,Zirconia-toughened alumina,ZrO2 + Al2O3,"Wear resistance, biocompatibility",7.90,5.46,824,2981
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Ionic conductivity, high-temperature stability",,5.98,230,
+,Zirconia composite,ZrO2 + proprietary additives,"High strength, biocompatibility",15.10,6.06,1398,2451
+,Ceria-stabilized zirconia,ZrO2 + CeO2,"Wear resistance, thermal shock resistance",9.80,6.3,797,2219
+,Translucent zirconia,ZrO2 + Y2O3 + other additives,"Aesthetics, strength",5.80,6.2,687,2000
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"High strength, biocompatibility",10.00,6.05,1008,2235
+,Zirconia with enhanced fracture toughness,ZrO2 + Al2O3,High strength-to-weight ratio,17.00,5.07,994,
+,Ceria-stabilized zirconia,ZrO2 + CeO2,"Wear resistance, thermal shock resistance",10.00,,,
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Biocompatibility, wear resistance",10.00,6.05,1120,2335
+,Ceria-stabilized zirconia,ZrO2 + CeO2,"High strength, thermal shock resistance",10.00,,,
+,Zirconia with enhanced fracture toughness,ZrO2 + Al2O3,High strength-to-weight ratio,17.00,5.43,900,
+,Cubic zirconia,ZrO2 + CaO,"Optical clarity, durability",,5.99,,
+,Yttria-stabilized zirconia,ZrO2 + Y2O3,"Biocompatibility, aesthetics",10.00,6.05,1047,2185
+,Zirconia-toughened alumina,Al2O3 + ZrO2,"Biocompatibility, precision",8.00,,,
+,Zirconia nanoparticles,ZrO2,"Optical transparency, quantum confinement",6.5,5.6,1000,
+,Magnesia-stabilized zirconia,ZrO2 + MgO,"High-temperature stability, chemical inertness",5.80,5.74,411,1940
+,Tetragonal zirconia polycrystal,ZrO2 + Y2O3,"Hardness, wear resistance",8.00,6.16,897,2378
+,Zirconia-toughened alumina,Al2O3 + ZrO2,"High-temperature strength, wear resistance",8.00,,,
+,Zirconia-based ceramic composite,ZrO2 + SiC whiskers,"High strength-to-weight ratio, impact resistance",15.00,,,
+,Porous zirconia,ZrO2 + Y2O3,"Osseointegration, structural support",7.00,6.05,1097,2094
+,Zircalon 30,ZrO2 + proprietary additives,"High strength, biocompatibility",14.8,6.05,1200,2095
+,Zircalon 30,ZrO2 + proprietary additives,"Wear resistance, thermal shock resistance",14.8,6.05,1200,2100
+,CeramaZirc™ Ultra Tough,ZrO2 + proprietary additives,"High strength-to-weight ratio, impact resistance",17,5.75,1100,2300
+,CeramaZirc Ultra Tough,ZrO2 + Al2O3 platelets,"High strength, wear resistance",17,,,

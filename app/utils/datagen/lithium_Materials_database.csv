@@ -1,0 +1,10 @@
+Serial,Synthesizable,Material ID,Name,Crystal System,Space Group Symbol,Space Group Number,Sites,Energy Above Hull,Formation Energy,Predicted Stable,Volume,Density,Band Gap,Is Gap Direct,Is Metal,Magnetic Ordering,Total Magnetization,"Bulk Modulus, Voigt","Bulk Modulus, Reuss","Bulk Modulus, VRH","Shear Modulus, Voigt","Shear Modulus, Reuss","Shear Modulus, VRH",Elastic Anisotropy,Weighted Surface Energy,Surface Anisotropy,Shape Factor,Work Function,Piezoelectric Modulus,Total Dielectric Constant,Ionic Dielectric Constant,Static Dielectric Constant,Recyclability Index,Density Unit,Band Gap Unit,Missing Value Indicator,Last Updated,Matched Applications,Suppliers,Property_Cycle Life,Property_Density Reduction,Property_Elastic Modulus Increase,Property_Energy Consumption Reduction,Property_Energy Density,Property_Fast Charging Rate,Property_Fluidity Improvement,Property_Ionic Conductivity,Property_Lubrication Longevity,Property_Melting Point Reduction,Property_Neurological Stability,Property_Pressure Resistance,Property_Temperature Stability,Property_Therapeutic Concentration,Property_Thermal Stability,Property_Voltage
+,,mp-4002436,Li(NiMnCo)O2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,,1.0-3.0,,,,,,,,,,
+,,mp-1945107,Li-Al,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,7.0-10.0,10.0-15.0,,,,,,,,,,,,,
+,,mp-6251306,Li2CO3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,,,,,,,1.0-1.0,,,0.6-1.2,,
+,,mp-1478516,Li2O,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,5.0-15.0,,,0.8-0.95,,,10.0-20.0,,,,,,
+,,mp-5537156,LiCoO2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,100.0-265.0,,,,,,,,,,,
+,,mp-4730791,LiCoO2 / C,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,500.0-1000.0,,,,,,,,,,,,,,,3.6-3.7
+,,mp-3972645,LiFePO4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,,,,,,,,,,,100.0-150.0,
+,,mp-5837309,LiOH,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,,,,,2.0-5.0,,,200.0-500.0,100.0-150.0,,,
+,,mp-8447440,LiPF6 in EC/DMC,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,Lithium Applications,,,,,,,,,0.001-0.002,,,,,,,,
