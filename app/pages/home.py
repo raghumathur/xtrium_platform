@@ -473,11 +473,11 @@ def render_home_page():
         st.markdown("#### Quick Actions")
         col1, col2 = st.columns(2)
         with col1:
-            st.button("📊 Report", use_container_width=True)
-            st.button("🔍 Analyze", use_container_width=True)
+            st.button("📊 Report", key="report_btn", use_container_width=True)
+            st.button("🔍 Analyze", key="analyze_btn", use_container_width=True)
         with col2:
-            st.button("⚡ Optimize", use_container_width=True)
-            st.button("🌱 Track", use_container_width=True)
+            st.button("⚡ Optimize", key="optimize_btn", use_container_width=True)
+            st.button("🌱 Track", key="track_btn", use_container_width=True)
         
         # Add upcoming tasks
         st.markdown("#### Upcoming Tasks")
