@@ -45,40 +45,14 @@ def render_material_recommendation(applications_df, materials_df):
     """
     # st.markdown("## Material Recommendation Engine")
     
-    # Create two columns for paint type and color selection
-    col1, col2 = st.columns(2)
-    
-    # Select paint type in first column
-    with col1:
-        paint_types = ["Select paint type..."] + sorted(applications_df["paint_type"].dropna().unique().tolist())
-        selected_paint_type = st.selectbox(
-            "Select Paint Type",
-            options=paint_types,
-            key="selected_paint_type"
-        )
-    
-    # Color picker in second column
-    with col2:
-        selected_color = st.color_picker(
-            "Select Paint Color",
-            value="#000000",  # Default to black
-            key="selected_paint_color"
-        )
-    
-    if not selected_paint_type or selected_paint_type == "Select paint type...":
-        st.warning("Please select a paint type to proceed.")
-        return
-    
-    # Filter applications by paint type and select an application
-    filtered_applications = applications_df[applications_df["paint_type"] == selected_paint_type]
-    applications = ["Select application..."] + sorted(filtered_applications["use_case"].dropna().unique().tolist())
+    # Select an application
     selected_application = st.selectbox(
         "Select an Application",
-        options=applications,
+        options=sorted(applications_df["use_case"].dropna().unique()),
         key="selected_application"
     )
     
-    if not selected_application or selected_application == "Select application...":
+    if not selected_application:
         st.warning("Please select an application to proceed.")
         return
 
@@ -95,7 +69,7 @@ def render_material_recommendation(applications_df, materials_df):
     """
     
     # Get the selected application row
-    application_row = filtered_applications[filtered_applications["use_case"] == selected_application].iloc[0]
+    application_row = applications_df[applications_df["use_case"] == selected_application].iloc[0]
     #st.write(application_row)
 
     # Add dynamic filters for material properties
@@ -128,7 +102,8 @@ def display_material_recommendations(recommendations_df):
         property_overlap = row.get("Property Overlap", None)
         match_score = row.get("Match Score", 0)
 
-        with st.expander(material_name, icon=":material/insights:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
+        #with st.expander(material_name, icon=":material/science:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
+        with st.expander(material_name):
             st.markdown(f"#### Material: {material_name}")
             st.markdown(f"#### Chemical Formula: {material_formula}")
             #st.markdown(f"##### Property Overlap: {property_overlap}")
@@ -241,12 +216,12 @@ def create_gauge_chart(value, title):
 def get_sustainability_score():
     # Add histogram data based on sustainability dimensions
     # Environmental scores (e.g., greenhouse gas emissions, resource depletion)
-    environmental_scores = np.random.normal(loc=7, scale=1, size=200)
+    environmental_scores = np.random.normal(loc=3, scale=1, size=200)
     environmental_mean = np.mean(environmental_scores)  # Environmental
     environmental_weight = 0.4
 
     # Social scores (e.g., labor practices, community impact)
-    social_scores = np.random.normal(loc=8, scale=1.5, size=200)
+    social_scores = np.random.normal(loc=5, scale=1.5, size=200)
     social_mean = np.mean(social_scores)         # Social
     social_weight = 0.3
 
@@ -256,7 +231,7 @@ def get_sustainability_score():
     economic_weight = 0.2
 
     # Regulatory/geopolitical risk (e.g., political stability, compliance risks)
-    regulatory_scores = np.random.normal(loc=6, scale=1, size=200)
+    regulatory_scores = np.random.normal(loc=4, scale=1, size=200)
     regulatory_mean = np.mean(regulatory_scores)     # Regulatory Risk
     regulatory_weight = 0.1
 

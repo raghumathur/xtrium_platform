@@ -27,7 +27,7 @@ SIDEBAR_LINKS: Dict[str, List[Tuple[str, str, str]]] = {
     ],
     "discovery": [
         ("Search Materials", "", "search_materials"),
-        ("Browse Database", "", "browse_database"),
+        ("Manage Databases", "", "manage_databases"),
         ("Compare Materials", "", "compare_materials"),
         ("Saved Searches", "", "saved_searches")
     ],

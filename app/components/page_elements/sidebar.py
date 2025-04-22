@@ -48,14 +48,36 @@ def render_quick_links():
         </style>
     """, unsafe_allow_html=True)
     
+    # Render quick links
     links_html = []
     for label, icon, section in links:
         link_class = "sidebar-link"
+        if section == "manage_databases" and st.session_state.get("show_database_manager", False):
+            link_class += " active"
         links_html.append(
-            f'<a href="#{section}" class="{link_class}">{icon} {label}</a>'
+            f'<a href="#{section}" class="{link_class}" onclick="handleLinkClick(\'{section}\')">{icon} {label}</a>'
         )
     
+    # Add JavaScript to handle link clicks
+    st.markdown("""
+    <script>
+    function handleLinkClick(section) {
+        if (section === 'manage_databases') {
+            // Toggle database manager visibility
+            const sessionState = window.parent.streamlitPythonState;
+            sessionState.show_database_manager = !sessionState.show_database_manager;
+        }
+    }
+    </script>
+    """, unsafe_allow_html=True)
+    
     st.sidebar.markdown("".join(links_html), unsafe_allow_html=True)
+    
+    # Show database manager if link is clicked
+    if st.session_state.get("show_database_manager", False) and st.session_state.active_tab == "discovery":
+        from app.pages.manage_databases import render_manage_databases_page
+        with st.sidebar.expander("Database Manager", expanded=True):
+            render_manage_databases_page()
 
 def render_filter_section():
     """Render smart filters in the sidebar."""

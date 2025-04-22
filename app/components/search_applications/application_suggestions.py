@@ -84,7 +84,8 @@ def display_recommendations(recommendations_df, suppliers_df):
         match_score = row.get("Match_Score", 0)
 
         # Display the formatted recommendation
-        with st.expander(use_case, icon=":material/insights:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
+        #with st.expander(use_case, icon=":material/insights:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
+        with st.expander(use_case):
             st.markdown(f"#### Use Case: {use_case}")
             st.markdown(f"**Industry:** {industry}")
             st.markdown(f"**Property Overlap:** {property_overlap}")

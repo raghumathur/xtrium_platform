@@ -26,18 +26,44 @@ from app.components.search_applications.application_suggestions import get_recom
 def get_selected_materials(materials_df):
     """
     Handles the material selection functionality for the application.
-    This function directly uses the browse materials list functionality
-    to allow users to select from a predefined list of known materials.
+    This function allows users to choose between building materials using
+    periodic elements or searching from a predefined list of known materials.
 
     :param materials_df: Unified materials database DataFrame containing
-                       information about various materials.
-    :return: Selected materials based on the user's selection from the list.
+                         information about various materials.
+    :param applications_df: DataFrame containing application-specific details
+                            for different materials.
+    :param costs_df: DataFrame containing cost information for materials.
+    :return: Selected materials based on the user's pathway choice.
     """
-    
-    # Directly call browse_materials_list without showing selection type
-    selected_materials = browse_materials_list(materials_df)
-    
-    # Return the selected materials
+
+    # Define the two pathways for material selection
+    pathways = ["Build with periodic elements", "Search materials database"]
+    # 'pathways' is a list of options presented to the user to guide their
+    # material selection process.
+
+    # Create a radio button interface for the user to select their pathway
+    selection_type = st.radio(
+        "Select a pathway to define your material",  # Title for the input widget
+        range(len(pathways)),  # Options are represented by their indices
+        format_func=lambda x: pathways[x],  # Display the actual pathway text for each index
+        key="material_selection_type"  # Unique key to store this input's state
+    )
+    # The 'st.radio' widget is used for single-option selection. The user selects
+    # either "Build with periodic elements" or "Search known materials", and the
+    # corresponding index (0 or 1) is stored in 'selection_type'.
+
+    # Map the user's selection to the corresponding function for material selection
+    selected_materials = {0: build_from_periodic_table, 
+                          1: browse_materials_list}.get(selection_type, 
+                                                        lambda _: None)(materials_df)
+    # A dictionary maps the index of the selected pathway (0 or 1) to its corresponding
+    # handler function: 'build_from_periodic_table' or 'browse_materials_list'.
+    # If the user's choice doesn't match any predefined pathways, a default
+    # function returning None is used.
+    # The chosen function is then invoked with 'materials_df' as its argument.
+
+    # Return the materials selected based on the user's pathway choice
     return selected_materials
 
 
@@ -153,70 +179,33 @@ def browse_materials_list(materials_df):
 
     Args:
         materials_df (pd.DataFrame): A pandas DataFrame containing material data.
-                                   Must include 'name', 'remarks', and 'paint_type' columns.
+                                     Must include a column named 'name'.
 
     Returns:
         selected_materials (str or None): The name of the selected material, or None if no selection is made.
     """
     
-    # Initialize the variable to store the user's selection
+    # Initialize the variable to store the user's selection.
+    # Initially set to None in case no selection is made or there's an issue with the data.
     selected_materials = None
 
-    # Check if required columns exist in the DataFrame
-    required_columns = ["name", "remarks", "paint_type"]
-    if all(col in materials_df.columns for col in required_columns):
-        # Create two columns for paint type and color selection
-        col1, col2 = st.columns(2)
+    # Check if the DataFrame contains a column named 'name' which is required for displaying material options.
+    if "name" in materials_df.columns:
         
-        # Select paint type in first column
-        with col1:
-            paint_types = ["Select paint type..."] + sorted(materials_df["paint_type"].dropna().unique().tolist())
-            selected_paint_type = st.selectbox(
-                "Select Paint Type",
-                options=paint_types,
-                key="paint_type_selection"
-            )
-        
-        # Color picker in second column
-        with col2:
-            selected_color = st.color_picker(
-                "Select Paint Color",
-                value="#000000",  # Default to black
-                key="paint_color_selection"
-            )
-        
-        if not selected_paint_type or selected_paint_type == "Select paint type...":
-            st.warning("Please select a paint type to proceed.")
-            return
-        
-        # Filter materials by paint type
-        filtered_df = materials_df[materials_df["paint_type"] == selected_paint_type]
-        
-        # Create formatted options list combining remarks and name for filtered materials
-        formatted_options = [f"{row['remarks']} ({row['name']})" for _, row in filtered_df.iterrows()]
-        
-        # Create a mapping of formatted strings to material names for return value
-        options_to_names = {f"{row['remarks']} ({row['name']})": row['name'] for _, row in filtered_df.iterrows()}
-        
-        if formatted_options:
-            # Add a default option at the beginning of the list
-            formatted_options.insert(0, "Select a material...")
-            
-            # Display the selectbox with formatted options
-            selected_option = st.selectbox(
-                "Select a Material",
-                options=formatted_options,
-                key="compound_selection"
-            )
-            
-            # Map the selected formatted option back to the material name, only if not the default option
-            if selected_option != "Select a material...":
-                selected_materials = options_to_names.get(selected_option)
+        # Display a dropdown (select box) for material selection using Streamlit.
+        # The dropdown is populated with the list of material names from the 'name' column of the DataFrame.
+        selected_materials = st.selectbox(
+            "Select a Material",  # Label for the select box displayed in the UI.
+            options=materials_df["name"].tolist(),  # List of options derived from the 'name' column.
+            key="compound_selection"  # Key to identify the widget in Streamlit's session state.
+        )
     else:
-        # Display a warning if required columns are missing
+        # Display a warning message in the Streamlit app if the 'name' column is missing from the DataFrame.
         st.warning("There was an issue accessing the database")
-        print(f"Required columns {required_columns} not found in the materials database.")
         
+        # Print an error message in the console for debugging purposes.
+        print("'name' column not found in the materials database.")
+
     # Return the selected material name (or None if no selection is made).
     return selected_materials
 
