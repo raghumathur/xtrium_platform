@@ -40,6 +40,9 @@ def merge_category_dataframes(dataframes: list) -> pd.DataFrame:
 
     # Load sentence-transformers model for embedding generation
     model = SentenceTransformer("all-MiniLM-L6-v2")
+    
+    # Force CPU usage to avoid CUDA/device issues
+    model = model.cpu()
 
     # Generate embeddings for column names
     column_embeddings = model.encode(column_names, convert_to_tensor=True)
