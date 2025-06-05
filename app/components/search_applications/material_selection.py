@@ -97,7 +97,7 @@ def build_from_periodic_table(materials_df):
     periodic_table = load_periodic_table()
 
     # Divide the layout into three columns: element selection, action button, and shortlisted materials
-    col_elements, col_button, col_shortlist = st.columns([5, 1, 5])
+    col_elements, col_button, col_shortlist = st.columns([10, 1, 10])
     # Create a placeholder for displaying warning messages outside the columns
     warning_placeholder = st.empty()
 
@@ -131,17 +131,36 @@ def build_from_periodic_table(materials_df):
                 # Check if the 'name' column exists in the materials DataFrame
                 if "name" in materials_df.columns:
                     # Filter materials that contain all selected element symbols in their formulas
-                    shortlisted_names = list(
-                        set(
-                            materials_df[
-                                materials_df["name"].apply(
-                                    lambda x: all(symbol in parse_formula(x) for symbol in element_symbols)
-                                )
-                            ]["name"]
+                    # Get shortlisted materials based on selected elements
+                    shortlisted_df = materials_df[
+                        materials_df["name"].apply(
+                            lambda x: all(symbol in parse_formula(x) for symbol in element_symbols)
                         )
+                    ]
+                    # Create formatted list of "remarks (name)" for each material
+                    formatted_names = shortlisted_df.apply(
+                        lambda row: f"{row['remarks']} ({row['name']})" if pd.notna(row['remarks']) else row['name'],
+                        axis=1
                     )
-                    # Update session state with the shortlisted material names
+                    # Convert to a set to remove duplicates, then back to sorted list
+                    shortlisted_names = sorted(set(formatted_names))
+                    
+                    # Update session state with the unique shortlisted material names
                     st.session_state["shortlisted_names"] = shortlisted_names
+                    
+                    # Create a mapping from display names to chemical formulas
+                    # For each display name, find its corresponding row in shortlisted_df
+                    mapping = {}
+                    for display_name in shortlisted_names:
+                        # If display name is just the formula (no remarks)
+                        if '(' not in display_name:
+                            mapping[display_name] = display_name
+                        else:
+                            # Extract the formula from the display name (it's in parentheses)
+                            formula = display_name[display_name.rfind('(') + 1:display_name.rfind(')')]
+                            mapping[display_name] = formula
+                    
+                    st.session_state["shortlisted_mapping"] = mapping
                 else:
                     # Display a warning if the 'name' column is missing
                     warning_placeholder.warning("There was an issue accessing the database")
@@ -151,11 +170,14 @@ def build_from_periodic_table(materials_df):
     with col_shortlist:
         # Dropdown to select from the shortlisted materials
         if "shortlisted_names" in st.session_state:
-            st.selectbox(
+            selected = st.selectbox(
                 "Shortlisted Materials",  # Widget label
-                options=st.session_state["shortlisted_names"],  # List of shortlisted names
+                options=st.session_state["shortlisted_names"],  # List of formatted names
                 key="shortlisted_materials",  # Unique key for the widget
             )
+            # Store the actual chemical formula in session state if a selection is made
+            if selected:
+                st.session_state["selected_material_name"] = st.session_state["shortlisted_mapping"][selected]
         else:
             # Display an empty dropdown if no materials are shortlisted
             st.selectbox(
@@ -179,7 +201,7 @@ def browse_materials_list(materials_df):
 
     Args:
         materials_df (pd.DataFrame): A pandas DataFrame containing material data.
-                                     Must include a column named 'name'.
+                                     Must include columns named 'name' and 'remarks'.
 
     Returns:
         selected_materials (str or None): The name of the selected material, or None if no selection is made.
@@ -191,14 +213,34 @@ def browse_materials_list(materials_df):
 
     # Check if the DataFrame contains a column named 'name' which is required for displaying material options.
     if "name" in materials_df.columns:
+        # Create formatted display options with "remarks (name)" format similar to build_from_periodic_table
+        formatted_options = materials_df.apply(
+            lambda row: f"{row['remarks']} ({row['name']})" if pd.notna(row['remarks']) else row['name'],
+            axis=1
+        ).tolist()
         
-        # Display a dropdown (select box) for material selection using Streamlit.
-        # The dropdown is populated with the list of material names from the 'name' column of the DataFrame.
-        selected_materials = st.selectbox(
+        # Create a mapping from formatted display names to actual material names
+        name_mapping = {}
+        for i, display_name in enumerate(formatted_options):
+            name_mapping[display_name] = materials_df['name'].iloc[i]
+        
+        # Store the mapping in session state for later reference
+        if "material_name_mapping" not in st.session_state:
+            st.session_state["material_name_mapping"] = {}
+        st.session_state["material_name_mapping"] = name_mapping
+        
+        # Display the dropdown with formatted options
+        selected_option = st.selectbox(
             "Select a Material",  # Label for the select box displayed in the UI.
-            options=materials_df["name"].tolist(),  # List of options derived from the 'name' column.
+            options=formatted_options,  # List of formatted options
             key="compound_selection"  # Key to identify the widget in Streamlit's session state.
         )
+        
+        # Map the selected formatted option back to the actual material name
+        if selected_option:
+            selected_materials = name_mapping[selected_option]
+            # Store the material name in session state for consistency with build_from_periodic_table
+            st.session_state["selected_material_name"] = selected_materials
     else:
         # Display a warning message in the Streamlit app if the 'name' column is missing from the DataFrame.
         st.warning("There was an issue accessing the database")
@@ -241,7 +283,19 @@ def find_applications():
     if selected_materials:
         # Filter the materials dataframe to get the row corresponding to the selected material.
         # This assumes `name` is a column in materials_df that uniquely identifies each material.
-        selected_material_row = materials_df[materials_df["name"] == selected_materials].iloc[0]
+        
+        # Get the actual chemical formula from the mapping if it exists
+        selected_material_name = st.session_state.get("selected_material_name", selected_materials)
+        
+        # Get the matching materials
+        matching_materials = materials_df[materials_df["name"] == selected_material_name]
+        
+        # Check if we found any matches
+        if matching_materials.empty:
+            st.error(f"No material found with name: {selected_material_name}")
+            return
+            
+        selected_material_row = matching_materials.iloc[0]
         # Uncomment the line below to inspect the selected material row during debugging.
 
     # Monitor selected_materials for changes and reset filters if needed

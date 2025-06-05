@@ -38,11 +38,26 @@ def merge_category_dataframes(dataframes: list) -> pd.DataFrame:
     # Extract column names
     column_names = list(combined_df.columns)
 
-    # Load sentence-transformers model for embedding generation
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    # Load sentence-transformers model for embedding generation with fallback options
+    model = None
+    model_names = ["all-MiniLM-L6-v2", "paraphrase-MiniLM-L3-v2", "distilbert-base-nli-mean-tokens"]
     
-    # Force CPU usage to avoid CUDA/device issues
-    model = model.cpu()
+    for model_name in model_names:
+        try:
+            # Try to load the model with offline mode first
+            model = SentenceTransformer(model_name, device='cpu')
+            print(f"Successfully loaded model: {model_name}")
+            break
+        except Exception as e:
+            print(f"Failed to load model {model_name}: {str(e)}")
+            continue
+    
+    if model is None:
+        error_msg = "Failed to load any embedding model. Please check internet connection or model availability."
+        print(error_msg)
+        raise RuntimeError(error_msg)
+
+    # Model is already on CPU from initialization
 
     # Generate embeddings for column names
     column_embeddings = model.encode(column_names, convert_to_tensor=True)
