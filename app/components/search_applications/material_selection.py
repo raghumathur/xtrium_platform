@@ -8,14 +8,18 @@ from app.utils.import_helpers import st, np, pd
 from app.backends.database.dataframes import extract_dataframes
 
 # Import utility functions for working with periodic table data and chemical formulas:
-# - `load_periodic_table`: Loads data about chemical elements (e.g., atomic numbers, symbols, names).
-# - `extract_symbols`: Extracts element symbols from a given input (e.g., chemical formula).
 # - `parse_formula`: Parses a chemical formula into its component elements and their quantities.
-from app.utils.periodic_table import load_periodic_table, extract_symbols, parse_formula
+from app.utils.periodic_table import load_periodic_table, parse_formula
 
-# Import the function to render material filters in the app.
-# This is likely responsible for displaying filter UI components (e.g., dropdowns, checkboxes) that allow users to refine their search for materials.
-from app.components.search_applications.material_filters import render_filters
+# Import the material helper functions for unified material selection
+from app.utils.material_helpers import filter_by_elements, filter_by_material_types, create_display_to_name_map
+
+# Import the functions to render material filters in the app.
+# These are responsible for displaying filter UI components for material properties and recommendations.
+from app.components.search_applications.material_filters import (
+    render_filters, render_material_selection_filters, property_range_filters, material_type_filters,
+    periodic_element_filters, render_application_matching_preferences
+)
 from app.utils.property_filters import materials_property_filters
 
 # Import the function to generate application suggestions.
@@ -23,48 +27,175 @@ from app.utils.property_filters import materials_property_filters
 from app.components.search_applications.application_suggestions import get_recommendations
 #==========================================================================================
 
+def unified_material_selection(materials_df):
+    """
+    Unified material selection with progressive filtering.
+    
+    Combines periodic table element selection and database browsing with
+    advanced filtering capabilities. All filter UI rendering is delegated
+    to the render_material_selection_filters function.
+    
+    Args:
+        materials_df (pd.DataFrame): Materials database DataFrame
+        
+    Returns:
+        str or None: Selected material name or None if no selection
+    """
+    # Use the consolidated material filter rendering function
+    # This will render all filter UI and return the filtered materials dataframe
+    filtered_materials = render_material_selection_filters(materials_df)
+    
+    # If no materials match filters, return None
+    if filtered_materials.empty:
+        return None
+        
+    # Create formatted material name options for selection with improved NaN handling
+    def format_material_name(row):
+        # Handle potential missing values in any column
+        chemical_formula = str(row['chemical_formula']) if pd.notna(row.get('chemical_formula')) else 'Unknown'
+        
+        # Use commercial_name if available, otherwise use canonical_name if available
+        if pd.notna(row.get('commercial_name')):
+            return f"{row['commercial_name']} ({chemical_formula})"
+        elif pd.notna(row.get('canonical_name')):
+            return f"{row['canonical_name']} ({chemical_formula})"
+        else:
+            return chemical_formula
+    
+    formatted_materials = filtered_materials.apply(format_material_name, axis=1).tolist()
+    
+    # Create a mapping for display names to actual material names
+    display_to_name_map = create_display_to_name_map(filtered_materials)
+    
+    # If no mapping was created, return None
+    if not display_to_name_map:
+        st.error("Could not create material name mappings.")
+        return None
+        
+    # Add the mapping to session state for later use
+    st.session_state["material_display_map"] = display_to_name_map
+    
+    # Add divider before material selection
+    st.divider()
+    
+    # Select a material from the filtered list
+    # Convert all chemical_formula values to strings before sorting to avoid type comparison errors
+    filtered_material_names = sorted(filtered_materials["chemical_formula"].astype(str).unique().tolist())
+    selected_material = st.selectbox(
+        "Select Material",
+        options=formatted_materials,
+        index=0 if formatted_materials else None,
+        key="unified_material_selector"
+    )
+    
+    # Add divider after material selection
+    st.divider()
+    
+    # Get the actual material name from the mapping
+    if selected_material:
+        selected_material_name = display_to_name_map.get(selected_material)
+        st.session_state["selected_material_name"] = selected_material_name
+        
+        # Show selected material details
+        # Check if there are any materials matching the selected name before accessing the first row
+        # Ensure consistent string type comparison to prevent type mismatches
+        matched_materials = filtered_materials[filtered_materials["chemical_formula"].astype(str) == str(selected_material_name)]
+        if matched_materials.empty:
+            st.warning(f"No material found with the formula: {selected_material_name}")
+            return None
+        
+        selected_row = matched_materials.iloc[0]
+    
+        # Store numerical properties for use in application suggestions
+        numerical_properties = {}
+        for col in selected_row.index:
+            # Skip null values
+            if pd.isna(selected_row[col]):
+                continue
+                
+            # Check if the value is numeric
+            try:
+                # Convert to float to test if it's numeric
+                val = float(selected_row[col])
+                numerical_properties[col] = val
+            except (ValueError, TypeError):
+                # Skip non-numeric values
+                continue
+                
+        # Store the numerical properties in session state for later use
+        st.session_state["material_numerical_properties"] = numerical_properties
+        
+        with st.expander("Selected Material Details", expanded=True):
+            # Dynamically populate properties from the selected material row
+            # Skip internal or metadata fields that aren't meaningful to display
+            skip_columns = ['index', 'serial', '_id', 'id', 'timestamp', 'source', 'batch', 'property_overlap']
+            
+            # Collect all valid properties
+            details = {}
+            for col in selected_row.index:
+                # Skip null values and specified columns
+                if pd.isna(selected_row[col]) or col.lower() in skip_columns:
+                    continue
+                    
+                # Add to details dictionary
+                details[col] = selected_row[col]
+            
+            # Determine number of columns for display based on number of properties
+            num_properties = len(details)
+            if num_properties <= 4:
+                num_cols = 2
+            elif num_properties <= 9:
+                num_cols = 3
+            else:
+                num_cols = 4
+                
+            # Create the appropriate number of columns
+            cols = st.columns(num_cols)
+            
+            # Calculate properties per column (rounded up)
+            props_per_col = (num_properties + num_cols - 1) // num_cols
+            
+            # Display properties in columns
+            for i, (k, v) in enumerate(details.items()):
+                col_idx = i // props_per_col
+                # Ensure we don't exceed the number of columns
+                col_idx = min(col_idx, num_cols - 1)
+                with cols[col_idx]:
+                    # Format the property name and value
+                    property_name = k.replace('_', ' ').title()
+                    
+                    # Handle different value types
+                    if isinstance(v, (int, float)) and not isinstance(v, bool):
+                        # Format numbers with appropriate precision
+                        if float(v).is_integer():
+                            formatted_value = f"{int(v)}"
+                        else:
+                            formatted_value = f"{v:.4g}"
+                    else:
+                        # Convert to string for display
+                        formatted_value = str(v)
+                        
+                    st.write(f"**{property_name}:** {formatted_value}")
+        
+        return selected_material_name
+        
+    return None
+
+
 def get_selected_materials(materials_df):
     """
     Handles the material selection functionality for the application.
-    This function allows users to choose between building materials using
-    periodic elements or searching from a predefined list of known materials.
+    This function now uses the unified material selection approach.
 
-    :param materials_df: Unified materials database DataFrame containing
-                         information about various materials.
-    :param applications_df: DataFrame containing application-specific details
-                            for different materials.
-    :param costs_df: DataFrame containing cost information for materials.
-    :return: Selected materials based on the user's pathway choice.
+    Args:
+        materials_df (pd.DataFrame): Unified materials database DataFrame
+        
+    Returns:
+        str: The name of the selected material, or None if no selection is made
     """
-
-    # Define the two pathways for material selection
-    pathways = ["Build with periodic elements", "Search materials database"]
-    # 'pathways' is a list of options presented to the user to guide their
-    # material selection process.
-
-    # Create a radio button interface for the user to select their pathway
-    selection_type = st.radio(
-        "Select a pathway to define your material",  # Title for the input widget
-        range(len(pathways)),  # Options are represented by their indices
-        format_func=lambda x: pathways[x],  # Display the actual pathway text for each index
-        key="material_selection_type"  # Unique key to store this input's state
-    )
-    # The 'st.radio' widget is used for single-option selection. The user selects
-    # either "Build with periodic elements" or "Search known materials", and the
-    # corresponding index (0 or 1) is stored in 'selection_type'.
-
-    # Map the user's selection to the corresponding function for material selection
-    selected_materials = {0: build_from_periodic_table, 
-                          1: browse_materials_list}.get(selection_type, 
-                                                        lambda _: None)(materials_df)
-    # A dictionary maps the index of the selected pathway (0 or 1) to its corresponding
-    # handler function: 'build_from_periodic_table' or 'browse_materials_list'.
-    # If the user's choice doesn't match any predefined pathways, a default
-    # function returning None is used.
-    # The chosen function is then invoked with 'materials_df' as its argument.
-
-    # Return the materials selected based on the user's pathway choice
-    return selected_materials
+    # Use the unified material selection interface
+    selected_material = unified_material_selection(materials_df)
+    return selected_material
 
 
 def build_from_periodic_table(materials_df):
@@ -129,17 +260,17 @@ def build_from_periodic_table(materials_df):
                 element_symbols = extract_symbols(st.session_state["selected_pt_elements"])
 
                 # Check if the 'name' column exists in the materials DataFrame
-                if "name" in materials_df.columns:
+                if "chemical_formula" in materials_df.columns:
                     # Filter materials that contain all selected element symbols in their formulas
                     # Get shortlisted materials based on selected elements
                     shortlisted_df = materials_df[
-                        materials_df["name"].apply(
+                        materials_df["chemical_formula"].apply(
                             lambda x: all(symbol in parse_formula(x) for symbol in element_symbols)
                         )
                     ]
                     # Create formatted list of "remarks (name)" for each material
                     formatted_names = shortlisted_df.apply(
-                        lambda row: f"{row['remarks']} ({row['name']})" if pd.notna(row['remarks']) else row['name'],
+                        lambda row: f"{row['commercial_name']} ({row['chemical_formula']})" if pd.notna(row['commercial_name']) else row['chemical_formula'],
                         axis=1
                     )
                     # Convert to a set to remove duplicates, then back to sorted list
@@ -162,9 +293,9 @@ def build_from_periodic_table(materials_df):
                     
                     st.session_state["shortlisted_mapping"] = mapping
                 else:
-                    # Display a warning if the 'name' column is missing
+                    # Display a warning if the 'chemical_formula' column is missing
                     warning_placeholder.warning("There was an issue accessing the database")
-                    print("'name' column not found in the materials database.")
+                    print("'chemical_formula' column not found in the materials database.")
 
     # Column for displaying shortlisted materials
     with col_shortlist:
@@ -212,10 +343,10 @@ def browse_materials_list(materials_df):
     selected_materials = None
 
     # Check if the DataFrame contains a column named 'name' which is required for displaying material options.
-    if "name" in materials_df.columns:
+    if "chemical_formula" in materials_df.columns:
         # Create formatted display options with "remarks (name)" format similar to build_from_periodic_table
         formatted_options = materials_df.apply(
-            lambda row: f"{row['remarks']} ({row['name']})" if pd.notna(row['remarks']) else row['name'],
+            lambda row: f"{row['commercial_name']} ({row['chemical_formula']})" if pd.notna(row['commercial_name']) else row['chemical_formula'],
             axis=1
         ).tolist()
         
@@ -246,7 +377,7 @@ def browse_materials_list(materials_df):
         st.warning("There was an issue accessing the database")
         
         # Print an error message in the console for debugging purposes.
-        print("'name' column not found in the materials database.")
+        print("'chemical_formula' column not found in the materials database.")
 
     # Return the selected material name (or None if no selection is made).
     return selected_materials
@@ -256,39 +387,33 @@ def find_applications():
     """
     Processes input data to identify and recommend applications based on selected materials and dynamic filters.
     
-    Args:
-        databases (list): A list of databases containing materials, applications, and costs information.
-
+    Uses the unified material selection interface to allow users to filter and select materials,
+    then applies importance weights to properties for recommendation tuning.
+    
     Steps:
-        1. Extract dataframes from the provided databases.
-        2. Determine the selected material based on user interaction or predefined criteria.
-        3. Apply dynamic filters for recommendations.
-        4. Provide application recommendations based on the selected material and filters.
+        1. Extract dataframes from the databases.
+        2. Present unified material selection UI with progressive filtering.
+        3. Apply property importance weights for the selected material.
+        4. Provide application recommendations based on the selected material and weights.
     """
 
     # Initialize data structures to default values
-    selected_materials = None
+    selected_material = None
     selected_material_row = None 
 
-    # Extract DataFrames
-    # Extract relevant dataframes (e.g., materials, applications, and costs) from the input databases.
+    # Extract DataFrames from session state databases
     materials_df, applications_df, costs_df, suppliers_df = extract_dataframes(st.session_state.databases)
 
-    # Get the selected material
-    # This step retrieves a user-selected material based on interactions or criteria defined within the `get_selected_materials` function.
-    selected_materials = get_selected_materials(materials_df)
-    # Uncomment the line below for debugging or visualization of selected materials.
+    # Use the unified material selection interface
+    # This combines material type, element, and property filtering before material selection
+    selected_material = get_selected_materials(materials_df)
 
-    # selected_material_row = {col: None for col in materials_df.columns}
-    if selected_materials:
-        # Filter the materials dataframe to get the row corresponding to the selected material.
-        # This assumes `name` is a column in materials_df that uniquely identifies each material.
+    if selected_material:
+        # Get the actual material name and find its properties
+        selected_material_name = st.session_state.get("selected_material_name", selected_material)
         
-        # Get the actual chemical formula from the mapping if it exists
-        selected_material_name = st.session_state.get("selected_material_name", selected_materials)
-        
-        # Get the matching materials
-        matching_materials = materials_df[materials_df["name"] == selected_material_name]
+        # Get the matching materials - ensure consistent string type for comparison
+        matching_materials = materials_df[materials_df["chemical_formula"].astype(str) == str(selected_material_name)]
         
         # Check if we found any matches
         if matching_materials.empty:
@@ -296,32 +421,54 @@ def find_applications():
             return
             
         selected_material_row = matching_materials.iloc[0]
-        # Uncomment the line below to inspect the selected material row during debugging.
 
-    # Monitor selected_materials for changes and reset filters if needed
-    if "selected_materials" not in st.session_state:
-        st.session_state["selected_materials"] = None    
+    # Monitor selected material for changes and reset recommendation weights if needed
+    if "previous_selected_material" not in st.session_state:
+        st.session_state["previous_selected_material"] = None    
 
     # Check if the selected material has changed
-    if st.session_state["selected_materials"] != selected_materials:
-        st.session_state["filters"] = []  # Reset filters
-        st.session_state["selected_materials"] = selected_materials
-        #st.info("Filters reset due to material change.")
+    if st.session_state.get("previous_selected_material") != selected_material:
+        # Reset property weights when material changes
+        st.session_state["filters"] = []  
+        st.session_state["previous_selected_material"] = selected_material
 
-    # Step 3: Dynamic Filters
-    # Render dynamic filters based on the materials dataframe and any additional criteria (e.g., user input).
-    # Filters help refine recommendations based on user preferences or constraints.
-    if selected_materials and selected_material_row is not None and not selected_material_row.empty:
-        #dothisthing(0, materials_df, selected_material_row)
-        #dothatthing(materials_df, selected_material_row)
-        #selected_filters = render_filters(0, materials_df, selected_material_row)
-        selected_filters = materials_property_filters(0, materials_df, selected_material_row)
-        #st.write(selected_filters)
+    # Apply application matching preferences if a material is selected
+    matching_preferences = {}
+    if selected_material and selected_material_row is not None and not selected_material_row.empty:
+        # Use the new modular application matching preferences system
+        # This provides a comprehensive UI for property importance weighting,
+        # application domain focus, supply chain and sustainability preferences
+        matching_preferences = render_application_matching_preferences(
+            tab_index=0,
+            materials_df=materials_df,
+            selected_material_row=selected_material_row,
+            applications_df=applications_df
+        )
    
-    # Step 4: Generate Recommendations
-    # If a material is selected, and its corresponding row exists and is not empty, proceed to generate recommendations.
-    if selected_materials and selected_material_row is not None and not selected_material_row.empty:
-        # This function provides recommendations for applications based on the selected material, its properties, and the applied filters.
-        get_recommendations(applications_df, selected_material_row, selected_filters, suppliers_df)
-        # Alternatively, this line can be used to invoke another recommendation function (if implemented differently).
-        # recommend_applications_for_material(selected_material_row, applications_df, selected_filters)
+    # Generate recommendations if a material is selected
+    if selected_material and selected_material_row is not None and not selected_material_row.empty:
+        #st.markdown("### Application Recommendations")
+        
+        # Extract property weights for compatibility with current recommendation engine
+        property_weights = []
+        if "property_weights" in matching_preferences:
+            # Convert the new property weight format to the format expected by get_recommendations
+            property_weights = [
+                {
+                    "parameter": prop,
+                    "value": data["value"],
+                    "weightage": data["importance"]
+                } for prop, data in matching_preferences["property_weights"].items()
+            ]
+        
+        # Get recommendations based on material properties and matching preferences
+        get_recommendations(
+            applications_df,
+            selected_material_row,
+            property_weights,
+            suppliers_df,
+            # Pass additional preferences that may be used in enhanced recommendation logic
+            domains=matching_preferences.get("application_domains", []),
+            supply_chain=matching_preferences.get("supply_chain", {}),
+            sustainability=matching_preferences.get("sustainability", {})
+        )

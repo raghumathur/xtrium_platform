@@ -26,12 +26,18 @@ from app.backends.recommendation.recommendation import calculate_application_mat
 
 #==========================================================================================
 
-def get_recommendations(applications_df, selected_material_row, selected_filters, suppliers_df):
+def get_recommendations(applications_df, selected_material_row, selected_filters, suppliers_df, domains=None, supply_chain=None, sustainability=None):
     """
-    Suggest applications based on material properties.
+    Suggest applications based on material properties and application matching preferences.
 
-    :param materials_df: Unified materials database DataFrame.
-    :param applications_df: Unified applications database DataFrame.
+    Args:
+        applications_df (pd.DataFrame): Unified applications database DataFrame.
+        selected_material_row (pd.Series): The selected material's properties.
+        selected_filters (list): Property weights and filters for importance matching.
+        suppliers_df (pd.DataFrame): Supplier information dataframe.
+        domains (list, optional): Selected application domains for focusing recommendations.
+        supply_chain (dict, optional): Supply chain preferences including domestic preference, lead time and cost.
+        sustainability (dict, optional): Sustainability preferences including carbon footprint and recycling requirements.
     """
     # Initialize session state for filters
     if "filters" not in st.session_state:
@@ -45,11 +51,58 @@ def get_recommendations(applications_df, selected_material_row, selected_filters
     # Check session state to run the logic
     if st.session_state.get("run_suggestion", False):
         try:
+            # Filter applications by domain if domains are specified
+            filtered_applications = applications_df
+            if domains and len(domains) > 0:
+                # Filter applications by selected domains/industries
+                filtered_applications = applications_df[applications_df['Industry'].isin(domains)]
+                if filtered_applications.empty:
+                    # If no applications match the domains, display a warning and use all applications
+                    st.warning("No applications found in the selected domains. Showing all relevant applications instead.")
+                    filtered_applications = applications_df
+                    
+            # Apply supply chain and sustainability filters as pre-filters if applicable
+            if supply_chain and supply_chain.get('domestic_preferred', False):
+                # Filter for domestic suppliers if that preference is set
+                try:
+                    if 'DomesticSupply' in filtered_applications.columns:
+                        filtered_applications = filtered_applications[filtered_applications['DomesticSupply'] == True]
+                except Exception as e:
+                    st.info(f"Could not filter by domestic supply: {e}")
+            
+            if sustainability and sustainability.get('recycling_required', False):
+                # Filter for recyclable materials if that preference is set
+                try:
+                    if 'Recyclable' in filtered_applications.columns:
+                        filtered_applications = filtered_applications[filtered_applications['Recyclable'] == True]
+                except Exception as e:
+                    st.info(f"Could not filter by recyclability: {e}")
+            
+            # Get recommendations based on the filtered applications and material properties
             suggested_applications = recommend_applications_for_material(
                 selected_material_row,
-                applications_df,
+                filtered_applications,
                 selected_filters
             )
+            
+            # Apply additional ranking based on supply chain and sustainability preferences
+            if not suggested_applications.empty and (supply_chain or sustainability):
+                try:
+                    # Example of adjusting scores based on preferences - this would be expanded
+                    # with more sophisticated logic as outlined in the Material-Application Matching improvements
+                    for idx, row in suggested_applications.iterrows():
+                        score_adj = 0
+                        
+                        # Adjust for lead time if preference set
+                        if supply_chain and 'LeadTime' in row and 'lead_time_max' in supply_chain:
+                            if row['LeadTime'] <= supply_chain['lead_time_max']:
+                                score_adj += 5  # Bonus for meeting lead time requirements
+                        
+                        # Apply the score adjustment
+                        if score_adj != 0:
+                            suggested_applications.at[idx, 'Match_Score'] = min(100, row['Match_Score'] + score_adj)
+                except Exception as e:
+                    st.info(f"Could not apply all preference adjustments: {e}")
             if not suggested_applications.empty:
                 st.markdown("### Suggested Applications")
                 display_recommendations(suggested_applications, suppliers_df)
@@ -131,24 +184,30 @@ def display_recommendations(recommendations_df, suppliers_df):
             #    st.info(f"Contacting suppliers for use case: {use_case}")
             #if st.button("Commercial Information", key=f"contact_{use_case}"):
             #if st.button("Show Supplier Card", key=f"somekey_{idx}"):
-            display_business_card(
-                name="Business contact A",
-                contact_email="buscon_a@example.com",
-                contact_number="+1234567890",
-                availability="In Stock",
-                cost_range="$180 - $200",
-                rating=4.5,
-                certifications="ISO 9001, CE"
-            )
-            display_business_card(
-                name="Business contact B",
-                contact_email="buscon_b@example.com",
-                contact_number="+9876543210",
-                availability="Limited",
-                cost_range="$50 - $150",
-                rating=4.0,
-                certifications="RoHS"
-            )
+            # Get supplier data for this application
+            supplier_data = suppliers_df.iloc[0].to_dict() if not suppliers_df.empty else {
+                'Name': 'Business Contact A',
+                'Email': 'buscon_a@example.com',
+                'Phone': '+1234567890',
+                'Website': 'supplier-a.example.com',
+                'Quality Score': 4.5,
+                'Rating': 4.5,
+                'Response Time': 24,
+                'Certifications': 'ISO 9001, CE'
+            }
+            display_business_card(supplier_data)
+            # Get second supplier data
+            supplier_data = suppliers_df.iloc[1].to_dict() if len(suppliers_df) > 1 else {
+                'Name': 'Business Contact B',
+                'Email': 'buscon_b@example.com',
+                'Phone': '+9876543210',
+                'Website': 'supplier-b.example.com',
+                'Quality Score': 4.0,
+                'Rating': 4.0,
+                'Response Time': 48,
+                'Certifications': 'RoHS'
+            }
+            display_business_card(supplier_data)
 
 
 # Create gauge charts
@@ -264,7 +323,7 @@ def get_confidence_score(match_score, sustainability_rating):
     return confidence_score
 
 # Define a function to display a business card
-def display_business_card(name, contact_email, contact_number, availability, cost_range, rating, certifications):
+def display_business_card(supplier_data):
     # Create a container for the business card
     with st.container():
         st.markdown(
@@ -314,22 +373,24 @@ def display_business_card(name, contact_email, contact_number, availability, cos
         st.markdown(
             f"""
             <div class="business-card">
-                <h4>{name}</h4>
+                <h4>{supplier_data['Name']}</h4>
                 <div class="card-grid">
                     <div>
-                        <p><b>Email:</b> <a href="mailto:{contact_email}" style="color:#4da6ff;">{contact_email}</a></p>
-                        <p><b>Phone:</b> <a href="tel:{contact_number}" style="color:#4da6ff;">{contact_number}</a></p>
-                        <p><b>Availability:</b> {availability}</p>
+                        <p><b>Email:</b> <a href="mailto:{supplier_data['Email']}" style="color:#4da6ff;">{supplier_data['Email']}</a></p>
+                        <p><b>Phone:</b> <a href="tel:{supplier_data['Phone']}" style="color:#4da6ff;">{supplier_data['Phone']}</a></p>
+                        <p><b>Website:</b> <a href="https://{supplier_data['Website']}" style="color:#4da6ff;" target="_blank">{supplier_data['Website']}</a></p>
                     </div>
                     <div>
-                        <p><b>Cost Range:</b> {cost_range}</p>
-                        <p><b>Rating:</b> {rating} ⭐</p>
-                        <p><b>Certifications:</b> {certifications}</p>
+                        <p><b>Quality Score:</b> {supplier_data['Quality Score']:.1f} / 5.0</p>
+                        <p><b>Rating:</b> {supplier_data.get('Rating', 4.5)} ⭐</p>
+                        <p><b>Response Time:</b> {supplier_data['Response Time']}h</p>
+                        <p><b>Certifications:</b> {supplier_data['Certifications'].split(', ')[0] if supplier_data['Certifications'] else 'N/A'}</p>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <a href="mailto:{contact_email}" target="_blank"><button>Email</button></a>
-                    <a href="tel:{contact_number}" target="_blank"><button>Call</button></a>
+                    <a href="mailto:{supplier_data['Email']}" target="_blank"><button>Email</button></a>
+                    <a href="tel:{supplier_data['Phone']}" target="_blank"><button>Call</button></a>
+                    <a href="https://{supplier_data['Website']}" target="_blank"><button>Visit Website</button></a>
                 </div>
             </div>
             """,
