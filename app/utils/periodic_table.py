@@ -36,7 +36,24 @@ def parse_formula(formula):
     """
     Splits a chemical formula into its component element symbols using regex.
     For example, "C6H12O6" -> ["C", "H", "O"]
+    
+    Args:
+        formula: Chemical formula (string or convertible to string)
+        
+    Returns:
+        list: List of element symbols found in the formula
     """
+    # Ensure the formula is a string
+    if not isinstance(formula, str):
+        try:
+            formula = str(formula)
+        except:
+            return []
+    
+    # Handle empty or invalid formulas
+    if not formula:
+        return []
+        
     # Match one or two capital letters optionally followed by lowercase letters
     pattern = r'[A-Z][a-z]?'
     return re.findall(pattern, formula)
