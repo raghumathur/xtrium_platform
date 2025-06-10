@@ -88,9 +88,6 @@ def unified_material_selection(materials_df):
         key="unified_material_selector"
     )
     
-    # Add divider after material selection
-    st.divider()
-    
     # Get the actual material name from the mapping
     if selected_material:
         selected_material_name = display_to_name_map.get(selected_material)
@@ -125,7 +122,7 @@ def unified_material_selection(materials_df):
         # Store the numerical properties in session state for later use
         st.session_state["material_numerical_properties"] = numerical_properties
         
-        with st.expander("Selected Material Details", expanded=True):
+        with st.expander("Selected Material Details", expanded=False):
             # Dynamically populate properties from the selected material row
             # Skip internal or metadata fields that aren't meaningful to display
             skip_columns = ['index', 'serial', '_id', 'id', 'timestamp', 'source', 'batch', 'property_overlap']
@@ -177,7 +174,10 @@ def unified_material_selection(materials_df):
                         
                     st.write(f"**{property_name}:** {formatted_value}")
         
-        return selected_material_name
+    # Add divider after material selection
+    st.divider()
+    
+    return selected_material_name
         
     return None
 

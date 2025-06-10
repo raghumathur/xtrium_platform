@@ -167,7 +167,7 @@ def render_material_selection_filters(materials_df):
                 filtered_materials = filter_by_elements(filtered_materials, selected_elements)
         
         # === PROPERTY RANGE FILTERS ===
-        st.subheader("Filter by Properties")
+        # st.subheader("Filter by Properties")
         
         # Apply property range filters
         property_filters = property_range_filters(materials_df)
