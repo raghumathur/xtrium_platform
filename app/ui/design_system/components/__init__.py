@@ -12,7 +12,7 @@ def get_button_styles():
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         background: none;
         border: 1px solid {Colors.DIVIDER};
         color: {Colors.TEXT_PRIMARY};

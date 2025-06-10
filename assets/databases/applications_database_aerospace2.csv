@@ -1,0 +1,37 @@
+Use-case,Industry,Commercial name,Chemical Name,Chemical Formula,Tensile Strength (MPa),Yield Strength (MPa),Density (g/cm³),Thermal Conductivity (W/m·K)
+Jet engine exhaust systems,Aerospace,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Turbine blades and discs,Aerospace,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Combustion liners and spray bars,Aerospace,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Engine thrust-reverser systems,Aerospace,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Aircraft ducting systems,Aerospace,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Turbine shroud rings,Aerospace,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Heat exchanger tubing,Power Generation,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Marine exhaust systems,Marine,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Chemical processing equipment,Chemical,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Nuclear reactor components,Nuclear,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Automotive turbocharger rotors,Automotive,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Oil and gas wellhead components,Oil & Gas,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Waste-to-energy plant components,Energy,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Biomedical implants,Medical,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Additive manufacturing (3D printing),Manufacturing,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Subsea communication cable sheathing,Telecommunications,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Steam liner bellows,Marine,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Submarine auxiliary propulsion motors,Marine,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Valve gates in oil & gas wells,Oil & Gas,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Downhole tools for oil extraction,Oil & Gas,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Chemical reactors in refineries,Chemical,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Surgical instruments,Medical,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Wind turbine components,Renewable Energy,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Solar energy system components,Renewable Energy,Inconel 718,Nickel-based superalloy,Ni-Cr-Fe-Nb-Mo-Ti-Al alloy,1034–1380,758–1034,8.15-8.22,11.2-11.6
+Dehydration drums in paper industry,Pulp & Paper,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Steam heaters in paper production,Pulp & Paper,Inconel 625,Nickel-based superalloy,Ni-Cr-Mo-Nb alloy,827–1034,414–517,8.40-8.48,9.8–11.4
+Chemical reactors in acid environments,Chemical,Hastelloy C-276,Nickel-Molybdenum-Chromium Alloy,Ni-Mo-Cr-Fe-W,790–1999,355–1724,8.85-8.92,9.6-10.0
+Orthopedic implants,Medical,Titanium Grade 5,Titanium-Aluminum-Vanadium Alloy,Ti-6Al-4V,862–1170,795–1100,4.40-4.45,6.7–7.5
+Surgical tools,Medical,Titanium Grade 5,Titanium-Aluminum-Vanadium Alloy,Ti-6Al-4V,862–1170,795–1100,4.40-4.45,6.7–7.5
+Exhaust manifolds,Automotive,Stainless Steel 316,Austenitic Stainless Steel,Fe-Cr-Ni-Mo,620–795,206,7.9-8.1,16.0-16.4
+Food processing equipment,Food Processing,Stainless Steel 316,Austenitic Stainless Steel,Fe-Cr-Ni-Mo,620–795,200-210,7.9-8.1,16.0-16.4
+Pharmaceutical vessels,Pharmaceutical,Stainless Steel 316,Austenitic Stainless Steel,Fe-Cr-Ni-Mo,620–795,200-210,7.9-8.1,16.0-16.4
+Chemical scrubbers,Environmental,Hastelloy C-276,Nickel-Molybdenum-Chromium Alloy,Ni-Mo-Cr-Fe-W,790–1999,355–1724,8.85-8.92,9.6-10.0
+Piping in geothermal power plants,Energy,Hastelloy C-276,Nickel-Molybdenum-Chromium Alloy,Ni-Mo-Cr-Fe-W,790–1999,355–1724,8.85-8.92,9.6-10.0
+Jet engine compressor blades,Aerospace,Titanium Grade 5,Titanium-Aluminum-Vanadium Alloy,Ti-6Al-4V,862–1170,795–1100,4.40-4.45,6.7–7.5
+Marine fasteners,Marine,Stainless Steel 316,Austenitic Stainless Steel,Fe-Cr-Ni-Mo,620–795,200-210,7.9-8.1,16.0-16.4
