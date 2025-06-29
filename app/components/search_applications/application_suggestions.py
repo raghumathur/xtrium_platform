@@ -14,7 +14,7 @@
 
 # Import the graph_objects module from Plotly.
 # `go` is used for building figures from low-level components such as traces (lines, bars, etc.).
-from app.utils.import_helpers import st, np, random, ff, go
+from app.utils.import_helpers import st, np, pd, random, ff, go
 
 # Import specific functions from the recommendation module.
 # `calculate_application_match`: A function used to compute the compatibility or "match" score
@@ -28,7 +28,7 @@ from app.backends.recommendation.recommendation import calculate_application_mat
 
 def get_recommendations(applications_df, selected_material_row, selected_filters, suppliers_df, domains=None, supply_chain=None, sustainability=None):
     """
-    Suggest applications based on material properties and application matching preferences.
+    Suggest applications based on material properties and application property ranges.
 
     Args:
         applications_df (pd.DataFrame): Unified applications database DataFrame.
@@ -55,64 +55,32 @@ def get_recommendations(applications_df, selected_material_row, selected_filters
             filtered_applications = applications_df
             if domains and len(domains) > 0:
                 # Filter applications by selected domains/industries
-                filtered_applications = applications_df[applications_df['Industry'].isin(domains)]
+                filtered_applications = applications_df[applications_df['industry'].isin(domains)]
                 if filtered_applications.empty:
                     # If no applications match the domains, display a warning and use all applications
                     st.warning("No applications found in the selected domains. Showing all relevant applications instead.")
                     filtered_applications = applications_df
-                    
-            # Apply supply chain and sustainability filters as pre-filters if applicable
-            if supply_chain and supply_chain.get('domestic_preferred', False):
-                # Filter for domestic suppliers if that preference is set
-                try:
-                    if 'DomesticSupply' in filtered_applications.columns:
-                        filtered_applications = filtered_applications[filtered_applications['DomesticSupply'] == True]
-                except Exception as e:
-                    st.info(f"Could not filter by domestic supply: {e}")
             
-            if sustainability and sustainability.get('recycling_required', False):
-                # Filter for recyclable materials if that preference is set
-                try:
-                    if 'Recyclable' in filtered_applications.columns:
-                        filtered_applications = filtered_applications[filtered_applications['Recyclable'] == True]
-                except Exception as e:
-                    st.info(f"Could not filter by recyclability: {e}")
+            # Use our simplified direct property matching logic
+            recommendations = direct_property_matching(selected_material_row, filtered_applications)
             
-            # Get recommendations based on the filtered applications and material properties
-            suggested_applications = recommend_applications_for_material(
-                selected_material_row,
-                filtered_applications,
-                selected_filters
-            )
-            
-            # Apply additional ranking based on supply chain and sustainability preferences
-            if not suggested_applications.empty and (supply_chain or sustainability):
-                try:
-                    # Example of adjusting scores based on preferences - this would be expanded
-                    # with more sophisticated logic as outlined in the Material-Application Matching improvements
-                    for idx, row in suggested_applications.iterrows():
-                        score_adj = 0
-                        
-                        # Adjust for lead time if preference set
-                        if supply_chain and 'LeadTime' in row and 'lead_time_max' in supply_chain:
-                            if row['LeadTime'] <= supply_chain['lead_time_max']:
-                                score_adj += 5  # Bonus for meeting lead time requirements
-                        
-                        # Apply the score adjustment
-                        if score_adj != 0:
-                            suggested_applications.at[idx, 'Match_Score'] = min(100, row['Match_Score'] + score_adj)
-                except Exception as e:
-                    st.info(f"Could not apply all preference adjustments: {e}")
-            if not suggested_applications.empty:
-                st.markdown("### Suggested Applications")
-                display_recommendations(suggested_applications, suppliers_df)
+            if recommendations.empty:
+                st.warning("No matching applications found based on properties. Check material properties or expand your criteria.")
             else:
-                st.warning("No applications match the selected criteria.")
+                st.markdown("### Suggested Applications")
+                # Display recommendations
+                display_recommendations(recommendations, suppliers_df)
+                
+            # Reset the suggestion flag
+            st.session_state["run_suggestion"] = False
         except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
-
-    # Reset the flag after execution
-    st.session_state["run_suggestion"] = False
+            st.error(f"Error generating recommendations: {str(e)}")
+            import traceback
+            st.error(traceback.format_exc())
+            st.session_state["run_suggestion"] = False
+    #else:
+        # If button not clicked, show a message
+        #st.info("Click 'Suggest Applications' to find applications matching this material's properties.")
 
 def display_recommendations(recommendations_df, suppliers_df):
     """
@@ -127,88 +95,79 @@ def display_recommendations(recommendations_df, suppliers_df):
 
     # Iterate over each row in the recommendations DataFrame
     for idx, row in recommendations_df.iterrows():
-#        col1, col2 = st.columns([2,8])
-#        with col1:
-#            st.write("image here")
-#        with col2:
-        use_case = row.get("Use-Case", "Unknown")
-        industry = row.get("Industry", "Unknown")
-        property_overlap = row.get("Property Overlap", "Unknown")
-        match_score = row.get("Match_Score", 0)
+        use_case = row.get("use_case", "Unknown")
+        industry = row.get("industry", "Unknown")
+        property_overlap = row.get("property_overlap", "Unknown")
+        match_score = row.get("match_score", 0)
 
-        # Display the formatted recommendation
-        #with st.expander(use_case, icon=":material/insights:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
-        with st.expander(use_case):
-            st.markdown(f"#### Use Case: {use_case}")
-            st.markdown(f"**Industry:** {industry}")
-            st.markdown(f"**Property Overlap:** {property_overlap}")
+        # Display the formatted recommendation with "Industry | Use-case" format
+        with st.expander(f"{industry} | {use_case}"):
+            # Create two columns for layout
+            col1, col2 = st.columns([5,5])
             
-            # st.divider()
-            # Display the match score as a progress bar
-            st.progress(int(match_score))  # Convert Match Score to integer
-            #st.markdown(f"**Properties Match Score:** {match_score}%")
-            st.markdown(
-                f"""
-                <div style="text-align: center; font-weight: bold; font-size: 16px;">
-                    Properties Match Score: {match_score}% 
-                    <p> </p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-            # st.divider()
-            sustainability_rating = get_sustainability_score()
-            confidence_score = get_confidence_score(match_score, sustainability_rating)
-
-            # Normalize all scores to 5-star ratings
-            match_score_normalized = (match_score / 100) * 5
-            confidence_score_normalized = (confidence_score / 10) * 5
-            sustainability_score_normalized = sustainability_rating
-
-            # Create individual charts
-            match_chart = create_gauge_chart(match_score_normalized, "Compatibility Score")
-            confidence_chart = create_gauge_chart(confidence_score_normalized, "Overall Confidence Score")
-            sustainability_chart = create_gauge_chart(sustainability_score_normalized, "Sustainability Score")
-
-            # st.divider()            
-            col1, col2, col3 = st.columns([3,5,3])
+            # Left column: Use case information
             with col1:
-                st.plotly_chart(match_chart, use_container_width=True, key=f"match_chart_{idx}")
+                st.markdown(f"#### Use Case: {use_case}")
+                st.markdown(f"**Industry:** {industry}")
+                st.markdown(f"**Property Overlap:** {property_overlap}")
+            
+            # Right column: Match score progress bar
             with col2:
-                st.plotly_chart(confidence_chart, use_container_width=True, key=f"confidence_chart_{idx}")
-            with col3:
-                st.plotly_chart(sustainability_chart, use_container_width=True, key=f"sustainability_chart_{idx}")
-            # st.divider()
+                st.markdown('<div style="background-color:rgba(38, 39, 48, 0.03); padding:1.5em; border-radius:8px;">', unsafe_allow_html=True)
+                
+                # Property Match Score
+                st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Property Match Score</span><span style="color:#00cc96;font-weight:500">{match_score}%</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:{match_score}%;height:100%;background-color:#00cc96"></div></div></div>', unsafe_allow_html=True)
+                
+                # Sustainability Score
+                st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Sustainability Score (Demo Locked)</span><span style="color:#888888;font-weight:500">n/a</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:100%;height:100%;background-color:#888888"></div></div></div>', unsafe_allow_html=True)
+                
+                # Supply Chain Score
+                st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Supply Chain Score (Demo Locked)</span><span style="color:#888888;font-weight:500">n/a</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:100%;height:100%;background-color:#888888"></div></div></div>', unsafe_allow_html=True)
+                
+                # Xtrium Confidence Score
+                st.markdown(f'<div style="margin-top:0.75em;padding-top:0.75em;border-top:1px solid rgba(38, 39, 48, 0.1)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1.1em;font-weight:600">Xtrium Confidence Score</span><span style="color:#4dabf7;font-weight:600">{match_score}%</span></div><div style="background-color:rgba(77, 171, 247, 0.2);height:8px;border-radius:4px"><div style="width:{match_score}%;height:100%;background-color:#4dabf7"></div></div></div>', unsafe_allow_html=True)
+                
+                st.markdown('</div>', unsafe_allow_html=True)
 
-            # Contact suppliers button
-            #    st.info(f"Contacting suppliers for use case: {use_case}")
-            #if st.button("Commercial Information", key=f"contact_{use_case}"):
-            #if st.button("Show Supplier Card", key=f"somekey_{idx}"):
-            # Get supplier data for this application
-            supplier_data = suppliers_df.iloc[0].to_dict() if not suppliers_df.empty else {
-                'Name': 'Business Contact A',
-                'Email': 'buscon_a@example.com',
-                'Phone': '+1234567890',
-                'Website': 'supplier-a.example.com',
-                'Quality Score': 4.5,
-                'Rating': 4.5,
-                'Response Time': 24,
-                'Certifications': 'ISO 9001, CE'
-            }
-            display_business_card(supplier_data)
-            # Get second supplier data
-            supplier_data = suppliers_df.iloc[1].to_dict() if len(suppliers_df) > 1 else {
-                'Name': 'Business Contact B',
-                'Email': 'buscon_b@example.com',
-                'Phone': '+9876543210',
-                'Website': 'supplier-b.example.com',
-                'Quality Score': 4.0,
-                'Rating': 4.0,
-                'Response Time': 48,
-                'Certifications': 'RoHS'
-            }
-            display_business_card(supplier_data)
+            # Contact form with collapsible section using HTML/CSS
+            st.markdown("""<div style='margin-top:1em;'>
+                <details style='border-radius:4px; padding:8px;'>
+                    <summary style='cursor:pointer; padding:4px; user-select:none;'>
+                        📧 Contact Organization
+                    </summary>
+                    <div style='padding:12px 8px 4px 8px;'>
+            """, unsafe_allow_html=True)
+            
+            # Add organization selection dropdown
+            organization = st.selectbox(
+                "Select Organization to Contact",
+                options=[],  # Empty list for now
+                index=None,  # No default selection
+                placeholder="Choose an organization",
+                key=f"org_select_{idx}_{use_case}_{industry}"  # Add truly unique key with row index
+            )
+            
+            with st.form(key=f"contact_{idx}_{use_case}_{industry}"):
+                col1, col2 = st.columns(2)
+                with col1:
+                    name = st.text_input("Your Name")
+                with col2:
+                    email = st.text_input("Your Email")
+                message = st.text_area("Message", placeholder=f"Enter your message for {use_case}...")
+                if st.form_submit_button("Send Inquiry"):
+                    st.success("Thank you! Your inquiry has been sent.")
+        
+            st.markdown("</div></details></div>", unsafe_allow_html=True)
 
+                #st.progress(int(match_score))  # Convert Match Score to integer
+                #st.markdown(
+                #    f"""
+                #    <div style="text-align: center; font-weight: bold; font-size: 16px;">
+                #        Properties Match Score: {match_score}% 
+                #    </div>
+                #    """,
+                #    unsafe_allow_html=True,
+                #)
 
 # Create gauge charts
 def create_gauge_chart(value, title):
@@ -235,164 +194,108 @@ def create_gauge_chart(value, title):
     #)
     return fig
 
-def get_sustainability_score():
-    # Add histogram data based on sustainability dimensions
-    # Environmental scores (e.g., greenhouse gas emissions, resource depletion)
-    environmental_scores = np.random.normal(loc=6, scale=1, size=200)
-    environmental_mean = np.mean(environmental_scores)  # Environmental
-    environmental_weight = 0.4
-
-    # Social scores (e.g., labor practices, community impact)
-    social_scores = np.random.normal(loc=8, scale=1.5, size=200)
-    social_mean = np.mean(social_scores)         # Social
-    social_weight = 0.3
-
-    # Economic scores (e.g., cost-effectiveness, lifecycle value)
-    economic_scores = np.random.normal(loc=7, scale=2, size=200)
-    economic_mean = np.mean(economic_scores)       # Economic Viability
-    economic_weight = 0.2
-
-    # Regulatory/geopolitical risk (e.g., political stability, compliance risks)
-    regulatory_scores = np.random.normal(loc=7, scale=1, size=200)
-    regulatory_mean = np.mean(regulatory_scores)     # Regulatory Risk
-    regulatory_weight = 0.1
-
-    # Calculate Sustainability Score
-    sustainability_score = (environmental_weight * environmental_mean + 
-                            social_weight * social_mean + 
-                            economic_weight * economic_mean + 
-                            regulatory_weight * regulatory_mean)/(
-                                    environmental_weight + 
-                                    social_weight + 
-                                    economic_weight + 
-                                    regulatory_weight)
-
-    # Convert to star rating out of 5
-    star_rating = (sustainability_score / 10) * 5
-
-    # Group data together
-    hist_data = [environmental_scores, social_scores, economic_scores, regulatory_scores]
-
-    # Updated group labels
-    group_labels = ['Environmental Impact', 'Social Impact', 'Economic Viability', 'Regulatory Risk']
-
-    # Create distplot with custom bin_size
-    bin_sizes = [0.5, 0.75, 1, 0.5]
-
-    dist_chart = ff.create_distplot(
-        hist_data, group_labels, bin_size=bin_sizes
-    )
-
-    # Update layout to fix axes
-    dist_chart.update_layout(
-        xaxis=dict(
-            title="Sustainability Score (out of 10)",
-            range=[0, 10]  # Fix the x-axis range to 0-10
-        ),
-        yaxis=dict(
-            title="Sustainability Impact",
-            range=[0, None]  # Start y-axis at 0, upper limit adjusts automatically
-        )
-        #,
-        #title="Sustainability Score Distribution Across Key Dimensions"
-    )
-
-    st.plotly_chart(dist_chart, use_container_width=True)
-
-    # Display the chart in Streamlit
-    # st.markdown(f"**Material Sustainability Analysis**")
+def direct_property_matching(material_row, applications_df):
+    """
+    Basic property matching that compares material properties with application property ranges.
     
-    # st.markdown(
-    # f"""
-    # <div style="text-align: center; font-weight: bold; font-size: 16px;">
-    #     Material Sustainability Analysis
-    # </div>
-    # """,
-    # unsafe_allow_html=True,
-    # )
+    Steps:
+    1. Find common numeric property columns between material and applications
+    2. For each application, check if material properties fall within required ranges
+    3. Calculate match scores based on how well properties match requirements
     
-    return star_rating
-
-def get_confidence_score(match_score, sustainability_rating):
-    # Calculate confidence score (example calculation)
-    w_m, w_s = 0.6, 0.4  # Weights
-    M = (match_score / 100) * 10  # Scale match score to 10
-    S = (sustainability_rating / 5) * 10  # Scale sustainability to 10
-    confidence_score = (w_m * M + w_s * S) / (w_m + w_s)
-
-    return confidence_score
-
-# Define a function to display a business card
-def display_business_card(supplier_data):
-    # Create a container for the business card
-    with st.container():
-        st.markdown(
-            """
-            <style>
-            .business-card {
-                background-color: #222; /* Matches dark themes */
-                color: #f1f1f1;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                margin-bottom: 20px;
-            }
-            .business-card h3 {
-                margin: 0;
-                color: #ffae42;
-            }
-            .business-card p {
-                margin: 5px 0;
-                line-height: 1.5;
-            }
-            .card-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .action-buttons button {
-                margin-right: 10px;
-                font-size: 14px;
-                padding: 8px 12px;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                color: white;
-                cursor: pointer;
-                font-weight: bold;
-                text-decoration: none;
-            }
-            .action-buttons button:hover {
-                background-color: #0056b3;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            f"""
-            <div class="business-card">
-                <h4>{supplier_data['Name']}</h4>
-                <div class="card-grid">
-                    <div>
-                        <p><b>Email:</b> <a href="mailto:{supplier_data['Email']}" style="color:#4da6ff;">{supplier_data['Email']}</a></p>
-                        <p><b>Phone:</b> <a href="tel:{supplier_data['Phone']}" style="color:#4da6ff;">{supplier_data['Phone']}</a></p>
-                        <p><b>Website:</b> <a href="https://{supplier_data['Website']}" style="color:#4da6ff;" target="_blank">{supplier_data['Website']}</a></p>
-                    </div>
-                    <div>
-                        <p><b>Quality Score:</b> {supplier_data['Quality Score']:.1f} / 5.0</p>
-                        <p><b>Rating:</b> {supplier_data.get('Rating', 4.5)} ⭐</p>
-                        <p><b>Response Time:</b> {supplier_data['Response Time']}h</p>
-                        <p><b>Certifications:</b> {supplier_data['Certifications'].split(', ')[0] if supplier_data['Certifications'] else 'N/A'}</p>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <a href="mailto:{supplier_data['Email']}" target="_blank"><button>Email</button></a>
-                    <a href="tel:{supplier_data['Phone']}" target="_blank"><button>Call</button></a>
-                    <a href="https://{supplier_data['Website']}" target="_blank"><button>Visit Website</button></a>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    Args:
+        material_row (pd.Series): The selected material's properties
+        applications_df (pd.DataFrame): DataFrame of applications with property requirements
+        
+    Returns:
+        pd.DataFrame: Applications with match scores, sorted by match score
+    """
+    # Initialize results list
+    results = []
+    
+    # Get all columns in the material row that have numeric values
+    material_numeric_cols = []
+    for col in material_row.index:
+        if isinstance(material_row[col], (int, float)) and not pd.isna(material_row[col]):
+            material_numeric_cols.append(col)
+    
+    # Process each application
+    for idx, application_row in applications_df.iterrows():
+        # Track matches and total properties compared
+        property_matches = 0
+        total_properties = 0
+        matching_properties = []
+        
+        for prop in material_numeric_cols:
+            # Skip if property doesn't exist in application or it's not a range
+            if prop not in application_row or not isinstance(application_row[prop], str):
+                continue
+                
+            # Try to extract min-max values from the range string
+            try:
+                # Extract range from format like "10-20" or ">=5" or "<=30"
+                range_str = application_row[prop]
+                
+                # Handle different range formats
+                if '-' in range_str:
+                    # Format: "min-max"
+                    min_val, max_val = map(float, range_str.split('-'))
+                elif '>=' in range_str:
+                    # Format: ">=min"
+                    min_val = float(range_str.replace('>=', '').strip())
+                    max_val = float('inf')
+                elif '<=' in range_str:
+                    # Format: "<=max"
+                    min_val = float('-inf')
+                    max_val = float(range_str.replace('<=', '').strip())
+                elif '>' in range_str:
+                    # Format: ">min"
+                    min_val = float(range_str.replace('>', '').strip())
+                    max_val = float('inf')
+                    # Add small epsilon to make it strictly greater than
+                    min_val += 0.0001
+                elif '<' in range_str:
+                    # Format: "<max"
+                    min_val = float('-inf')
+                    max_val = float(range_str.replace('<', '').strip())
+                    # Subtract small epsilon to make it strictly less than
+                    max_val -= 0.0001
+                else:
+                    # Try to interpret as a single value (equality)
+                    min_val = max_val = float(range_str)
+            except (ValueError, TypeError):
+                # Skip if can't parse range
+                continue
+                
+            # Count this as a property we're comparing
+            total_properties += 1
+            
+            # Check if material property falls within range
+            material_value = material_row[prop]
+            if min_val <= material_value <= max_val:
+                property_matches += 1
+                matching_properties.append(prop)
+                
+        # Calculate match score if we compared any properties
+        if total_properties > 0:
+            match_score = (property_matches / total_properties) * 100
+            
+            # Add to results
+            results.append({
+                "use_case": application_row.get("use_case", f"Semiconductor Application {idx+1}"),
+                "industry": application_row.get("industry", "N/A"),
+                "property_overlap": application_row.get("property_overlap", "N/A"),
+                "match_score": round(match_score, 1),
+                "matching_properties": property_matches,
+                "total_properties": total_properties
+            })
+    
+    # Convert to DataFrame and sort by match score
+    if results:
+        results_df = pd.DataFrame(results).sort_values(by="match_score", ascending=False)
+        # Keep only applications with at least one matching property
+        results_df = results_df[results_df["matching_properties"] > 0]
+        return results_df
+    else:
+        return pd.DataFrame(columns=["use_case", "industry", "property_overlap", "match_score", 
+                                    "matching_properties", "total_properties"])

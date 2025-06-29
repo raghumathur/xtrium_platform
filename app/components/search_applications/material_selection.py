@@ -382,7 +382,6 @@ def browse_materials_list(materials_df):
     # Return the selected material name (or None if no selection is made).
     return selected_materials
 
-
 def find_applications():
     """
     Processes input data to identify and recommend applications based on selected materials and dynamic filters.

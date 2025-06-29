@@ -144,29 +144,30 @@ def display_material_recommendations(recommendations_df):
             with col3:
                 st.plotly_chart(sustainability_chart, use_container_width=True, key=f"sustainability_chart_{idx}")
             #st.divider()
-            #supp_modal = modal("key=supp_key_{idx}", title="Suppliers Info")
-            #modalbutton = st.button(label='Commercial Info')
-            #if modalbutton:
-            #    with supp_modal.contaoner():
-            #            st.markdown('test')
-            display_business_card(
-                name="Company A",
-                contact_email="company_a@example.com",
-                contact_number="+1234567890",
-                #availability="In Stock",
-                cost_range="$180 - $200",
-                rating=4.5,
-                certifications="ISO 9001, CE"
-            )
-            display_business_card(
-                name="Company B",
-                contact_email="supplier_b@example.com",
-                contact_number="+9876543210",
-                #availability="Limited",
-                cost_range="$50 - $150",
-                rating=4.0,
-                certifications="RoHS"
-            )
+            # Get supplier data for this material
+            supplier_data = {
+                'Name': 'Company A',
+                'Email': 'supplier_a@example.com',
+                'Phone': '+1234567890',
+                'Website': 'supplier-a.example.com',
+                'Quality Score': 4.5,
+                'Rating': 4.5,
+                'Response Time': 24,
+                'Certifications': 'ISO 9001, CE'
+            }
+            display_business_card(supplier_data)
+            # Get second supplier data
+            supplier_data = {
+                'Name': 'Company B',
+                'Email': 'supplier_b@example.com',
+                'Phone': '+9876543210',
+                'Website': 'supplier-b.example.com',
+                'Quality Score': 4.0,
+                'Rating': 4.0,
+                'Response Time': 48,
+                'Certifications': 'RoHS'
+            }
+            display_business_card(supplier_data)
 
 
 def find_materials():
@@ -300,8 +301,7 @@ def get_confidence_score(match_score, sustainability_rating):
     return confidence_score
 
 # Define a function to display a business card
-#def display_business_card(name, contact_email, contact_number, availability, cost_range, rating, certifications):
-def display_business_card(name, contact_email, contact_number, cost_range, rating, certifications):
+def display_business_card(supplier_data):
     # Create a container for the business card
     with st.container():
         st.markdown(
@@ -351,21 +351,24 @@ def display_business_card(name, contact_email, contact_number, cost_range, ratin
         st.markdown(
             f"""
             <div class="business-card">
-                <h4>{name}</h4>
+                <h4>{supplier_data['Name']}</h4>
                 <div class="card-grid">
                     <div>
-                        <p><b>Email:</b> <a href="mailto:{contact_email}" style="color:#4da6ff;">{contact_email}</a></p>
-                        <p><b>Phone:</b> <a href="tel:{contact_number}" style="color:#4da6ff;">{contact_number}</a></p>
+                        <p><b>Email:</b> <a href="mailto:{supplier_data['Email']}" style="color:#4da6ff;">{supplier_data['Email']}</a></p>
+                        <p><b>Phone:</b> <a href="tel:{supplier_data['Phone']}" style="color:#4da6ff;">{supplier_data['Phone']}</a></p>
+                        <p><b>Website:</b> <a href="https://{supplier_data['Website']}" style="color:#4da6ff;" target="_blank">{supplier_data['Website']}</a></p>
                     </div>
                     <div>
-                        <p><b>Cost Range:</b> {cost_range}</p>
-                        <p><b>Rating:</b> {rating} ⭐</p>
-                        <p><b>Certifications:</b> {certifications}</p>
+                        <p><b>Quality Score:</b> {supplier_data['Quality Score']:.1f} / 5.0</p>
+                        <p><b>Rating:</b> {supplier_data.get('Rating', 4.5)} ⭐</p>
+                        <p><b>Response Time:</b> {supplier_data['Response Time']}h</p>
+                        <p><b>Certifications:</b> {supplier_data['Certifications'].split(', ')[0] if supplier_data['Certifications'] else 'N/A'}</p>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <a href="mailto:{contact_email}" target="_blank"><button>Email</button></a>
-                    <a href="tel:{contact_number}" target="_blank"><button>Call</button></a>
+                    <a href="mailto:{supplier_data['Email']}" target="_blank"><button>Email</button></a>
+                    <a href="tel:{supplier_data['Phone']}" target="_blank"><button>Call</button></a>
+                    <a href="https://{supplier_data['Website']}" target="_blank"><button>Visit Website</button></a>
                 </div>
             </div>
             """,

@@ -115,7 +115,7 @@ def render_material_selection_filters(materials_df):
     original_count = len(filtered_materials)
     
     # Create a collapsible expander for all filters with Clear button in the header
-    expander_label = "Filters"
+    expander_label = "Material Filters"
     
     # Create the expander
     with st.expander(expander_label, expanded=False):
