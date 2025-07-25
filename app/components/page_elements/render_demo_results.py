@@ -1,59 +1,38 @@
 import streamlit as st
 import pandas as pd
 import time
+import os
 from typing import Dict, List, Optional, Tuple, Union
+from app.ui.styles import get_chip_styles, get_section_header_styles, get_confidence_bar_styles, get_table_styles
 
-# Styling constants
-STYLE_CHIP = """
-    display:inline-block;
-    padding:4px 12px;
-    margin:2px;
-    background-color:rgba(38, 39, 48, 0.8);
-    border-radius:15px;
-    font-size:0.9em;
-    border:1px solid rgba(128, 128, 128, 0.4);
-    color:#ffffff
-"""
+# Use centralized styling
+STYLE_CHIP = get_chip_styles()
+STYLE_SECTION_HEADER = get_section_header_styles()
+STYLE_CONFIDENCE_BAR = get_confidence_bar_styles()
+STYLE_TABLE = get_table_styles()
 
-STYLE_SECTION_HEADER = """
-    color:#666666;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    font-size:0.85em;
-    margin-bottom:1em
-"""
+# Define database paths
+CURRENT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+MATERIALS_DB_PATH = []
+APPLICATIONS_DB_PATH = []
+#MATERIALS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'materials_database_steel.csv')
+#APPLICATIONS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'applications_database_steel.csv')
 
-STYLE_CONFIDENCE_BAR = """
-    background-color:rgba(38, 39, 48, 0.8);
-    padding:8px 12px;
-    margin:4px 0;
-    border-radius:4px;
-    font-size:0.9em
-"""
+# Read databases
+def load_database():
+    """Load materials and applications databases"""
+    try:
+        # Since the paths are now empty lists, return empty DataFrames
+        # to avoid file not found errors
+        materials_df = pd.DataFrame()
+        applications_df = pd.DataFrame()
+        return materials_df, applications_df
+    except Exception as e:
+        st.error(f"Error loading database: {e}")
+        return None, None
 
-STYLE_TABLE = """
-    table {
-        font-size: 0.9em;
-        width: 100%;
-        color: rgb(49, 51, 63) !important;
-    }
-    thead tr th {
-        background-color: #f0f2f6 !important;
-        color: rgb(49, 51, 63) !important;
-        font-weight: bold !important;
-    }
-    tbody tr:first-child td {
-        background-color: white !important;
-        color: rgb(49, 51, 63) !important;
-    }
-    tbody td:first-child {
-        color: rgb(49, 51, 63) !important;
-    }
-    td {
-        padding: 8px;
-        background-color: white !important;
-    }
-"""
+# Load data
+materials_df, applications_df = load_database()
 
 # Demo data structures
 DEMO_PARSED_ENTITIES = {
@@ -1023,16 +1002,73 @@ def render_application_details(app: Dict[str, any]) -> None:
 
 def render_application_suggestions() -> None:
     """Render AI-matched application suggestions."""
-    st.markdown("### Here's what Xtrium found...")
     
-    # Render each application with a delay
-    for i, app in enumerate(DEMO_APPLICATIONS):
-        # Add delay for all but the first item
-        if i > 0:
-            time.sleep(0.5)
-            
-        with st.expander(app['component']):
-            render_application_details(app)
+    # Applications header
+    st.markdown(f"""
+        <div style='{STYLE_SECTION_HEADER}'>
+            <h2>📊 Steel Applications & Use Cases</h2>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Use CSV data if available, otherwise fall back to demo data
+    if applications_df is not None and not applications_df.empty:
+        # Convert each row to our application data structure
+        for idx, row in applications_df.iterrows():
+            # Limit to a reasonable number of applications
+            if idx >= 5:
+                break
+                
+            # Create application data structure from CSV row
+            app_data = {
+                'component': row['Use-case'],
+                'use_case': row['Commercial name'],
+                'sector': row['Industry'],
+                'required_properties': {
+                    'Tensile Strength': f"{row['Tensile Strength (MPa)']} MPa" if 'Tensile Strength (MPa)' in row else 'N/A',
+                    'Yield Strength': f"{row['Yield Strength (MPa)']} MPa" if 'Yield Strength (MPa)' in row else 'N/A',
+                    'Density': f"{row['Density (g/cm³)']} g/cm³" if 'Density (g/cm³)' in row else 'N/A',
+                    'Thermal Conductivity': f"{row['Thermal Conductivity (W/m·K)']} W/m·K" if 'Thermal Conductivity (W/m·K)' in row else 'N/A'
+                },
+                'sustainability': {
+                    'recycled_content': row['Recyclability (%)'] if 'Recyclability (%)' in row else 75,
+                    'carbon_footprint': {'value': row['Carbon Footprint (kg CO2e/kg)'] if 'Carbon Footprint (kg CO2e/kg)' in row else 2.8, 'unit': 'kgCO2/kg'},
+                    'energy_reduction': row['Energy Efficiency (%)'] if 'Energy Efficiency (%)' in row else 60,
+                    'waste_reduction': 0.85,
+                    'circular_materials': {'percentage': row['Recyclability (%)'] if 'Recyclability (%)' in row else 75, 'recyclable_components': ['structural elements', 'fasteners']}
+                },
+                'supply_chain_data': {
+                    'manufacturers': [
+                        {'name': f"Steel Solutions Inc. - {row['Type'] if 'Type' in row else 'Specialty'}", 'location': 'USA', 'lead_time': '6-8 weeks', 'certifications': ['ISO 9001:2015', 'ISO 14001']}
+                    ],
+                    'processing_capabilities': ['forging', 'machining', 'heat treatment'],
+                    'regional_availability': ['North America', 'Europe', 'Asia'],
+                    'typical_lead_time': '6-8 weeks'
+                },
+                'consumers': [
+                    {'name': row['Industry'] + ' Leaders', 'location': 'Global', 'annual_volume': '50,000 units', 
+                    'rating': 4.8, 'certifications': ['ISO 9001:2015'], 'quality_score': 95}
+                ]
+            }
+            # Add delay for all but the first item
+            if idx > 0:
+                time.sleep(0.25)
+                
+            with st.expander(app_data['component'], expanded=(idx == 0)):
+                render_application_details(app_data)
+    else:
+        # Fall back to demo data
+        st.warning("Could not load steel applications data. Using demo data instead.")
+        for idx, app in enumerate(DEMO_APPLICATIONS):
+            # Limit to 5 applications for brevity
+            if idx >= 5:
+                break
+                
+            # Add delay for all but the first item
+            if idx > 0:
+                time.sleep(0.5)
+                
+            with st.expander(app['component'], expanded=(idx == 0)):
+                render_application_details(app)
 
 def render_report(query: Optional[str] = None) -> None:
     """Render a comprehensive report based on the user's query.
@@ -1118,15 +1154,25 @@ STYLE_MATERIAL_HEADER = """
 def render_material_properties_table() -> None:
     """Render key material properties relevant to the user's requirements."""
     
-    with st.expander("⁂ Key Factors Report"):
+    if materials_df is None or materials_df.empty:
+        material_name = DEMO_PARSED_ENTITIES['material']
+        st.error("Unable to load material database. Using demo data instead.")
+    else:
+        # Use actual material data from first row for demonstration
+        material_name = materials_df.iloc[0]['Commercial name'] if 'Commercial name' in materials_df.columns else DEMO_PARSED_ENTITIES['material']
+    
+    with st.expander("⁂ Key Material Properties"):
         # Material header with query context
         st.markdown("""
             <div style='{}'>
-                <p style='color:#666666; text-transform:uppercase; letter-spacing:1px; font-size:0.8em; margin:0;'>Material Insights</p>
-                <h3 style='margin:0.2em 0; font-size:1.2em;'>Inconel 625</h3>
-                <p style='color:#666666; font-size:0.9em; margin:0.2em 0;'>Properties analyzed in context of aerospace and energy applications</p>
+                <p style='color:#666666; text-transform:uppercase; letter-spacing:1px; font-size:0.8em; margin:0;'>Material Analysis</p>
+                <h3 style='margin:0.2em 0; font-size:1.2em;'>{}</h3>
+                <p style='color:#666666; font-size:0.9em; margin:0.2em 0;'>Properties analyzed in context of high-temperature, corrosion-resistant applications</p>
             </div>
-        """.format(STYLE_MATERIAL_HEADER), unsafe_allow_html=True)
+        """.format(
+            STYLE_MATERIAL_HEADER,
+            material_name
+        ), unsafe_allow_html=True)
         
         # Separator before first section
         st.markdown("""<hr style='border:none; height:1px; background-color:rgba(38, 39, 48, 0.1); 
@@ -1139,73 +1185,87 @@ def render_material_properties_table() -> None:
         # Column 1: High-Temperature Properties
         with col1:
             render_key_property_card(
-                "Temperature Resistance",
-                "Excellent up to 980°C",
-                "Enables high-efficiency operation and reduced energy consumption in extreme temperature applications.",
+                "Tensile Strength", 
+                tensile_strength, 
+                "Excellent high-temperature strength retention",
                 0.98,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
+                "https://www.specialmetals.com/assets/smc/documents/alloys/inconel/inconel-alloy-625.pdf"
             )
-            render_key_property_card(
-                "Thermal Conductivity",
-                "9.8 W/m·K at 21°C",
-                "Optimizes heat distribution in high-temperature operations, improving energy efficiency.",
-                0.96,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
-            )
-            render_key_property_card(
-                "Thermal Expansion",
-                "12.8 μm/m·°C",
-                "Ensures dimensional stability in thermal cycling applications.",
-                0.94,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
-            )
-        
-        # Column 2: Mechanical Properties
+            
         with col2:
             render_key_property_card(
-                "Tensile Strength",
-                "830-980 MPa",
-                "High strength enables material reduction while maintaining performance.",
+                "Yield Strength", 
+                yield_strength, 
+                "Superior load-bearing capacity in extreme environments",
                 0.97,
-                "https://www.nickelinstitute.org/media/1673/in625_497_.pdf"
+                "https://www.specialmetals.com/assets/smc/documents/alloys/inconel/inconel-alloy-625.pdf"
             )
-            render_key_property_card(
-                "Yield Strength",
-                "415-520 MPa",
-                "Excellent load-bearing capacity for critical aerospace components.",
-                0.95,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
-            )
-            render_key_property_card(
-                "Fatigue Resistance",
-                "High Cycle  > 10⁸",
-                "Extended service life under cyclic loading conditions.",
-                0.93,
-                "https://www.sciencedirect.com/science/article/pii/S2214914719312231"
-            )
-        
-        # Column 3: Environmental Properties
+            
         with col3:
             render_key_property_card(
-                "Corrosion Resistance",
-                "Superior in aggressive environments",
-                "Minimizes maintenance needs and extends service life, reducing resource consumption.",
+                "Density", 
+                density, 
+                "Weight-efficient high-performance material",
+                0.96
+            )
+            
+        # Create three columns for the thermal properties
+        st.markdown("#### Thermal & Chemical Properties")
+        col4, col5, col6 = st.columns(3)
+        
+        with col4:
+            render_key_property_card(
+                "Melting Point", 
+                melting_point, 
+                "Suitable for high-temperature applications",
                 0.96,
-                "https://www.sciencedirect.com/science/article/pii/S2238785420319007"
+                "https://www.specialmetals.com/assets/smc/documents/alloys/inconel/inconel-alloy-625.pdf"
             )
+            
+        with col5:
             render_key_property_card(
-                "Oxidation Resistance",
-                "Excellent to 980°C",
-                "Maintains structural integrity in high-temperature oxidizing environments.",
-                0.92,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
+                "Thermal Conductivity", 
+                thermal_conductivity, 
+                "Low thermal conductivity ideal for thermal barriers",
+                0.95
             )
+            
+        with col6:
             render_key_property_card(
-                "Stress Corrosion",
-                "Highly Resistant",
-                "Reliable performance in demanding aerospace and energy applications.",
-                0.92,
-                "https://www.specialmetals.com/documents/technical-bulletins/inconel/inconel-alloy-625.pdf"
+                "Corrosion Resistance", 
+                corrosion_resistance, 
+                "Superior resistance to oxidation and corrosion",
+                0.99,
+                "https://www.specialmetals.com/assets/smc/documents/alloys/inconel/inconel-alloy-625.pdf"
+            )
+        
+        # Create three columns for the sustainability metrics
+        st.markdown("#### Sustainability & Circularity")
+        col7, col8, col9 = st.columns(3)
+        
+        with col7:
+            render_key_property_card(
+                "Recycled Content", 
+                recycled_content, 
+                "Industry-standard recycled content for specialty steel alloys",
+                0.92
+            )
+            
+        with col8:
+            render_key_property_card(
+                "Recyclability", 
+                recyclability, 
+                "Highly valuable for recycling and reprocessing",
+                0.94
+            )
+            
+        with col9:
+            render_key_property_card(
+                "Carbon Footprint", 
+                carbon_footprint, 
+                "Lifetime carbon savings outweigh production footprint",
+                0.93,
+                "https://nickelinstitute.org/media/4202/lifecycledata2020.pdf"
             )
         
         # Separator between sections

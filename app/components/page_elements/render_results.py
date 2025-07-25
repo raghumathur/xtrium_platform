@@ -1,59 +1,44 @@
 import streamlit as st
 import pandas as pd
 import time
+import os
 from typing import Dict, List, Optional, Tuple, Union
+from app.ui.styles import get_chip_styles, get_section_header_styles, get_confidence_bar_styles, get_table_styles, get_material_header_styles
 
-# Styling constants
-STYLE_CHIP = """
-    display:inline-block;
-    padding:4px 12px;
-    margin:2px;
-    background-color:rgba(38, 39, 48, 0.8);
-    border-radius:15px;
-    font-size:0.9em;
-    border:1px solid rgba(128, 128, 128, 0.4);
-    color:#ffffff
-"""
+# Use centralized styling
+STYLE_CHIP = get_chip_styles()
+STYLE_SECTION_HEADER = get_section_header_styles()
+STYLE_CONFIDENCE_BAR = get_confidence_bar_styles()
+STYLE_TABLE = get_table_styles()
+STYLE_MATERIAL_HEADER = get_material_header_styles()
 
-STYLE_SECTION_HEADER = """
-    color:#666666;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    font-size:0.85em;
-    margin-bottom:1em
-"""
+# Define CSV database paths relative to this script
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, '..', '..', '..'))
+APPLICATIONS_DB_PATH = os.path.join(PROJECT_ROOT, 'assets', 'databases', 'applications_database_titanium.csv')
+MATERIALS_DB_PATH = os.path.join(PROJECT_ROOT, 'assets', 'databases', 'materials_database_titanium.csv')
 
-STYLE_CONFIDENCE_BAR = """
-    background-color:rgba(38, 39, 48, 0.8);
-    padding:8px 12px;
-    margin:4px 0;
-    border-radius:4px;
-    font-size:0.9em
-"""
+# Load CSV databases
+def load_databases():
+    """Load the application and materials databases from CSV files"""
+    try:
+        applications_df = pd.read_csv(APPLICATIONS_DB_PATH)
+        st.sidebar.success(f"Loaded applications database: {os.path.basename(APPLICATIONS_DB_PATH)}")
+    except Exception as e:
+        st.sidebar.warning(f"Failed to load applications database: {str(e)}\nUsing demo data instead.")
+        applications_df = None
+        
+    try:
+        materials_df = pd.read_csv(MATERIALS_DB_PATH)
+        st.sidebar.success(f"Loaded materials database: {os.path.basename(MATERIALS_DB_PATH)}")
+    except Exception as e:
+        st.sidebar.warning(f"Failed to load materials database: {str(e)}\nUsing demo data instead.")
+        materials_df = None
+        
+    return applications_df, materials_df
 
-STYLE_TABLE = """
-    table {
-        font-size: 0.9em;
-        width: 100%;
-        color: rgb(49, 51, 63) !important;
-    }
-    thead tr th {
-        background-color: #f0f2f6 !important;
-        color: rgb(49, 51, 63) !important;
-        font-weight: bold !important;
-    }
-    tbody tr:first-child td {
-        background-color: white !important;
-        color: rgb(49, 51, 63) !important;
-    }
-    tbody td:first-child {
-        color: rgb(49, 51, 63) !important;
-    }
-    td {
-        padding: 8px;
-        background-color: white !important;
-    }
-"""
+# Load databases on module import
+applications_df, materials_df = load_databases()
 
 
 DEMO_APPLICATIONS = [
@@ -977,14 +962,42 @@ def render_application_suggestions() -> None:
     """Render AI-matched application suggestions."""
     st.markdown("### Here's what Xtrium found...")
     
-    # Render each application with a delay
-    for i, app in enumerate(DEMO_APPLICATIONS):
-        # Add delay for all but the first item
-        if i > 0:
-            time.sleep(0.5)
+    # Check if we have applications from CSV
+    if applications_df is not None and not applications_df.empty:
+        # Limit to 5 applications for display
+        display_count = min(5, len(applications_df))
+        
+        # Convert applications from DataFrame to list of dictionaries
+        for i in range(display_count):
+            app_row = applications_df.iloc[i]
             
-        with st.expander(app['component']):
-            render_application_details(app)
+            # Convert row to dictionary for compatibility with render_application_details
+            app = {
+                'component': app_row['Component'] if 'Component' in app_row else f"Application {i+1}",
+                'use_case': app_row['Use Case'] if 'Use Case' in app_row else "N/A",
+                'sector': app_row['Sector'] if 'Sector' in app_row else "N/A",
+                'rationale': app_row['Rationale'] if 'Rationale' in app_row else "Matching application based on material properties",
+                'source_url': app_row['Source URL'] if 'Source URL' in app_row else ""
+            }
+            
+            # Add delay for all but the first item
+            if i > 0:
+                time.sleep(0.5)
+                
+            with st.expander(app['component']):
+                render_application_details(app)
+    else:
+        # Fallback to demo data if CSV couldn't be loaded
+        st.warning("Using demo application data as CSV could not be loaded")
+        
+        # Render each application with a delay
+        for i, app in enumerate(DEMO_APPLICATIONS[:5]):  # Limit to 5 applications
+            # Add delay for all but the first item
+            if i > 0:
+                time.sleep(0.5)
+                
+            with st.expander(app['component']):
+                render_application_details(app)
 
 def render_report(query: Optional[str] = None) -> None:
     """Render a comprehensive report based on the user's query.

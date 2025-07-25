@@ -1,59 +1,35 @@
 import streamlit as st
 import pandas as pd
 import time
+import os
 from typing import Dict, List, Optional, Tuple, Union
+from app.ui.styles import get_chip_styles, get_section_header_styles, get_confidence_bar_styles, get_table_styles, get_material_header_styles
 
-# Styling constants
-STYLE_CHIP = """
-    display:inline-block;
-    padding:4px 12px;
-    margin:2px;
-    background-color:rgba(38, 39, 48, 0.8);
-    border-radius:15px;
-    font-size:0.9em;
-    border:1px solid rgba(128, 128, 128, 0.4);
-    color:#ffffff
-"""
+# Use centralized styling
+STYLE_CHIP = get_chip_styles()
+STYLE_SECTION_HEADER = get_section_header_styles()
+STYLE_CONFIDENCE_BAR = get_confidence_bar_styles()
+STYLE_TABLE = get_table_styles()
+STYLE_MATERIAL_HEADER = get_material_header_styles()
 
-STYLE_SECTION_HEADER = """
-    color:#666666;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    font-size:0.85em;
-    margin-bottom:1em
-"""
+# Define database paths
+CURRENT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+MATERIALS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'materials_database_adhesives_semiconductor.csv')
+APPLICATIONS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'applications_database_adhesives_semiconductor.csv')
 
-STYLE_CONFIDENCE_BAR = """
-    background-color:rgba(38, 39, 48, 0.8);
-    padding:8px 12px;
-    margin:4px 0;
-    border-radius:4px;
-    font-size:0.9em
-"""
+# Read databases
+def load_database():
+    """Load materials and applications databases"""
+    try:
+        materials_df = pd.read_csv(MATERIALS_DB_PATH)
+        applications_df = pd.read_csv(APPLICATIONS_DB_PATH)
+        return materials_df, applications_df
+    except Exception as e:
+        st.error(f"Error loading database: {e}")
+        return None, None
 
-STYLE_TABLE = """
-    table {
-        font-size: 0.9em;
-        width: 100%;
-        color: rgb(49, 51, 63) !important;
-    }
-    thead tr th {
-        background-color: #f0f2f6 !important;
-        color: rgb(49, 51, 63) !important;
-        font-weight: bold !important;
-    }
-    tbody tr:first-child td {
-        background-color: white !important;
-        color: rgb(49, 51, 63) !important;
-    }
-    tbody td:first-child {
-        color: rgb(49, 51, 63) !important;
-    }
-    td {
-        padding: 8px;
-        background-color: white !important;
-    }
-"""
+# Load data
+materials_df, applications_df = load_database()
 
 # Demo data structures
 DEMO_PARSED_ENTITIES = {
@@ -1108,15 +1084,43 @@ def render_application_details(app: Dict[str, any]) -> None:
 
 def render_application_suggestions() -> None:
     """Render AI-matched application suggestions."""
-    st.markdown("### Here's what Xtrium found...")
     
-    # Render each application with a delay
-    for i, app in enumerate(DEMO_APPLICATIONS):
-        # Add delay for all but the first item
-        if i > 0:
-            time.sleep(0.5)
-            
-        with st.expander(app['component']):
+    # Applications header
+    st.markdown(f"""
+        <div style='{STYLE_SECTION_HEADER}'>
+            <h2>📊 Applications & Use Cases</h2>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Use CSV data if available, otherwise fall back to demo data
+    if applications_df is not None and not applications_df.empty:
+        # Convert each row to our application data structure
+        for idx, row in applications_df.iloc[:5].iterrows():
+            # Create application data structure from CSV row
+            app_data = {
+                'component': row['Use-case'],
+                'use_case': row['Commercial name'],
+                'sector': row['Industry'],
+                'required_properties': {
+                    'Thermal Conductivity': f"{row['Thermal Conductivity (W/m·K)']} W/m·K" if 'Thermal Conductivity (W/m·K)' in row else 'N/A',
+                    'Operating Temp': row['Operating Temperature Range (°C)'] if 'Operating Temperature Range (°C)' in row else 'N/A',
+                    'Bond Strength': f"{row['Bond Strength (MPa)']} MPa" if 'Bond Strength (MPa)' in row else 'N/A'
+                },
+                'sustainability': {
+                    'Carbon Footprint': row['Carbon Footprint (kg CO2e/kg)'] if 'Carbon Footprint (kg CO2e/kg)' in row else 0,
+                    'Halogen Content': row['Halogen Content (ppm)'] if 'Halogen Content (ppm)' in applications_df.columns and not pd.isna(row['Halogen Content (ppm)']) else 'Low',
+                    'VOC Content': row['VOC Content (g/L)'] if 'VOC Content (g/L)' in applications_df.columns and not pd.isna(row['VOC Content (g/L)']) else 'Low'
+                },
+                'supply_chain': {
+                    'suppliers': [f"Material Supplier for {row['Type']}", "Component Fabrication", "Chemical Processing"],
+                    'partners': [f"Assembly for {row['Industry']}", "Testing Laboratory", "Packaging Specialist"],
+                    'consumers': [f"{row['Industry']} OEMs", "Tier 1 Suppliers", "Electronics Manufacturers"]
+                }
+            }
+            render_application_details(app_data)
+    else:
+        # Fall back to demo data
+        for idx, app in enumerate(DEMO_APPLICATIONS[:5]):
             render_application_details(app)
 
 def render_report_adhesives2(query: Optional[str] = None) -> None:
@@ -1203,17 +1207,24 @@ STYLE_MATERIAL_HEADER = """
 def render_material_properties_table() -> None:
     """Render key material properties relevant to the user's requirements."""
     
+    if materials_df is None or applications_df is None:
+        st.error("Unable to load material database. Using demo data instead.")
+        material_type = DEMO_PARSED_ENTITIES['material_type']
+    else:
+        # Get first material as an example
+        material_type = "semiconductor packaging adhesive"
+    
     with st.expander("⁂ Key Factors Report"):
         # Material header with query context
         st.markdown("""
             <div style='{}'>
                 <p style='color:#666666; text-transform:uppercase; letter-spacing:1px; font-size:0.8em; margin:0;'>Material Analysis</p>
                 <h3 style='margin:0.2em 0; font-size:1.2em;'>{}</h3>
-                <p style='color:#666666; font-size:0.9em; margin:0.2em 0;'>Properties analyzed for medical wearable applications</p>
+                <p style='color:#666666; font-size:0.9em; margin:0.2em 0;'>Properties analyzed for high-performance semiconductor packaging applications</p>
             </div>
         """.format(
             STYLE_MATERIAL_HEADER,
-            DEMO_PARSED_ENTITIES['material_type']
+            material_type
         ), unsafe_allow_html=True)
         
         # Create two rows of three columns each

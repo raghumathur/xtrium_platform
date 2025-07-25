@@ -143,6 +143,70 @@ def get_status_dot_styles():
     .status-dot.offline {{ color: {Colors.STATUS_OFFLINE}; }}
     """
 
+def get_chip_styles():
+    return f"""
+    display: inline-block;
+    padding: {Spacing.XS} {Spacing.SM};
+    margin: 2px;
+    background-color: {Colors.COMPONENT_BG};
+    border-radius: 15px;
+    font-size: {FontSizes.SM};
+    border: 1px solid {Colors.COMPONENT_BORDER};
+    color: {Colors.TEXT_PRIMARY}
+    """
+
+def get_section_header_styles():
+    return f"""
+    color: {Colors.TEXT_SECONDARY};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: {FontSizes.XS};
+    margin-bottom: {Spacing.MD}
+    """
+
+def get_confidence_bar_styles():
+    return f"""
+    background-color: {Colors.COMPONENT_BG};
+    padding: {Spacing.SM} {Spacing.SM};
+    margin: {Spacing.XS} 0;
+    border-radius: 4px;
+    font-size: {FontSizes.SM}
+    """
+
+def get_table_styles():
+    return f"""
+    table {{
+        font-size: {FontSizes.SM};
+        width: 100%;
+        color: rgb(49, 51, 63) !important;
+    }}
+    thead tr th {{
+        background-color: #f0f2f6 !important;
+        color: rgb(49, 51, 63) !important;
+        font-weight: bold !important;
+    }}
+    tbody tr:first-child td {{
+        background-color: white !important;
+        color: rgb(49, 51, 63) !important;
+    }}
+    tbody td:first-child {{
+        color: rgb(49, 51, 63) !important;
+    }}
+    td {{
+        padding: {Spacing.SM};
+        background-color: white !important;
+    }}
+    """
+
+def get_material_header_styles():
+    return f"""
+    padding: {Spacing.SM} {Spacing.MD};
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(38, 39, 48, 0.1) 0%, rgba(38, 39, 48, 0) 100%);
+    border-left: 3px solid {Colors.PRIMARY};
+    margin-bottom: {Spacing.MD};
+    """
+
 def get_global_styles():
     return f"""
     <style>
@@ -190,5 +254,10 @@ def get_global_styles():
     {get_tab_styles()}
     {get_sidebar_styles()}
     {get_status_dot_styles()}
+    {get_chip_styles()}
+    {get_section_header_styles()}
+    {get_confidence_bar_styles()}
+    {get_table_styles()}
+    {get_material_header_styles()}
     </style>
     """

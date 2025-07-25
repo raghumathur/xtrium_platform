@@ -46,14 +46,21 @@ def init_session_state():
           across user interactions within the app.
 
     """
-    layout_mode = "wide"  # or "centered"
-    st.set_page_config(layout=layout_mode)   
+    # Check if page config has already been set
+    # We need to set this flag externally since Streamlit doesn't provide a way to check if set_page_config has been called
+    if "page_config_set" not in st.session_state:
+        layout_mode = "wide"  # or "centered"
+        st.set_page_config(layout=layout_mode)
+        st.session_state.page_config_set = True
 
     # Check if the session state has already been flushed
     # The "session_flushed" key acts as a flag to indicate if the session state was cleared
     if "session_flushed_at_init" not in st.session_state:
         # Clear the entire session state
         st.session_state.clear()
+        
+        # Make sure we don't lose our page_config_set flag
+        st.session_state.page_config_set = True
 
         # Set the "session_flushed" flag to True to avoid re-clearing in subsequent runs
         st.session_state.session_flushed_at_init = True

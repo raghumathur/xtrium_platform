@@ -1,59 +1,34 @@
 import streamlit as st
 import pandas as pd
 import time
+import os
 from typing import Dict, List, Optional, Tuple, Union
+from app.ui.styles import get_chip_styles, get_section_header_styles, get_confidence_bar_styles, get_table_styles
 
-# Styling constants
-STYLE_CHIP = """
-    display:inline-block;
-    padding:4px 12px;
-    margin:2px;
-    background-color:rgba(38, 39, 48, 0.8);
-    border-radius:15px;
-    font-size:0.9em;
-    border:1px solid rgba(128, 128, 128, 0.4);
-    color:#ffffff
-"""
+# Use centralized styling
+STYLE_CHIP = get_chip_styles()
+STYLE_SECTION_HEADER = get_section_header_styles()
+STYLE_CONFIDENCE_BAR = get_confidence_bar_styles()
+STYLE_TABLE = get_table_styles()
 
-STYLE_SECTION_HEADER = """
-    color:#666666;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    font-size:0.85em;
-    margin-bottom:1em
-"""
+# Define database paths
+CURRENT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+MATERIALS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'materials_database_adhesives_medical.csv')
+APPLICATIONS_DB_PATH = os.path.join(CURRENT_DIR, 'assets', 'databases', 'applications_database_adhesives_medical.csv')
 
-STYLE_CONFIDENCE_BAR = """
-    background-color:rgba(38, 39, 48, 0.8);
-    padding:8px 12px;
-    margin:4px 0;
-    border-radius:4px;
-    font-size:0.9em
-"""
+# Read databases
+def load_database():
+    """Load materials and applications databases"""
+    try:
+        materials_df = pd.read_csv(MATERIALS_DB_PATH)
+        applications_df = pd.read_csv(APPLICATIONS_DB_PATH)
+        return materials_df, applications_df
+    except Exception as e:
+        st.error(f"Error loading database: {e}")
+        return None, None
 
-STYLE_TABLE = """
-    table {
-        font-size: 0.9em;
-        width: 100%;
-        color: rgb(49, 51, 63) !important;
-    }
-    thead tr th {
-        background-color: #f0f2f6 !important;
-        color: rgb(49, 51, 63) !important;
-        font-weight: bold !important;
-    }
-    tbody tr:first-child td {
-        background-color: white !important;
-        color: rgb(49, 51, 63) !important;
-    }
-    tbody td:first-child {
-        color: rgb(49, 51, 63) !important;
-    }
-    td {
-        padding: 8px;
-        background-color: white !important;
-    }
-"""
+# Load data
+materials_df, applications_df = load_database()
 
 # Demo data structures
 DEMO_PARSED_ENTITIES = {
@@ -1088,16 +1063,62 @@ def render_application_details(app: Dict[str, any]) -> None:
 
 def render_application_suggestions() -> None:
     """Render AI-matched application suggestions."""
-    st.markdown("### Here's what Xtrium found...")
     
-    # Render each application with a delay
-    for i, app in enumerate(DEMO_APPLICATIONS):
-        # Add delay for all but the first item
-        if i > 0:
-            time.sleep(0.5)
-            
-        with st.expander(app['component']):
-            render_application_details(app)
+    # Applications header
+    st.markdown(f"""
+        <div style='{STYLE_SECTION_HEADER}'>
+            <h2>📊 Medical Applications & Use Cases</h2>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    # Use CSV data if available, otherwise fall back to demo data
+    if applications_df is not None and not applications_df.empty:
+        # Convert each row to our application data structure
+        for idx, row in applications_df.iterrows():
+            # Create application data structure from CSV row
+            app_data = {
+                'component': row['Use-case'],
+                'use_case': row['Commercial name'],
+                'sector': row['Industry'],
+                'required_properties': {
+                    'Adhesion Strength': f"{row['Adhesion Strength (N/inch)']} N/inch" if 'Adhesion Strength (N/inch)' in row else 'N/A',
+                    'MVTR': f"{row['MVTR (g/m²/24hr)']} g/m²/24hr" if 'MVTR (g/m²/24hr)' in row else 'N/A',
+                    'Wear Time': f"{row['Wear Time (days)']} days" if 'Wear Time (days)' in row else 'N/A'
+                },
+                'sustainability': {
+                    'bio_based_content': row['Bio-based Content (%)'] if 'Bio-based Content (%)' in row else 0,
+                    'carbon_footprint': {'value': row['Carbon Footprint (kg CO2e/kg)'] if 'Carbon Footprint (kg CO2e/kg)' in row else 0, 'unit': 'kgCO2/kg'},
+                    'circular_materials': {'percentage': row['Bio-based Content (%)'] if 'Bio-based Content (%)' in row else 0, 
+                                        'recyclable_components': ['outer packaging', 'protective liners']}
+                },
+                'supply_chain_data': {
+                    'manufacturers': [
+                        {'name': f"Medical Adhesives Corp - {row['Type']}", 'location': 'USA', 'lead_time': '2-3 weeks', 'certifications': ['ISO 13485', 'FDA GMP']}
+                    ],
+                    'processing_capabilities': ['clean room manufacturing', 'precision coating', 'die cutting'],
+                    'regional_availability': ['North America', 'Europe', 'Asia Pacific'],
+                    'typical_lead_time': '2-4 weeks'
+                },
+                'consumers': [
+                    {'name': row['Industry'] + ' Leaders', 'location': 'Global', 'annual_volume': '500,000 units', 
+                    'rating': 4.9, 'certifications': ['ISO 13485', 'FDA Class II'], 'quality_score': 96}
+                ]
+            }
+            # Add delay for all but the first item
+            if idx > 0:
+                time.sleep(0.25)
+                
+            with st.expander(app_data['component'], expanded=(idx == 0)):
+                render_application_details(app_data)
+    else:
+        # Fall back to demo data
+        for idx, app in enumerate(DEMO_APPLICATIONS):
+            # Add delay for all but the first item
+            if idx > 0:
+                time.sleep(0.5)
+                
+            with st.expander(app['component'], expanded=(idx == 0)):
+                render_application_details(app)
 
 def render_report_adhesives(query: Optional[str] = None) -> None:
     """Render a comprehensive report based on the user's query.
@@ -1183,6 +1204,13 @@ STYLE_MATERIAL_HEADER = """
 def render_material_properties_table() -> None:
     """Render key material properties relevant to the user's requirements."""
     
+    if materials_df is None or materials_df.empty:
+        material_type = DEMO_PARSED_ENTITIES['material_type']
+        st.error("Unable to load material database. Using demo data instead.")
+    else:
+        # Use actual material data
+        material_type = "medical adhesive formulation"
+    
     with st.expander("⁂ Key Factors Report"):
         # Material header with query context
         st.markdown("""
@@ -1193,7 +1221,7 @@ def render_material_properties_table() -> None:
             </div>
         """.format(
             STYLE_MATERIAL_HEADER,
-            DEMO_PARSED_ENTITIES['material_type']
+            material_type
         ), unsafe_allow_html=True)
         
         # Create two rows of three columns each
@@ -1201,10 +1229,40 @@ def render_material_properties_table() -> None:
         col1, col2, col3 = st.columns(3)
         
         # Row 1: Biocompatibility and Safety
+        # If we have materials data from CSV, use it
+        if materials_df is not None and not materials_df.empty:
+            # Use first row for demonstration purposes
+            material_row = materials_df.iloc[0]
+            
+            cytotoxicity = material_row['Cytotoxicity'] if 'Cytotoxicity' in material_row else 'ISO 10993-5 Compliant'
+            skin_irritation = material_row['Skin irritation'] if 'Skin irritation' in material_row else 'Non-irritating'
+            biocompatibility = material_row['Biocompatibility'] if 'Biocompatibility' in material_row else 'Class 100K Clean Room'
+            
+            adhesion_strength = f"{material_row['Adhesion Strength (N/inch)']} N/inch" if 'Adhesion Strength (N/inch)' in material_row else '2.5-3.5 N/inch'
+            mvtr = f"{material_row['MVTR (g/m²/24hr)']} g/m²/24hr" if 'MVTR (g/m²/24hr)' in material_row else '800-1200 g/m²/24hr'
+            wear_time = f"{material_row['Wear Time (days)']} days" if 'Wear Time (days)' in material_row else '7-14 Days'
+            
+            bio_based = f"{material_row['Bio-based Content (%)']}%" if 'Bio-based Content (%)' in material_row else '45-55%'
+            recyclability = material_row['Recyclability'] if 'Recyclability' in material_row else 'Class 2 Recyclable'
+            carbon_footprint = f"< {material_row['Carbon Footprint (kg CO2e/kg)']} kg CO2e/kg" if 'Carbon Footprint (kg CO2e/kg)' in material_row else '< 2.5 kg CO2e/kg'
+        else:
+            # Fallback to demo data
+            cytotoxicity = "ISO 10993-5 Compliant"
+            skin_irritation = "Non-irritating"
+            biocompatibility = "Class 100K Clean Room"
+            
+            adhesion_strength = "2.5-3.5 N/inch"
+            mvtr = "800-1200 g/m²/24hr"
+            wear_time = "7-14 Days"
+            
+            bio_based = "45-55%"
+            recyclability = "Class 2 Recyclable"
+            carbon_footprint = "< 2.5 kg CO2e/kg"
+        
         with col1:
             render_key_property_card(
                 "Cytotoxicity",
-                "ISO 10993-5 Compliant",
+                cytotoxicity,
                 "Meets medical device standards for cell compatibility and safety.",
                 0.98,
                 "https://www.iso.org/standard/36406.html"
@@ -1213,7 +1271,7 @@ def render_material_properties_table() -> None:
         with col2:
             render_key_property_card(
                 "Skin Contact",
-                "Non-irritating",
+                skin_irritation,
                 "Extended wear testing shows no adverse skin reactions.",
                 0.96,
                 "https://www.fda.gov/medical-devices/biocompatibility-testing-medical-devices/use-international-standard-iso-10993-1"
@@ -1222,7 +1280,7 @@ def render_material_properties_table() -> None:
         with col3:
             render_key_property_card(
                 "Bioburden Control",
-                "Class 100K Clean Room",
+                biocompatibility,
                 "Manufactured in controlled environment for medical safety.",
                 0.95
             )
@@ -1234,7 +1292,7 @@ def render_material_properties_table() -> None:
         with col4:
             render_key_property_card(
                 "Adhesion Strength",
-                "2.5-3.5 N/inch",
+                adhesion_strength,
                 "Optimal balance of secure attachment and gentle removal.",
                 0.97,
                 "https://www.astm.org/f2258-05r15.html"
@@ -1243,7 +1301,7 @@ def render_material_properties_table() -> None:
         with col5:
             render_key_property_card(
                 "Moisture Management",
-                "800-1200 g/m²/24hr MVTR",
+                mvtr,
                 "Allows skin breathability while maintaining adhesion.",
                 0.94,
                 "https://www.astm.org/e96_e96m-16.html"
@@ -1252,7 +1310,7 @@ def render_material_properties_table() -> None:
         with col6:
             render_key_property_card(
                 "Wear Duration",
-                "7-14 Days",
+                wear_time,
                 "Extended wear capability for continuous monitoring.",
                 0.96
             )
@@ -1264,7 +1322,7 @@ def render_material_properties_table() -> None:
         with col7:
             render_key_property_card(
                 "Bio-based Content",
-                "45-55%",
+                bio_based,
                 "Significant renewable material content reducing fossil fuel dependency.",
                 0.93,
                 "https://www.biopreferred.gov/BioPreferred/faces/pages/ProductCategories.xhtml"
@@ -1273,7 +1331,7 @@ def render_material_properties_table() -> None:
         with col8:
             render_key_property_card(
                 "Recyclability",
-                "Class 2 Recyclable",
+                recyclability,
                 "End-of-life material recovery supporting circular economy.",
                 0.92
             )
@@ -1281,7 +1339,7 @@ def render_material_properties_table() -> None:
         with col9:
             render_key_property_card(
                 "Carbon Footprint",
-                "< 2.5 kg CO2e/kg",
+                carbon_footprint,
                 "Lower environmental impact compared to traditional adhesives.",
                 0.94,
                 "https://www.epa.gov/climateleadership/scope-3-inventory-guidance"

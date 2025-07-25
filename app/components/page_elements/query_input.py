@@ -1,7 +1,7 @@
 import streamlit as st
 from app.ui.design_system.components import get_global_styles
 from app.ui.design_system.tokens import Spacing
-#from app.components.page_elements.render_demo_results import render_report
+from app.components.page_elements.render_demo_results import render_report
 #from app.components.page_elements.render_demo_results_adhesives import render_report_adhesives
 #from app.components.page_elements.render_demo_results_henkel import render_report_adhesives2
 
@@ -38,5 +38,5 @@ def render_query_input():
         submitted = st.button("➤", key="submit_query", use_container_width=True)
         
     # Handle button click
-    # if submitted and query:
-    #    render_report(query)
+    if submitted and query:
+        render_report(query)

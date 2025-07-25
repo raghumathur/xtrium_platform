@@ -22,355 +22,423 @@ from app.utils.import_helpers import st, st_modal, pd, np, random, ff, go
 # needed for the application's functionality.
 from app.backends.database.dataframes import extract_dataframes
 
-# Import the recommend_materials_for_application function from the materials recommendation module
-# This function provides recommendations for materials based on the selected application.
-# It likely uses some kind of algorithm or logic to identify materials that are suitable
-# for a given use case or set of requirements.
-from app.components.search_materials.materials_recommend import recommend_materials_for_application
+# Import from the recommendation module.
+# We'll adapt the application recommendation functions for material recommendations
+from app.backends.recommendation.recommendation import extract_min_max
 
-# Import the render_application_filters function from the application filters module
-# This function is used to render application-specific filters in the UI.
-# These filters allow users to narrow down their search or selection of materials based
-# on criteria like application type, material properties, or other attributes.
-from app.components.search_materials.application_filters import render_application_filters
-from app.utils.property_filters import applications_property_filters
+# Initialize session state variables
+if "run_suggestion" not in st.session_state:
+    st.session_state["run_suggestion"] = False
+
+if "selected_material_for_details" not in st.session_state:
+    st.session_state["selected_material_for_details"] = None
 #==========================================================================================
 
-def render_material_recommendation(applications_df, materials_df):
+def calculate_material_match(material_row, application_properties, property_weights=None):
     """
-    Renders the Material Recommendation Engine based on selected applications and filters.
-
-    :param applications_df: Unified applications database DataFrame.
-    :param materials_df: Unified materials database DataFrame.
-    """
-    # st.markdown("## Material Recommendation Engine")
+    Calculate the match score between a material and an application based on property matching.
     
-    # Select an application
-    selected_application = st.selectbox(
-        "Select an Application",
-        options=sorted(applications_df["use_case"].dropna().unique()),
-        key="selected_application"
-    )
+    Args:
+        material_row (pd.Series): The row representing the material's properties
+        application_properties (dict): Dictionary of application property names to values
+        property_weights (dict, optional): Dictionary of property names to importance weights
+        
+    Returns:
+        float: The calculated match score between 0 and 100
+    """
+    total_weighted_score = 0
+    total_weight = 0
     
-    if not selected_application:
-        st.warning("Please select an application to proceed.")
-        return
-
-    """
-    # Monitor selected_materials for changes and reset filters if needed
-    if "selected_application" not in st.session_state:
-        st.session_state["selected_application"] = None    
-
-    # Check if the selected material has changed
-    if st.session_state["selected_materials"] != selected_application:
-        st.session_state["filters"] = []  # Reset filters
-        st.session_state["selected_materials"] = selected_application
-        #st.info("Filters reset due to material change.")
-    """
+    # Default weights if not provided
+    if property_weights is None:
+        property_weights = {prop: 1.0 for prop in application_properties.keys()}
     
-    # Get the selected application row
-    application_row = applications_df[applications_df["use_case"] == selected_application].iloc[0]
-    #st.write(application_row)
+    for prop, app_value in application_properties.items():
+        # Skip if property is not in material or weight is zero
+        if prop not in material_row or prop not in property_weights or property_weights.get(prop, 0) == 0:
+            continue
+            
+        # Get material value and weight
+        material_value = pd.to_numeric(material_row[prop], errors='coerce')
+        weight = property_weights.get(prop, 1.0)
+        
+        # Skip if material value is NaN
+        if pd.isna(material_value):
+            continue
+            
+        # Calculate match score based on proximity
+        # For simplicity, we'll use a linear distance-based score
+        # Closer values get higher scores
+        max_diff = max(abs(app_value * 0.5), 1.0)  # Use 50% of app value as max difference, minimum 1.0
+        diff = abs(material_value - app_value)
+        
+        if diff == 0:
+            match_score = 100  # Perfect match
+        else:
+            match_score = max(0, 100 - (diff / max_diff) * 100)
+            match_score = min(match_score, 100)  # Cap at 100
+        
+        # Add weighted score
+        weighted_score = match_score * weight
+        total_weighted_score += weighted_score
+        total_weight += weight
+    
+    # Return normalized score if we have weights, otherwise 0
+    return total_weighted_score / total_weight if total_weight > 0 else 0
 
-    # Add dynamic filters for material properties
-    #selected_filters = render_application_filters(tab_index="material_recommendation", materials_df=materials_df)
-    selected_filters = applications_property_filters(tab_index="material_recommendation", materials_df=materials_df)
-    #st.write(selected_filters)
-
-    # Suggest materials button
-    st.divider()
-    if st.button("Suggest Materials", key="suggest_material_button"):
-        # Generate recommendations
-        recommended_materials = recommend_materials_for_application(application_row, materials_df, selected_filters)
-
-        # Display recommendations
-        display_material_recommendations(recommended_materials)
-
-def display_material_recommendations(recommendations_df):
+def recommend_materials_for_application(materials_df, application_properties, property_weights=None):
     """
-    Display recommended materials in a user-friendly format.
+    Recommend materials for a selected application based on property matching.
+    
+    Args:
+        materials_df (pd.DataFrame): DataFrame containing materials data
+        application_properties (dict): Dictionary of application property names to values
+        property_weights (dict, optional): Dictionary of property names to importance weights
+        
+    Returns:
+        pd.DataFrame: Materials sorted by match scores
+    """
+    recommendations = []
+    
+    for idx, material_row in materials_df.iterrows():
+        try:
+            # Calculate match score
+            score = calculate_material_match(material_row, application_properties, property_weights)
+            
+            if score > 0:  # Add to recommendations if score is positive
+                material_data = material_row.to_dict()
+                material_data['Match_Score'] = round(score, 2)
+                recommendations.append(material_data)
+        except Exception as e:
+            print(f"Error calculating match for material {material_row.get('name', 'unknown')}: {e}")
+    
+    # Convert recommendations to DataFrame and sort by score
+    if recommendations:
+        return pd.DataFrame(recommendations).sort_values(by="Match_Score", ascending=False)
+    else:
+        # Return empty DataFrame with proper columns
+        return pd.DataFrame(columns=list(materials_df.columns) + ["Match_Score"])
 
-    :param recommendations_df: DataFrame containing material recommendations.
+def direct_property_matching(application_row, materials_df):
+    """
+    Basic property matching that compares application properties with material properties ranges.
+    
+    Steps:
+    1. Find common numeric property columns between application and materials
+    2. For each material, check if its properties match the application requirements
+    3. Calculate a match score based on how many properties match
+    4. Return materials sorted by match score
+        
+    Args:
+        application_row: DataFrame row containing application properties
+        materials_df: DataFrame containing all materials data
+        
+    Returns:
+        pd.DataFrame: Materials with match scores, sorted by match score
+    """
+    # Initialize results list
+    results = []
+    
+    # Get all columns in the application row that have numeric values or range values
+    application_property_cols = []
+    application_property_values = {}
+    
+    for col, value in application_row.items():
+        # Skip non-property columns
+        if col in ['Use-case', 'Industry', 'Commercial name', 'Chemical Name', 'Chemical Formula', 'Property Overlap']:
+            continue
+            
+        # Handle range values (e.g., "10-20")
+        if isinstance(value, str) and '-' in value:
+            try:
+                # Extract min and max from range
+                min_val, max_val = map(float, value.split('-'))
+                application_property_cols.append(col)
+                application_property_values[col] = (min_val, max_val)
+            except (ValueError, TypeError):
+                pass
+        # Handle direct numeric values
+        elif isinstance(value, (int, float)) and not pd.isna(value):
+            application_property_cols.append(col)
+            # For single values, create a small range around it (±5%)
+            value_range = value * 0.05
+            application_property_values[col] = (value - value_range, value + value_range)
+    
+    # Process each material
+    for idx, material_row in materials_df.iterrows():
+        # Track matches and total properties compared
+        property_matches = 0
+        total_properties = 0
+        matching_properties = []
+        
+        # Compare each property from the application
+        for prop in application_property_cols:
+            # Skip if property doesn't exist in material
+            if prop not in material_row or pd.isna(material_row[prop]):
+                continue
+                
+            # Get the application's required range for this property
+            app_min, app_max = application_property_values[prop]
+            
+            # Get the material's value for this property
+            material_value = material_row[prop]
+            
+            # Count this as a property we're comparing
+            total_properties += 1
+            
+            # Check if material property falls within application's required range
+            if app_min <= material_value <= app_max:
+                property_matches += 1
+                matching_properties.append(prop)
+                
+        # Calculate match score if we compared any properties
+        if total_properties > 0:
+            match_score = (property_matches / total_properties) * 100
+            
+            # Add to results
+            material_name = material_row.get("chemical_formula", f"Material {idx+1}")
+            commercial_name = material_row.get("commercial_name", "N/A")
+            
+            results.append({
+                "material_name": material_name,
+                "commercial_name": commercial_name,
+                "property_overlap": material_row.get("property_overlap", "N/A"),
+                "match_score": round(match_score, 1),
+                "matching_properties": property_matches,
+                "total_properties": total_properties
+            })
+    
+    # Convert to DataFrame and sort by match score
+    if results:
+        results_df = pd.DataFrame(results).sort_values(by="match_score", ascending=False)
+        # Keep only materials with at least one matching property
+        results_df = results_df[results_df["matching_properties"] > 0]
+        return results_df
+    else:
+        return pd.DataFrame(columns=["material_name", "commercial_name", "property_overlap", "match_score", 
+                                    "matching_properties", "total_properties"])
+
+def display_material_recommendations(recommendations_df, suppliers_df=None):
+    """
+    Display recommended materials in a user-friendly format with multiple view options.
+
+    Args:
+        recommendations_df (pd.DataFrame): DataFrame containing recommended materials with match scores.
+        suppliers_df (pd.DataFrame, optional): DataFrame containing supplier information for materials.
     """
     if recommendations_df.empty:
-        st.warning("No materials match the selected criteria.")
+        st.warning("No materials found matching the selected criteria.")
         return
 
-    for idx, row in recommendations_df.iterrows():
-        material_name = row.get("Material Name", "Unknown")
-        material_formula = row.get("Chemical Formula", None)
-        property_overlap = row.get("Property Overlap", None)
-        match_score = row.get("Match Score", 0)
+    # Create tabs for different views
+    tab1, tab2, tab3 = st.tabs(["List View", "Table View", "Chart View"])
+    
+    with tab1:
+        # List view with expandable details
+        st.markdown("#### Top Material Matches")
+        
+        # Display top 10 materials
+        for idx, row in recommendations_df.head(10).iterrows():
+            with st.expander(f"{row['commercial_name']} - {row['match_score']}% match"):
+                col1, col2 = st.columns([2, 1])
+                
+                with col1:
+                    st.markdown(f"**Material:** {row['material_name']}")
+                    st.markdown(f"**Commercial Name:** {row['commercial_name']}")
+                    st.markdown(f"**Property Overlap:** {row['property_overlap']}")
+                    st.markdown(f"**Match Score:** {row['match_score']}%")
+                    st.markdown(f"**Matching Properties:** {row['matching_properties']} of {row['total_properties']}")
+                
+                with col2:
+                    # Show supplier info if available
+                    if suppliers_df is not None and not suppliers_df.empty:
+                        try:
+                            material_suppliers = suppliers_df[suppliers_df['material_name'] == row['material_name']]
+                            if not material_suppliers.empty:
+                                st.markdown("**Suppliers:**")
+                                for s_idx, supplier in material_suppliers.iterrows():
+                                    st.markdown(f"- {supplier.get('supplier_name', 'Unknown')}")
+                                    st.markdown(f"  Lead time: {supplier.get('lead_time', 'N/A')}")
+                                    st.markdown(f"  Cost: {supplier.get('cost', 'N/A')}")
+                        except Exception as e:
+                            st.error(f"Error displaying supplier info: {str(e)}")
+                
+                # Add a button to view detailed material properties
+                if st.button(f"View Detailed Properties for {row['commercial_name']}", key=f"view_details_{idx}"):
+                    st.session_state["selected_material_for_details"] = row['material_name']
+    
+    with tab2:
+        # Table view with sortable columns
+        st.markdown("#### Material Matches - Table View")
+        
+        # Create a more user-friendly table with selected columns
+        display_df = recommendations_df[[
+            "commercial_name", "material_name", "match_score", 
+            "matching_properties", "total_properties", "property_overlap"
+        ]].copy()
+        
+        # Rename columns for better readability
+        display_df.columns = [
+            "Commercial Name", "Material Name", "Match Score (%)", 
+            "Matching Properties", "Total Properties", "Property Overlap"
+        ]
+        
+        # Display the table with sorting enabled
+        st.dataframe(display_df.style.format({
+            "Match Score (%)": "{:.1f}"
+        }))
+    
+    with tab3:
+        # Chart view showing match scores
+        st.markdown("#### Material Match Scores")
+        
+        # Prepare data for chart
+        chart_data = recommendations_df.head(15).copy()  # Top 15 materials
+        
+        # Create a horizontal bar chart using Plotly
+        fig = go.Figure()
+        
+        # Add bar chart trace
+        fig.add_trace(go.Bar(
+            y=chart_data['commercial_name'],
+            x=chart_data['match_score'],
+            orientation='h',
+            marker=dict(
+                color=chart_data['match_score'],
+                colorscale='Viridis',
+                colorbar=dict(title="Match Score"),
+            ),
+            text=chart_data['match_score'].apply(lambda x: f"{x:.1f}%"),
+            textposition='auto',
+            name="Match Score"
+        ))
+        
+        # Update layout
+        fig.update_layout(
+            title="Top 15 Material Matches by Score",
+            xaxis_title="Match Score (%)",
+            yaxis_title="Material",
+            yaxis=dict(autorange="reversed"),  # Highest score at the top
+            height=500,
+            margin=dict(l=0, r=0, t=40, b=0)
+        )
+        
+        # Display the chart
+        st.plotly_chart(fig, use_container_width=True)
 
-        #with st.expander(material_name, icon=":material/science:"): # icons=waves, science, bolt, assessment, trending up, storage, timeline
-        with st.expander(material_name):
-            st.markdown(f"#### Material: {material_name}")
-            st.markdown(f"#### Chemical Formula: {material_formula}")
-            #st.markdown(f"##### Property Overlap: {property_overlap}")
-            st.markdown(f"###### {property_overlap}")
-
-            # st.divider()
-            st.progress(int(match_score))
-            # st.markdown(f"**Match Score:** {match_score}%")
-            #st.markdown("---")
-            st.markdown(
-                f"""
-                <div style="text-align: center; font-weight: bold; font-size: 16px;">
-                    Properties Match Score: {match_score}%
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-            #st.divider()
-            sustainability_rating = get_sustainability_score();
-            confidence_score = get_confidence_score(match_score, sustainability_rating)
-
-            # Normalize all scores to 5-star ratings
-            match_score_normalized = (match_score / 100) * 5
-            confidence_score_normalized = (confidence_score / 10) * 5
-            sustainability_score_normalized = sustainability_rating
-
-            # Create individual charts
-            match_chart = create_gauge_chart(match_score_normalized, "Compatibility Score")
-            confidence_chart = create_gauge_chart(confidence_score_normalized, "Overall Confidence Score")
-            sustainability_chart = create_gauge_chart(sustainability_score_normalized, "Sustainability Score")
-
-            #st.divider()            
-            col1, col2, col3 = st.columns([3,5,3])
-            with col1:
-                st.plotly_chart(match_chart, use_container_width=True, key=f"match_chart_{idx}")
-            with col2:
-                st.plotly_chart(confidence_chart, use_container_width=True, key=f"confidence_chart_{idx}")
-            with col3:
-                st.plotly_chart(sustainability_chart, use_container_width=True, key=f"sustainability_chart_{idx}")
-            #st.divider()
-            # Get supplier data for this material
-            supplier_data = {
-                'Name': 'Company A',
-                'Email': 'supplier_a@example.com',
-                'Phone': '+1234567890',
-                'Website': 'supplier-a.example.com',
-                'Quality Score': 4.5,
-                'Rating': 4.5,
-                'Response Time': 24,
-                'Certifications': 'ISO 9001, CE'
-            }
-            display_business_card(supplier_data)
-            # Get second supplier data
-            supplier_data = {
-                'Name': 'Company B',
-                'Email': 'supplier_b@example.com',
-                'Phone': '+9876543210',
-                'Website': 'supplier-b.example.com',
-                'Quality Score': 4.0,
-                'Rating': 4.0,
-                'Response Time': 48,
-                'Certifications': 'RoHS'
-            }
-            display_business_card(supplier_data)
-
+def get_recommendations(materials_df, selected_application_row, selected_filters, suppliers_df, elements=None, supply_chain=None, sustainability=None):
+    """
+    Suggest materials based on application properties and material property ranges.
+    
+    Args:
+        materials_df (pd.DataFrame): DataFrame containing materials data
+        selected_application_row (pd.Series): The selected application's properties
+        selected_filters (dict): Dictionary of selected filters
+        suppliers_df (pd.DataFrame): DataFrame containing supplier information
+        elements (list, optional): List of constituent elements to focus on
+        supply_chain (dict or pd.DataFrame, optional): Supply chain preferences or costs dataframe
+        sustainability (dict, optional): Sustainability preferences
+        
+    Returns:
+        pd.DataFrame: DataFrame of recommended materials with match scores
+    """
+    # Extract application properties for matching
+    application_properties = {}
+    for col in selected_application_row.index:
+        if col not in ['Use-case', 'Industry', 'Commercial name', 'Chemical Name', 'Chemical Formula']:
+            try:
+                # Try to convert to numeric value
+                val = pd.to_numeric(selected_application_row[col])
+                application_properties[col] = val
+            except:
+                # Skip non-numeric properties
+                pass
+    
+    # Filter materials by constituent elements if specified
+    if elements and len(elements) > 0:
+        from app.utils.material_helpers import filter_by_elements
+        materials_df = filter_by_elements(materials_df, elements)
+    
+    # Extract property weights from selected filters
+    property_weights = {}
+    if selected_filters and "property_weights" in selected_filters:
+        property_weights = selected_filters["property_weights"]
+        
+    # Handle costs_df if supply_chain is actually a DataFrame
+    costs_df = None
+    if isinstance(supply_chain, pd.DataFrame):
+        costs_df = supply_chain
+        supply_chain = {}
+    
+    # Add Suggest Button
+    st.divider()
+    if st.button("Suggest Materials", key="suggest_button"):
+        st.session_state["run_suggestion"] = True
+    
+    # Check session state to run the logic
+    if st.session_state.get("run_suggestion", False):
+        try:
+            # Use our direct property matching logic
+            recommendations = direct_property_matching(selected_application_row, materials_df)
+            
+            if recommendations.empty:
+                st.warning("No matching materials found based on properties. Check application properties or expand your criteria.")
+            else:
+                st.markdown("### Suggested Materials")
+                # Display recommendations
+                display_material_recommendations(recommendations, suppliers_df)
+                
+        except Exception as e:
+            st.error(f"An error occurred while generating recommendations: {str(e)}")
+            import traceback
+            st.error(traceback.format_exc())
+    
+    return direct_property_matching(selected_application_row, materials_df)
 
 def find_materials():
     """
     Processes input data to identify and recommend materials based on selected applications and dynamic filters.
 
-    Args:
-        databases (list): A list of databases containing materials, applications, and other relevant information.
-
     Steps:
         1. Extract dataframes from the provided databases.
-        2. Call the render_material_recommendation function with the extracted data.
+        2. Generate material recommendations based on selected application and filters.
     """
-    # Step 1: Extract DataFrames
-    # Extract relevant dataframes (e.g., materials and applications) from the input databases.
-    materials_df, applications_df, *_ = extract_dataframes(st.session_state.databases)
-
-    # Step 2: Call render_material_recommendation
-    # Pass the extracted dataframes to the rendering function.
-    render_material_recommendation(applications_df, materials_df)
-
-# Create gauge charts
-def create_gauge_chart(value, title):
-    fig = go.Figure(go.Indicator(
-        mode="gauge+number",
-        value=value,
-        title={'text': title, 'font': {'size': 14}},
-        domain={'x': [0, 1], 'y': [0, 1]},  # Full domain
-        gauge={
-            'axis': {'range': [0, 5], 'tickwidth': 1, 'tickcolor': "darkblue"},
-            'bar': {'color': "darkblue"},
-            'steps': [
-                {'range': [0, 1], 'color': "red"},
-                {'range': [1, 2], 'color': "orange"},
-                {'range': [2, 3], 'color': "yellow"},
-                {'range': [3, 4], 'color': "lightgreen"},
-                {'range': [4, 5], 'color': "green"}
-            ],
-        }
-    ))
-    # Adjust margins to remove padding
-    # fig.update_layout(
-    #    margin=dict(t=50, b=50, l=10, r=10)  # Set top, bottom, left, right margins
-    #)
-    return fig
-
-def get_sustainability_score():
-    # Add histogram data based on sustainability dimensions
-    # Environmental scores (e.g., greenhouse gas emissions, resource depletion)
-    environmental_scores = np.random.normal(loc=3, scale=1, size=200)
-    environmental_mean = np.mean(environmental_scores)  # Environmental
-    environmental_weight = 0.4
-
-    # Social scores (e.g., labor practices, community impact)
-    social_scores = np.random.normal(loc=5, scale=1.5, size=200)
-    social_mean = np.mean(social_scores)         # Social
-    social_weight = 0.3
-
-    # Economic scores (e.g., cost-effectiveness, lifecycle value)
-    economic_scores = np.random.normal(loc=7, scale=2, size=200)
-    economic_mean = np.mean(economic_scores)       # Economic Viability
-    economic_weight = 0.2
-
-    # Regulatory/geopolitical risk (e.g., political stability, compliance risks)
-    regulatory_scores = np.random.normal(loc=4, scale=1, size=200)
-    regulatory_mean = np.mean(regulatory_scores)     # Regulatory Risk
-    regulatory_weight = 0.1
-
-    # Calculate Sustainability Score
-    sustainability_score = (environmental_weight * environmental_mean + 
-                            social_weight * social_mean + 
-                            economic_weight * economic_mean + 
-                            regulatory_weight * regulatory_mean)/(
-                                    environmental_weight + 
-                                    social_weight + 
-                                    economic_weight + 
-                                    regulatory_weight)
-
-    # Convert to star rating out of 5
-    star_rating = (sustainability_score / 10) * 5
-
-    # Group data together
-    hist_data = [environmental_scores, social_scores, economic_scores, regulatory_scores]
-
-    # Updated group labels
-    group_labels = ['Environmental Impact', 'Social Impact', 'Economic Viability', 'Regulatory Risk']
-
-    # Create distplot with custom bin_size
-    bin_sizes = [0.5, 0.75, 1, 0.5]
-
-    dist_chart = ff.create_distplot(
-        hist_data, group_labels, bin_size=bin_sizes
-    )
-
-    # Update layout to fix axes
-    dist_chart.update_layout(
-        xaxis=dict(
-            title="Sustainability Score (out of 10)",
-            range=[0, 10]  # Fix the x-axis range to 0-10
-        ),
-        yaxis=dict(
-            title="Sustainability Impact",
-            range=[0, None]  # Start y-axis at 0, upper limit adjusts automatically
-        )
-        #,
-        #title="Sustainability Score Distribution Across Key Dimensions"
-    )
-
-    # Display the chart in Streamlit
-    # st.markdown(f"**Material Sustainability Analysis**")
-    # st.markdown(
-    # f"""
-    # <div style="text-align: center; font-weight: bold; font-size: 16px;">
-    #     Material Sustainability Analysis
-    # </div>
-    # """,
-    # unsafe_allow_html=True,
-    # )
-
-    st.plotly_chart(dist_chart, use_container_width=True)
-
-    return star_rating
-
-def get_confidence_score(match_score, sustainability_rating):
-    # Calculate confidence score (example calculation)
-    w_m, w_s = 0.6, 0.4  # Weights
-    M = (match_score / 100) * 10  # Scale match score to 10
-    S = (sustainability_rating / 5) * 10  # Scale sustainability to 10
-    confidence_score = (w_m * M + w_s * S) / (w_m + w_s)
-
-    return confidence_score
-
-# Define a function to display a business card
-def display_business_card(supplier_data):
-    # Create a container for the business card
-    with st.container():
-        st.markdown(
-            """
-            <style>
-            .business-card {
-                background-color: #222; /* Matches dark themes */
-                color: #f1f1f1;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                margin-bottom: 20px;
-            }
-            .business-card h3 {
-                margin: 0;
-                color: #ffae42;
-            }
-            .business-card p {
-                margin: 5px 0;
-                line-height: 1.5;
-            }
-            .card-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .action-buttons button {
-                margin-right: 10px;
-                font-size: 10px;
-                padding: 8px 12px;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                color: white;
-                cursor: pointer;
-                font-weight: bold;
-                text-decoration: none;
-            }
-            .action-buttons button:hover {
-                background-color: #0056b3;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            f"""
-            <div class="business-card">
-                <h4>{supplier_data['Name']}</h4>
-                <div class="card-grid">
-                    <div>
-                        <p><b>Email:</b> <a href="mailto:{supplier_data['Email']}" style="color:#4da6ff;">{supplier_data['Email']}</a></p>
-                        <p><b>Phone:</b> <a href="tel:{supplier_data['Phone']}" style="color:#4da6ff;">{supplier_data['Phone']}</a></p>
-                        <p><b>Website:</b> <a href="https://{supplier_data['Website']}" style="color:#4da6ff;" target="_blank">{supplier_data['Website']}</a></p>
-                    </div>
-                    <div>
-                        <p><b>Quality Score:</b> {supplier_data['Quality Score']:.1f} / 5.0</p>
-                        <p><b>Rating:</b> {supplier_data.get('Rating', 4.5)} ⭐</p>
-                        <p><b>Response Time:</b> {supplier_data['Response Time']}h</p>
-                        <p><b>Certifications:</b> {supplier_data['Certifications'].split(', ')[0] if supplier_data['Certifications'] else 'N/A'}</p>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <a href="mailto:{supplier_data['Email']}" target="_blank"><button>Email</button></a>
-                    <a href="tel:{supplier_data['Phone']}" target="_blank"><button>Call</button></a>
-                    <a href="https://{supplier_data['Website']}" target="_blank"><button>Visit Website</button></a>
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    # Check if databases exist in session state
+    if "databases" not in st.session_state:
+        st.warning("No databases loaded. Please select databases first.")
+        return pd.DataFrame()
+    
+    # Extract dataframes from the database
+    try:
+        # Make sure st.session_state.databases is properly initialized
+        if isinstance(st.session_state.databases, dict):
+            materials_df, applications_df, costs_df, suppliers_df = extract_dataframes(st.session_state.databases)
+        
+        # Get the selected application from session state
+        if "selected_application" in st.session_state and st.session_state["selected_application"] is not None:
+            selected_application = st.session_state["selected_application"]
+            
+            # Get the matching preferences from session state
+            matching_preferences = st.session_state.get("matching_preferences", {})
+            
+            # Get the selected application row
+            selected_application_row = applications_df[applications_df["Use-case"] == selected_application].iloc[0]
+            
+            # Call get_recommendations with the selected application and preferences
+            return get_recommendations(
+                materials_df=materials_df,
+                selected_application_row=selected_application_row,
+                selected_filters=matching_preferences,
+                suppliers_df=suppliers_df,
+                elements=matching_preferences.get("constituent_elements", []),
+                supply_chain=matching_preferences.get("supply_chain", {}) if "supply_chain" in matching_preferences else costs_df,
+                sustainability=matching_preferences.get("sustainability", {})
+            )
+        else:
+            st.warning("Please select an application first.")
+            return pd.DataFrame()  # Return empty DataFrame if no application is selected
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
+        import traceback
+        st.error(traceback.format_exc())
+        return pd.DataFrame()

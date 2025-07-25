@@ -1,0 +1,100 @@
+Commercial Name,Canonical Name,Chemical Formula
+BiO-100,Bismuth(III) Oxide,Bi2O3
+BiO-Nano,Nanostructured Bismuth Oxide,Bi2O3
+BiO-Alpha,Alpha-Phase Bismuth Oxide,α-Bi2O3
+BiO-Delta,Delta-Phase Bismuth Oxide,δ-Bi2O3
+BiO-Gamma,Gamma-Phase Bismuth Oxide,γ-Bi2O3
+Fe2O3-Alpha,Hematite (Alpha Iron Oxide),α-Fe2O3
+Fe2O3-Nano,Nanostructured Hematite,α-Fe2O3
+Fe3O4-Mag,Magnetite (Iron(II.III) Oxide),Fe3O4
+Fe3O4-Nano,Nanostructured Magnetite,Fe3O4
+FeO-Wus,Wüstite (Iron(II.III) Oxide),FeO
+Fe2O3-Gamma,Maghemite (Gamma Iron Oxide),γ-Fe2O3
+BFO-100,Bismuth Ferrite,BiFeO3
+BFO-Nano,Nanostructured Bismuth Ferrite,BiFeO3
+BFO-La,Lanthanum-Doped Bismuth Ferrite,Bi0.9La0.1FeO3
+BFO-Mn,Manganese-Doped Bismuth Ferrite,BiFe0.95Mn0.05O3
+BFO-Nd,Neodymium-Doped Bismuth Ferrite,Bi0.9Nd0.1FeO3
+BFO-Ti,Titanium-Doped Bismuth Ferrite,BiFe0.95Ti0.05O3
+BFO-Nb,Niobium-Doped Bismuth Ferrite,BiFe0.95Nb0.05O3
+BFO-Thin,Bismuth Ferrite Thin Film,BiFeO3
+BFO-Co,Cobalt-Doped Bismuth Ferrite,BiFe0.95Co0.05O3
+BFO-Gd,Gadolinium-Doped Bismuth Ferrite,Bi0.9Gd0.1FeO3
+BiO-Beta,Beta-Phase Bismuth Oxide,β-Bi2O3
+BiO-Y,Yttrium-Stabilized Bismuth Oxide,Bi0.85Y0.15O1.5
+BiO-Er,Erbium-Doped Bismuth Oxide,Bi0.88Er0.12O1.5
+BiO-Gd,Gadolinium-Doped Bismuth Oxide,Bi0.9Gd0.1O1.5
+BiO-Sm,Samarium-Doped Bismuth Oxide,Bi0.88Sm0.12O1.5
+Fe2O3-Meso,Mesoporous Hematite,α-Fe2O3
+Fe2O3-Al,Aluminum-Doped Hematite,Fe1.9Al0.1O3
+Fe2O3-Ti,Titanium-Doped Hematite,Fe1.9Ti0.1O3
+Fe2O3-Si,Silicon-Doped Hematite,Fe1.92Si0.08O3
+Fe3O4-Cu,Copper-Doped Magnetite,Fe2.85Cu0.15O4
+Fe3O4-Zn,Zinc-Doped Magnetite,Fe2.8Zn0.2O4
+Fe3O4-Mn,Manganese-Doped Magnetite,Fe2.85Mn0.15O4
+Fe2O3-Cr,Chromium-Doped Hematite,Fe1.9Cr0.1O3
+BFO-Dy,Dysprosium-Doped Bismuth Ferrite,Bi0.9Dy0.1FeO3
+BFO-Sm,Samarium-Doped Bismuth Ferrite,Bi0.9Sm0.1FeO3
+BFO-Zr,Zirconium-Doped Bismuth Ferrite,BiFe0.95Zr0.05O3
+BFO-Ho,Holmium-Doped Bismuth Ferrite,Bi0.9Ho0.1FeO3
+BFO-Cr,Chromium-Doped Bismuth Ferrite,BiFe0.95Cr0.05O3
+BFO-NiZn,Nickel-Zinc Co-Doped Bismuth Ferrite,BiFe0.9Ni0.05Zn0.05O3
+BiFeO-50/50,Bismuth Oxide-Iron Oxide Composite (50/50),Bi2O3-Fe2O3
+BiFeO-75/25,Bismuth Oxide-Iron Oxide Composite (75/25),Bi2O3-Fe2O3
+BiFeO-25/75,Bismuth Oxide-Iron Oxide Composite (25/75),Bi2O3-Fe2O3
+Fe3O4@Bi2O3,Core-Shell Magnetite-Bismuth Oxide,Fe3O4@Bi2O3
+Bi2O3@Fe2O3,Core-Shell Bismuth Oxide-Hematite,Bi2O3@Fe2O3
+BiFeO-PVDF,Bismuth Ferrite-PVDF Composite,BiFeO3-PVDF
+Fe3O4-Graphene,Magnetite-Graphene Nanocomposite,Fe3O4-Graphene
+Bi2O3-Graphene,Bismuth Oxide-Graphene Nanocomposite,Bi2O3-Graphene
+BFO-CNT,Bismuth Ferrite-Carbon Nanotube Composite,BiFeO3-CNT
+BiO-Nanorods,Bismuth Oxide Nanorods,Bi2O3
+Fe2O3-Nanorods,Hematite Nanorods,α-Fe2O3
+BFO-Nanowires,Bismuth Ferrite Nanowires,BiFeO3
+Fe3O4-Nanotubes,Magnetite Nanotubes,Fe3O4
+BiO-Flower,Flower-like Bismuth Oxide Hierarchical Structure,Bi2O3
+Fe2O3-Urchin,Urchin-like Hematite Hierarchical Structure,α-Fe2O3
+BFO-2D,Bismuth Ferrite Nanosheets,BiFeO3
+Fe2O3-2D,Hematite Nanosheets,α-Fe2O3
+BiO-Hollow,Hollow Bismuth Oxide Spheres,Bi2O3
+Fe3O4-Hollow,Hollow Magnetite Spheres,Fe3O4
+BFO-LaGd,Lanthanum-Gadolinium Co-Doped Bismuth Ferrite,Bi0.8La0.1Gd0.1FeO3
+BFO-SmDy,Samarium-Dysprosium Co-Doped Bismuth Ferrite,Bi0.8Sm0.1Dy0.1FeO3
+BFO-NdPr,Neodymium-Praseodymium Co-Doped Bismuth Ferrite,Bi0.8Nd0.1Pr0.1FeO3
+BFO-MnCo,Manganese-Cobalt Co-Doped Bismuth Ferrite,BiFe0.9Mn0.05Co0.05O3
+BFO-TiNb,Titanium-Niobium Co-Doped Bismuth Ferrite,BiFe0.9Ti0.05Nb0.05O3
+BiO-YEr,Yttrium-Erbium Co-Doped Bismuth Oxide,Bi0.8Y0.1Er0.1O1.5
+BiO-GdSm,Gadolinium-Samarium Co-Doped Bismuth Oxide,Bi0.8Gd0.1Sm0.1O1.5
+Fe2O3-AlTi,Aluminum-Titanium Co-Doped Hematite,Fe1.8Al0.1Ti0.1O3
+Fe2O3-SiCr,Silicon-Chromium Co-Doped Hematite,Fe1.82Si0.08Cr0.1O3
+BFO-GradRE,Gradient-Doped Rare Earth Bismuth Ferrite,Bi1-xRExFeO3
+BiO-Hydro,Hydrothermally Synthesized Bismuth Oxide,Bi2O3
+BiO-SolGel,Sol-Gel Synthesized Bismuth Oxide,Bi2O3
+BiO-SolidState,Solid-State Synthesized Bismuth Oxide,Bi2O3
+Fe2O3-Hydro,Hydrothermally Synthesized Hematite,α-Fe2O3
+Fe2O3-SolGel,Sol-Gel Synthesized Hematite,α-Fe2O3
+Fe2O3-SolidState,Solid-State Synthesized Hematite,α-Fe2O3
+BFO-Hydro,Hydrothermally Synthesized Bismuth Ferrite,BiFeO3
+BFO-SolGel,Sol-Gel Synthesized Bismuth Ferrite,BiFeO3
+BFO-SolidState,Solid-State Synthesized Bismuth Ferrite,BiFeO3
+BFO-RTP,Rapid Thermal Processed Bismuth Ferrite,BiFeO3
+BFO-Cat,Catalysis-Optimized Bismuth Ferrite,BiFeO3
+BiO-Cat,Catalysis-Optimized Bismuth Oxide,Bi2O3
+Fe2O3-Cat,Catalysis-Optimized Hematite,α-Fe2O3
+BFO-Sensor,Sensor-Optimized Bismuth Ferrite,BiFeO3
+BiO-Sensor,Sensor-Optimized Bismuth Oxide,Bi2O3
+Fe3O4-Sensor,Sensor-Optimized Magnetite,Fe3O4
+BFO-Battery,Battery Electrode-Optimized Bismuth Ferrite,BiFeO3
+Fe3O4-Battery,Battery Electrode-Optimized Magnetite,Fe3O4
+BFO-Mag,Magnetically-Enhanced Bismuth Ferrite,BiFeO3
+Fe3O4-Mag,Magnetically-Enhanced Magnetite,Fe3O4
+BFO-pH4,Bismuth Ferrite Stable at pH 4,BiFeO3
+BFO-pH10,Bismuth Ferrite Stable at pH 10,BiFeO3
+BiO-pH4,Bismuth Oxide Stable at pH 4,Bi2O3
+BiO-pH10,Bismuth Oxide Stable at pH 10,Bi2O3
+Fe2O3-pH4,Hematite Stable at pH 4,α-Fe2O3
+Fe2O3-pH10,Hematite Stable at pH 10,α-Fe2O3
+BFO-Cycle,Thermal Cycling Resistant Bismuth Ferrite,BiFeO3
+BiO-Cycle,Thermal Cycling Resistant Bismuth Oxide,Bi2O3
+Fe2O3-Cycle,Thermal Cycling Resistant Hematite,α-Fe2O3
+BFO-Aging,Long-Term Aging Resistant Bismuth Ferrite,BiFeO3
