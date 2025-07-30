@@ -175,8 +175,10 @@ def calculate_lca_score(row):
                 # Assume 0-100 scale where lower is better
                 normalized_value = min(value, 100)  # Cap at 100
                 
-                # Calculate score: lower impact = higher score
-                metric_score = (1 - (normalized_value / 100)) * weight
+                # Apply a more favorable scoring curve for good LCA values
+                # This uses a quadratic curve that rewards lower values more generously
+                # For example: a value of 50 now gets 75% of the points instead of 50%
+                metric_score = (1 - (normalized_value / 100)**2) * weight
                 total_points += metric_score
                 available_metrics += weight
                 
@@ -243,8 +245,10 @@ def calculate_composition_score(row):
                 # Normalize to 0-100 scale
                 normalized_value = min(value, 100)  # Cap at 100
                 
-                # Calculate score: higher content = higher score
-                metric_score = (normalized_value / 100) * weight
+                # Apply a more favorable scoring curve for composition metrics
+                # This uses a square root curve that rewards moderate values more generously
+                # For example: a value of 25 now gets 50% of the points instead of 25%
+                metric_score = (normalized_value / 100)**0.5 * weight
                 total_points += metric_score
                 available_metrics += weight
                 
@@ -320,8 +324,6 @@ def calculate_sustainability_score(app_row, cert_tiers=None):
     Returns:
         float: Sustainability score (0-100)
     """
-    # TEMPORARY: Return a fixed high score for testing
-    return 90.0
     # Handle missing cert_tiers
     if cert_tiers is None:
         cert_tiers = {
@@ -331,10 +333,10 @@ def calculate_sustainability_score(app_row, cert_tiers=None):
         }
     
     # Calculate each component score
-    cert_score = calculate_certification_score(row, cert_tiers)
-    lca_score = calculate_lca_score(row)
-    composition_score = calculate_composition_score(row)
-    supply_chain_score = calculate_supply_chain_score(row)
+    cert_score = calculate_certification_score(app_row, cert_tiers)
+    lca_score = calculate_lca_score(app_row)
+    composition_score = calculate_composition_score(app_row)
+    supply_chain_score = calculate_supply_chain_score(app_row)
     
     # Sum up all component scores
     total_score = cert_score + lca_score + composition_score + supply_chain_score

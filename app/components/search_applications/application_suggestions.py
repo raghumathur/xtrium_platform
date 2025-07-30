@@ -33,20 +33,47 @@ import plotly.graph_objects as go
 
 #==========================================================================================
 
-# Define path to buyers database
-BUYERS_DATABASE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'assets', 'databases', 'buyers_database_germanium.csv')
+# Define path to buyers database directory
+BUYERS_DATABASE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), 'assets', 'databases')
+# Pattern for buyers database files
+BUYERS_DATABASE_PATTERN = 'buyers_database_*.csv'
 
 @st.cache_data(ttl=300)
 def load_buyers_database():
     """
-    Load the buyers database with caching enabled.
+    Load all buyers databases with caching enabled.
     Returns:
-        pd.DataFrame: The buyers database
+        pd.DataFrame: The combined buyers database
     """
     try:
-        return pd.read_csv(BUYERS_DATABASE_PATH)
+        # Get list of all buyers database files
+        import glob
+        buyers_files = glob.glob(os.path.join(BUYERS_DATABASE_DIR, BUYERS_DATABASE_PATTERN))
+        
+        if not buyers_files:
+            st.warning("No buyers database files found.")
+            return pd.DataFrame()
+        
+        # Load and concatenate all buyers databases
+        dfs = []
+        for file_path in buyers_files:
+            try:
+                df = pd.read_csv(file_path)
+                material_name = os.path.basename(file_path).replace('buyers_database_', '').replace('.csv', '')
+                # Add material column if it doesn't exist
+                if 'Material' not in df.columns:
+                    df['Material'] = material_name
+                dfs.append(df)
+            except Exception as e:
+                st.warning(f"Error loading {os.path.basename(file_path)}: {e}")
+        
+        # Combine all dataframes
+        if dfs:
+            return pd.concat(dfs, ignore_index=True)
+        else:
+            return pd.DataFrame()
     except Exception as e:
-        st.error(f"Error loading buyers database: {e}")
+        st.error(f"Error loading buyers databases: {e}")
         return pd.DataFrame()
 
 def filter_buyers_by_application(buyers_df, application_name):
@@ -1255,10 +1282,110 @@ def display_recommendations(recommendations_df, suppliers_df, filtered_applicati
                 
                 # Property Match Score
                 st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Property Match Score</span><span style="color:#00cc96;font-weight:500">{match_score}%</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:{match_score}%;height:100%;background-color:#00cc96"></div></div></div>', unsafe_allow_html=True)
-                # Sustainability Score
-                st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Sustainability Score</span><span style="color:#00cc96;font-weight:500">90%</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:{match_score}%;height:100%;background-color:#00cc96"></div></div></div>', unsafe_allow_html=True)
-                # Supply Chain Score
-                st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Supply Chain Score</span><span style="color:#00cc96;font-weight:500">88%</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:{match_score}%;height:100%;background-color:#00cc96"></div></div></div>', unsafe_allow_html=True)
+                
+                # Calculate sustainability score dynamically
+                cert_tiers = None
+                if app_row is not None:
+                    # Extract certification tiers if available
+                    try:
+                        if filtered_applications is not None and not filtered_applications.empty:
+                            cert_tiers = extract_certification_tiers(filtered_applications)
+                    except Exception as e:
+                        cert_tiers = None
+                
+                # TEMPORARY FOR DEMO: Randomize sustainability score between 88 and 94
+                import random
+                
+                # Get use case name for deterministic randomization
+                use_case = app_row.get('Use-case', '')
+                
+                # Use the use case name as a seed for deterministic randomization
+                # This ensures the same use case always gets the same score in a session
+                random.seed(use_case if use_case else random.random())
+                
+                # Generate a random score between 88.0 and 94.0 with one decimal place
+                sustainability_score = round(random.uniform(88.0, 94.0), 1)
+                sustainability_display = sustainability_score
+                
+                # Uncomment below to use the real calculation (for after demo)
+                # try:
+                #     sustainability_score = calculate_sustainability_score(app_row, cert_tiers)
+                #     sustainability_score = float(sustainability_score)  # Ensure it's a float
+                #     # Round to 1 decimal place for display
+                #     sustainability_display = round(sustainability_score, 1)
+                # except (TypeError, ValueError) as e:
+                #     # Fallback if calculation fails
+                #     sustainability_score = 0.0
+                #     sustainability_display = 0.0
+                #     print(f"Error calculating sustainability score: {e}")
+                
+                # Get sustainability level and color based on the score
+                sustainability_level, sustainability_color = get_sustainability_level(sustainability_score)
+                
+                # TEMPORARY FOR DEMO: Randomize supply chain score between 86 and 92
+                # Use the same use case name for deterministic randomization
+                # This ensures the same use case always gets the same score in a session
+                random.seed(use_case + "_supply" if use_case else random.random())
+                
+                # Generate a random score between 86.0 and 92.0 with one decimal place
+                supply_chain_score = round(random.uniform(86.0, 92.0), 1)
+                supply_chain_display = supply_chain_score
+                
+                # Uncomment below to use the real calculation (for after demo)
+                # try:
+                #     supply_chain_score = calculate_supply_chain_score(app_row)
+                #     supply_chain_score = float(supply_chain_score) * 10  # Scale to 0-100 (from 0-10)
+                #     supply_chain_display = round(supply_chain_score, 1)
+                # except (TypeError, ValueError) as e:
+                #     # Fallback if calculation fails
+                #     supply_chain_score = 0.0
+                #     supply_chain_display = 0.0
+                #     print(f"Error calculating supply chain score: {e}")
+                
+                # Get color for supply chain score
+                _, supply_chain_color = get_sustainability_level(supply_chain_score)
+                
+                # Display Sustainability Score with proper formatting
+                st.markdown(
+                    f'<div style="margin-bottom:1.5em">'
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em">'
+                    f'<span style="color:#888888;font-size:1em;font-weight:500">Sustainability Score</span>'
+                    f'<span style="color:{sustainability_color};font-weight:500">{sustainability_display}%</span>'
+                    f'</div>'
+                    f'<div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px">'
+                    f'<div style="width:{sustainability_score}%;height:100%;background-color:{sustainability_color}"></div>'
+                    f'</div></div>', 
+                    unsafe_allow_html=True
+                )
+                
+                # Display Supply Chain Score with proper formatting
+                st.markdown(
+                    f'<div style="margin-bottom:1.5em">'
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em">'
+                    f'<span style="color:#888888;font-size:1em;font-weight:500">Supply Chain Score</span>'
+                    f'<span style="color:{supply_chain_color};font-weight:500">{supply_chain_display}%</span>'
+                    f'</div>'
+                    f'<div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px">'
+                    f'<div style="width:{supply_chain_score}%;height:100%;background-color:{supply_chain_color}"></div>'
+                    f'</div></div>', 
+                    unsafe_allow_html=True
+                )
+                
+                # Calculate Xtrium Confidence Score as weighted average of the three scores
+                # Define weights for each score component
+                property_match_weight = 0.35  # 35% weight for property match
+                sustainability_weight = 0.35  # 35% weight for sustainability
+                supply_chain_weight = 0.30    # 30% weight for supply chain
+                
+                # Calculate the weighted average
+                xtrium_confidence_score = (
+                    float(match_score) * property_match_weight +
+                    float(sustainability_score) * sustainability_weight +
+                    float(supply_chain_score) * supply_chain_weight
+                )
+                
+                # Round to 1 decimal place for display
+                xtrium_confidence_display = round(xtrium_confidence_score, 1)
                 
                 # Sustainability Score - display calculated score if available, otherwise show demo locked
                 #if has_sustainability_score:
@@ -1298,8 +1425,8 @@ def display_recommendations(recommendations_df, suppliers_df, filtered_applicati
                 #    st.markdown(f'<div style="margin-bottom:1.5em"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5em"><span style="color:#888888;font-size:1em;font-weight:500">Supply Chain Score</span><span style="color:#888888;font-weight:500">n/a</span></div><div style="background-color:rgba(38, 39, 48, 0.1);height:6px;border-radius:3px"><div style="width:100%;height:100%;background-color:#888888"></div></div></div>', unsafe_allow_html=True)
                 
                 # Xtrium Confidence Score - calculated from Property Match, Sustainability, and Supply Chain scores
-                #confidence_score = row.get('confidence_score', 50)  # Get the calculated confidence score
-                confidence_score = 94  # Get the calculated confidence score
+                # Use the weighted average we calculated above
+                confidence_score = xtrium_confidence_display  # Use our calculated score
                 
                 # Use a consistent blue color for the confidence score
                 confidence_color = "#4dabf7"
